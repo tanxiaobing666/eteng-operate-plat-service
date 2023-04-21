@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="d6740f74-4118-4645-9625-4a20dce9512d" xPos="630" yPos="240" Width="50" Height="50">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="a24cf374-04fc-406b-8f38-cb037be71197" xPos="630" yPos="320" Width="180" Height="40">
+      <desc>简单任务</desc>
+      <beanId>menuAdd</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+    <node id="3c0906c7-1690-4c42-b4e2-928a81120c56" xPos="630" yPos="410" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="d6740f74-4118-4645-9625-4a20dce9512d" to="a24cf374-04fc-406b-8f38-cb037be71197"/>
+    <line desc="" condition="" from="a24cf374-04fc-406b-8f38-cb037be71197" to="3c0906c7-1690-4c42-b4e2-928a81120c56"/>
+  </lines>
+</diagram>

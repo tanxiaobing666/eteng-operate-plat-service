@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userListQry.flw" desc="用户-查询">
+  <nodes>
+    <node id="52a7fed7-8c10-4069-bd51-7e61902f6bfd" xPos="460" yPos="60" Width="180" Height="40">
+      <desc>获取当前登录用户的成员行编号</desc>
+      <beanId>emptyOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+        <data key="MBANK_NO" expr="${SESS_MBANK_NO}" desc="用途说明"/>
+        <data key="ORG_NAME" expr="${SESS_ORG_ID}" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="06b8e23d-0ddd-4bb0-8070-7d3559296ba7" xPos="460" yPos="250" Width="180" Height="40">
+      <desc>查询所有用户信息</desc>
+      <beanId>dbPageQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userList" desc="Mybatis SQL Statement"/>
+        <data key="*listName" expr="LIST" desc="结果输出字段名"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="52a7fed7-8c10-4069-bd51-7e61902f6bfd" to="06b8e23d-0ddd-4bb0-8070-7d3559296ba7"/>
+  </lines>
+</diagram>

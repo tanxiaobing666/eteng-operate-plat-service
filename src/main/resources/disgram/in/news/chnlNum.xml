@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/news/chnlNum" desc="咨询平台数量" busi="6">
+    <!-- 请求头 -->
+    <snd>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+        <field name="CHNL_NUM" desc="咨询平台数量" typ="C"/>
+        <field name="NEWSCLS_NUM" desc="咨询种类数量" typ="C"/>
+        <field name="NEWS_NUM" desc="查看咨询总条数" typ="C"/>
+    </rcv>
+</trans>

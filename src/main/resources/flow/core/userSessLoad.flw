@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userSessLoad.flw" desc="用户会话获取">
+  <nodes>
+    <node id="3bd00788-51f6-44fa-9c10-882fb5a1caae" xPos="250" yPos="100" Width="180" Height="40">
+      <desc>获取用户登录信息</desc>
+      <beanId>emptyOp</beanId>
+      <data-map>
+        <data key="USER_ID" expr="${SESS_USER_ID}" desc="用途说明"/>
+        <data key="USER_NAME" expr="${SESS_USER_NAME}" desc="必需项检查"/>
+        <data key="USER_ORG_ID" expr="${SESS_ORG_ID}" desc="用途说明"/>
+        <data key="USER_ORG_NAME" expr="${SESS_ORG_NAME}" desc="用途说明"/>
+        <data key="USER_ROLE_ID" expr="${SESS_ROLE_ID}" desc="用途说明"/>
+        <data key="USER_ROLE_NAME" expr="${SESS_ROLE_NAME}" desc="用途说明"/>
+        <data key="ROLE_TYPE" expr="${SESS_ROLE_TYPE}" desc="用途说明"/>
+        <data key="ROLE_LVL" expr="${SESS_ROLE_LVL}" desc="用途说明"/>
+        <data key="LOGIN_TIMES" expr="${SESS_LOGIN_TIMES}" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

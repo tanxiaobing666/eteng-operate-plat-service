@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/roleMenuList" desc="角色菜单查询" busi="6">
+	<snd>
+	<field name="ROLE_ID" desc="角色主键值" type="C" target="rolePrimKyNumval" />
+	</snd>
+	<rcv>
+		<field-list name="LIST" desc="菜单列表" type="E" >
+			<field name="MENU_ID" desc="菜单编号" />
+			<field name="NAME" desc="菜单名称"  />
+			<field name="ICON" desc="菜单名称"  />
+			<field name="TRANS_URL" desc="功能页面URL"  />
+			<field name="PARENT_ID" desc="上级菜单编号"   />
+			<field name="TARGET" desc="目标" />
+			<field name="SORT" desc="显示序号"  />
+		</field-list>
+	</rcv>
+</trans>

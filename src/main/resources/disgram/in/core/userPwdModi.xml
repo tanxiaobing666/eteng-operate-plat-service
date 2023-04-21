@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/userPwdModi" desc="用户密码修改" busi="2">
+	<snd>
+		<!--<field name="LOGIN_ID" desc="登陆名称" required="true" />
+		<field name="certnTypcd" desc="认证类型代码" default="1" required="true" />-->
+		<field name="PWD_OLD" desc="原密码" required="true" />
+		<field name="PWD_NEW" desc="新密码" required="true" default="888888" />
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

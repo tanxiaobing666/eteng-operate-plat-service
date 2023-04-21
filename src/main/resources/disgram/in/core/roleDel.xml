@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/roleDel" desc="角色删除" busi="3">
+	<snd>
+		<field name="OPER_TYPE" target="oprtTypcd" desc="操作类型代码" default="2" required="true" />
+		<field name="AUDI_USER_ID" target="authrzOprtPsnlId" desc="授权操作人员ID" />
+		<field name="AUDI_USER_PWD" target="adminPwd" desc="管理员密码" />
+		<field name="APPL_ORG_NO" desc="应用机构编号" length="6" target="applnBrchEncd" required="true" />
+		<filed name="ROLE_ID" desc="主键数值" target="primKyNumval" required="true"/>
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

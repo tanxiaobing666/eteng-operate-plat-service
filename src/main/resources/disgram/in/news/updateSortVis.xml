@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="updateSortVis" desc="修改分类是否可见" busi="2">
+    <!-- 请求头 -->
+    <snd>
+        <field name="CLS_ID" desc="内部资讯分类ID" typ="C"/>
+        <field name="IS_SHOW" desc="是否展示0:不展示1:展示" typ="C"/>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

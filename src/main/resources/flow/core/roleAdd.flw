@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="roleAdd.flw" desc="角色新增">
+  <nodes>
+    <node id="37a49afe-0541-4dc4-a08b-50fccd62cfc7" xPos="340" yPos="30" Width="180" Height="40">
+      <desc>查询角色编号是否存在</desc>
+      <type>condition</type>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.checkRole" desc="Mybatis SQL Statement"/>
+        <data key="*mapName" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="517fe5bc-287e-48cb-8f62-4f841576de8e" xPos="340" yPos="100" Width="180" Height="40">
+      <desc>开启事务</desc>
+      <beanId>transactionBeginOp</beanId>
+    </node>
+    <node id="5d4b15e0-b24d-4f2b-9df8-04fc6b835eec" xPos="670" yPos="30" Width="180" Height="40">
+      <desc>抛异常</desc>
+      <beanId>throwMsgOp</beanId>
+      <data-map>
+        <data key="*msgKey" expr="EMKH058B" desc="异常的MSG_KEY"/>
+        <data key="*msgArgs" expr="角色编号已存在" desc="异常的MSG_ARGS"/>
+      </data-map>
+    </node>
+    <node id="1bdbcdd3-c6df-4f3b-b332-db252c618a1d" xPos="340" yPos="180" Width="180" Height="40">
+      <desc>获取当前登录用户的成员行信息</desc>
+      <beanId>emptyOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+        <data key="MBANK_NO" expr="${MBANK_NO}" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="c83d0a86-cafa-4305-991e-21c1d9a4e155" xPos="340" yPos="260" Width="180" Height="40">
+      <desc>流水号生成</desc>
+      <beanId>seqGeneOp</beanId>
+      <data-map>
+        <data key="*seqType" expr="1" desc="流水号号类型，1：业务流水号，2：系统流水号，3：订单流水号，4：业务主键流水号，默认值1"/>
+        <data key="*seqPrefix" expr="R" desc="流水号前缀，默认值:S"/>
+        <data key="*seqVarName" expr="ROLE_ID" desc="流水号自定义变量名称，默认值：BUSI_SEQ_SN"/>
+      </data-map>
+    </node>
+    <node id="efdec01f-dd09-4721-b160-69ef2c0f92c3" xPos="340" yPos="350" Width="180" Height="40">
+      <desc>插入角色信息数据</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleAdd" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="d7e101db-e543-4745-969a-b20d54d50cf0" xPos="680" yPos="350" Width="180" Height="40">
+      <desc>插入角色菜单列表</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="role.roleMenuAdd" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="8108eebb-c51a-49b1-a76f-18ca4e5e4171" xPos="970" yPos="350" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="角色编号不存在" condition="${NUM ==0}" from="37a49afe-0541-4dc4-a08b-50fccd62cfc7" to="517fe5bc-287e-48cb-8f62-4f841576de8e"/>
+    <line desc="角色编号已经存在" condition="${NUM &gt;0}" from="37a49afe-0541-4dc4-a08b-50fccd62cfc7" to="5d4b15e0-b24d-4f2b-9df8-04fc6b835eec"/>
+    <line desc="" condition="" from="1bdbcdd3-c6df-4f3b-b332-db252c618a1d" to="c83d0a86-cafa-4305-991e-21c1d9a4e155"/>
+    <line desc="" condition="" from="c83d0a86-cafa-4305-991e-21c1d9a4e155" to="efdec01f-dd09-4721-b160-69ef2c0f92c3"/>
+    <line desc="" condition="" from="efdec01f-dd09-4721-b160-69ef2c0f92c3" to="d7e101db-e543-4745-969a-b20d54d50cf0"/>
+    <line desc="" condition="" from="d7e101db-e543-4745-969a-b20d54d50cf0" to="8108eebb-c51a-49b1-a76f-18ca4e5e4171"/>
+    <line desc="" condition="" from="517fe5bc-287e-48cb-8f62-4f841576de8e" to="1bdbcdd3-c6df-4f3b-b332-db252c618a1d"/>
+  </lines>
+</diagram>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="c4f72fb8-eddd-43eb-b33c-3e560a7aa4bf" xPos="490" yPos="240" Width="50" Height="50">
+      <desc>修改资讯分类是否可见</desc>
+      <beanId>updateSortVisOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

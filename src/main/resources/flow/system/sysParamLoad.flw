@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="c9d8b74f-4f82-4b4f-b2a1-bd4830fa7486" xPos="410" yPos="130" Width="180" Height="40">
+      <desc>查询参数详情</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.load" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="6084674a-e81f-4306-bd3d-46e93b048672" xPos="410" yPos="250" Width="180" Height="40">
+      <desc>查询参数值列表</desc>
+      <beanId>dbListQueryOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.listQueryByType" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="c9d8b74f-4f82-4b4f-b2a1-bd4830fa7486" to="6084674a-e81f-4306-bd3d-46e93b048672"/>
+  </lines>
+</diagram>

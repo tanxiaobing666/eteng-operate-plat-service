@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/base/logout" desc="安全退出" busi="5">
+<snd>
+</snd>
+<rcv>
+</rcv>
+</trans>

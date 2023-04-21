@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="system/sysParamAdd" desc="通用的参数信息表数据-新增" busi="1">
+    <snd>
+		<field name="PARA_NAME"  desc="参数中文名称" />
+		<field name="PARA_DESC"  desc="参数英文名称" />
+		<field name="PARA_TYPE"  desc="参数值" />
+		<field name="LIST"  type="E" desc="参数值列表" >
+			<field name="PARA_VALUE"  desc="参数值" />
+			<field name="PARA_VALUE_NAME"  desc="参数值名称" />
+			<field name="PARA_ORDER"  desc="参数排序" />
+		</field>
+    </snd>
+    <rcv>
+    
+    </rcv>
+</trans>

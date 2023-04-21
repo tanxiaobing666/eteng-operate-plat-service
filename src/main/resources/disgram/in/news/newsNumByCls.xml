@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/news/newsNumByCls" desc="查看每种咨询对应的新闻数以及当时新增数量" busi="6">
+    <!-- 请求头 -->
+    <snd>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="咨询类型">
+            <field name="CLS_ID" desc="资讯类型名称" typ="C"/>
+            <field name="CLS_NAME" desc="资讯类型名称" typ="C"/>
+            <field name="NEWS_NUM" desc="该类型新闻总数" typ="C"/>
+            <field name="TODAY_ADDNUM" desc="该类型当时新增" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

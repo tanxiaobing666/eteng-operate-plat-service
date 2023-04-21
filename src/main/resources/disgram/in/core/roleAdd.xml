@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/roleAdd" desc="角色新增" busi="1">
+	<snd>
+		<field name="ROLE_NO" desc="角色编号" target="roleCd" length="8" required="true" />
+		<field name="APPL_ORG_NO" desc="应用机构编号" length="6" target="applnBrchEncd" required="true" />
+		<field name="ROLE_NAME" desc="角色名称" target="roleNm" length="64" required="true" />
+		<field name="ROLE_DESC" desc="角色描述" target="roleDesc" length="128" />
+		<field name="ROLE_LVL" desc="角色等级" target="roleRnkCd" length="16" required="true" />
+		<field name="ENABLE_FLAG" desc="启用标志" target="enblFlg" length="1" required="true" />
+		<field name="ROLE_TYPE" desc="角色类型" target="typCd" length="16" required="true" />
+		<field name="AUDI_USER_ID" desc="授权操作人员ID" length="32" target="authrzOprtPsnlId" />
+		<field name="AUDI_USER_PWD" desc="管理员密码" length="64" target="adminPwd" />
+		<field name="LIST" type="E" desc="菜单列表" target="roleMenuList">
+			<field name="MENU_ID" desc="菜单ID"></field>
+		</field>
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper表示映射到哪个dao接口-->
+<mapper namespace="corp">
+
+    <!--新增企业-->
+    <insert id="corpAdd" parameterType="map">
+        INSERT INTO ${schema.plat}.news_corp_info(BANK_ID,
+                                          BANK_NAME,
+                                          STATUS,
+                                          ADMIN_NAME,
+                                          MOBILE,
+                                          ADDRESS,
+                                          LOGO_IMG,
+                                          CORP_DESC,
+                                          REG_TIME,
+                                          DEL_FLAG)
+        VALUES (#{BANK_ID},
+                #{BANK_NAME},
+                #{STATUS},
+                #{ADMIN_NAME},
+                #{MOBILE},
+                #{ADDRESS},
+                #{LOGO_IMG},
+                #{CORP_DESC},
+                DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s"),
+                0)
+    </insert>
+
+    <!--编辑企业-->
+    <update id="corpUpdate" parameterType="map">
+        UPDATE ${schema.plat}.news_corp_info
+        <set>
+            <if test="BANK_NAME != null and BANK_NAME != ''">
+                BANK_NAME=#{BANK_NAME},
+            </if>
+            <if test="STATUS != null and STATUS != ''">
+                STATUS=#{STATUS},
+            </if>
+            <if test="ADMIN_NAME != null and ADMIN_NAME != ''">
+                ADMIN_NAME=#{ADMIN_NAME},
+            </if>
+            <if test="MOBILE != null and MOBILE != ''">
+                MOBILE=#{MOBILE},
+            </if>
+                ADDRESS=#{ADDRESS},
+            <if test="LOGO_IMG != null and LOGO_IMG != ''">
+                LOGO_IMG=#{LOGO_IMG},
+            </if>
+                CORP_DESC=#{CORP_DESC}
+        </set>
+        WHERE BANK_ID=#{BANK_ID}
+    </update>
+
+
+    <!--删除企业-->
+    <update id="corpDel" parameterType="map">
+        UPDATE ${schema.plat}.news_corp_info
+        SET DEL_FLAG=1
+        WHERE BANK_ID = #{BANK_ID}
+    </update>
+
+    <!--查看单个企业信息-->
+    <select id="querySingleCorp" parameterType="map" resultType="map">
+        SELECT
+        nci.BANK_ID,nci.BANK_NAME,nci.STATUS AS CORPSTATUS,nci.ADMIN_NAME,nci.MOBILE,nci.ADDRESS,nci.LOGO_IMG,nci.CORP_DESC,IFNULL(ncwi.USEWECHATNUM,0)
+        AS USEWECHATNUM
+        FROM ${schema.plat}.news_corp_info nci
+        LEFT JOIN (SELECT COUNT(1) USEWECHATNUM,BANK_ID FROM ${schema.plat}.news_corp_wechat_info WHERE DEL_FLAG=0 AND
+        STATUS=0 GROUP BY BANK_ID) ncwi ON nci.BANK_ID = ncwi.BANK_ID
+        <where>
+            <if test="BANK_NAME != null and BANK_NAME != ''">
+                and nci.BANK_NAME=#{BANK_NAME}
+            </if>
+            <if test="BANK_ID != null and BANK_ID != ''">
+                and nci.BANK_ID=#{BANK_ID}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查看企业列表-->
+    <select id="queryPageCorpList" parameterType="map" resultType="map">
+        SELECT nci.BANK_ID,nci.BANK_NAME,nci.ADMIN_NAME,nci.MOBILE,nci.ADDRESS,nci.STATUS,IFNULL(ncwi.WECHATNUM,0) AS
+        WECHATNUM,nci.LOGO_IMG
+        FROM ${schema.plat}.news_corp_info nci
+        LEFT JOIN (SELECT COUNT(1) WECHATNUM,BANK_ID FROM ${schema.plat}.news_corp_wechat_info WHERE DEL_FLAG=0 GROUP BY
+        BANK_ID) ncwi ON nci.BANK_ID = ncwi.BANK_ID
+        <where>
+            <if test="BANK_NAME != null and BANK_NAME != ''">
+                and nci.BANK_NAME LIKE '%${BANK_NAME}%'
+            </if>
+            <if test="STATUS != null and STATUS != ''">
+                and nci.STATUS=#{STATUS}
+            </if>
+            and nci.DEL_FLAG=0
+        </where>
+        ORDER BY nci.REG_TIME DESC
+    </select>
+
+    <!--不分页查询所有企业-->
+    <select id="corpList" parameterType="map" resultType="map">
+        SELECT BANK_ID, BANK_NAME
+        FROM ${schema.plat}.news_corp_info nci
+        WHERE nci.DEL_FLAG = 0
+          and nci.STATUS = 1
+    </select>
+
+    <!--查看合作企业总数-->
+    <select id="corpNumber" parameterType="map" resultType="map">
+        SELECT COUNT(1) AS CORP_NUM
+        FROM ${schema.plat}.news_corp_info
+        WHERE DEL_FLAG = 0
+          and STATUS = 1
+    </select>
+
+    <!--查询使用人数-->
+    <select id="userNumber" parameterType="map" resultType="map">
+        SELECT COUNT(1) AS USER_NUM
+        FROM ${schema.news}.news_corp_user_info ncui
+                 LEFT JOIN ${schema.plat}.news_corp_wechat_info ncwi ON ncwi.CORP_ID = ncui.CORP_ID
+                 LEFT JOIN ${schema.plat}.news_corp_info nci ON nci.BANK_ID = ncwi.BANK_ID
+        WHERE ncui.STATUS = 1
+          AND ncwi.STATUS = 0
+          AND nci.STATUS = 1
+    </select>
+
+    <!--查询企业排行-->
+    <select id="corpRank" parameterType="map" resultType="map">
+        SELECT
+        nci.BANK_ID,
+        nci.BANK_NAME,
+        IFNULL( wechatNum, 0 ) AS WECHAT_NUM,
+        IFNULL( userNum, 0 ) AS USER_NUM,
+        IFNULL( shareNum, 0 ) AS SHARE_NUM,
+        IFNULL( visitNum, 0 ) AS VISIT_NUM,
+        IFNULL( nickNameNum, 0 ) AS AUTH_NICKNAME_NUM,
+        IFNULL( mobileNum, 0 ) AS AUTH_PHONE_NUM
+        FROM ${schema.plat}.news_corp_info nci
+        LEFT JOIN ( SELECT COUNT( 1 ) AS wechatNum, BANK_ID FROM ${schema.plat}.news_corp_wechat_info WHERE DEL_FLAG = 0 GROUP
+        BY BANK_ID ) ncwi ON ncwi.BANK_ID = nci.BANK_ID
+        LEFT JOIN(SELECT COUNT( 1 ) AS userNum,ncp.BANK_ID from ${schema.news}.news_corp_user_info ncui LEFT JOIN
+        ${schema.plat}.news_corp_wechat_info ncwh on ncwh.CORP_ID=ncui.CORP_ID
+        LEFT JOIN ${schema.plat}.news_corp_info ncp on ncp.BANK_ID=ncwh.BANK_ID GROUP BY ncp.BANK_ID) ncuii ON ncuii.BANK_ID=nci.BANK_ID
+        LEFT JOIN(SELECT COUNT( 1 ) AS shareNum,ncpi.BANK_ID from ${schema.news}.news_user_share nus LEFT JOIN
+        ${schema.plat}.news_corp_wechat_info ncwhp on ncwhp.CORP_ID=nus.CORP_ID
+        LEFT JOIN ${schema.plat}.news_corp_info ncpi on ncpi.BANK_ID=ncwhp.BANK_ID WHERE nus.BUSI_TYPE = 'news' GROUP BY ncpi.BANK_ID) nuss ON nuss.BANK_ID=nci.BANK_ID
+        LEFT JOIN(SELECT IFNULL(COUNT(DISTINCT nv.CUST_ID),0) AS visitNum,ncpi.BANK_ID from ${schema.news}.news_visit nv LEFT JOIN
+        ${schema.plat}.news_corp_wechat_info ncwhp on ncwhp.CORP_ID=nv.CORP_ID
+        LEFT JOIN ${schema.plat}.news_corp_info ncpi on ncpi.BANK_ID=ncwhp.BANK_ID WHERE nv.BUSI_TYPE = 'news' GROUP BY ncpi.BANK_ID) nvv ON nvv.BANK_ID=nci.BANK_ID
+        LEFT JOIN(SELECT COUNT( 1 ) AS nickNameNum,ncpi.BANK_ID from ${schema.news}.news_cust_info ncif LEFT JOIN
+        ${schema.plat}.news_corp_wechat_info ncwhp on ncwhp.CORP_ID=ncif.CORP_ID LEFT JOIN ${schema.plat}.news_corp_info ncpi on ncpi.BANK_ID=ncwhp.BANK_ID
+        WHERE ncif.NICK_NAME IS NOT NULL GROUP BY ncpi.BANK_ID) ncif ON nvv.BANK_ID=ncif.BANK_ID
+        LEFT JOIN(SELECT COUNT( 1 ) AS mobileNum,ncpi.BANK_ID from ${schema.news}.news_cust_info ncif LEFT JOIN
+        ${schema.plat}.news_corp_wechat_info ncwhp on ncwhp.CORP_ID=ncif.CORP_ID LEFT JOIN ${schema.plat}.news_corp_info ncpi on ncpi.BANK_ID=ncwhp.BANK_ID
+        WHERE ncif.MOBILE_NO IS NOT NULL GROUP BY ncpi.BANK_ID) nciff ON nvv.BANK_ID=nciff.BANK_ID
+        WHERE nci.DEL_FLAG=0 and nci.STATUS=1
+        <if test=" ORDER_TYPE != null and ORDER_TYPE !=''">
+            ORDER BY ${ORDER_BY} ${ORDER_TYPE}
+        </if>
+    </select>
+
+</mapper>

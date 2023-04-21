@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/userRePWd" desc="重置安全认证密码" busi="2">
+	<snd>
+		<field name="USER_ID" desc="" required="true" />
+	</snd>
+	<rcv>
+		
+	</rcv>
+</trans>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+
+    <select id="menuList" parameterType="map" resultType="java.util.HashMap">
+
+			SELECT
+			    MENU_ID,
+                MENU_NAME,
+                PARENT_ID,
+                ORDER_NUM,
+                PATH,
+                COMPONENT,
+                IS_FRAME,
+                IS_CACHE,
+                MENU_TYPE,
+                VISIBLE,
+                PERMS,
+                ICON,
+                REMARK,
+                STATUS  FROM
+				${schema.plat}.SYS_MENU
+        <where>
+        <if test=" MENU_ID != null and MENU_ID != ''">
+            AND MENU_ID = #{MENU_ID}
+        </if>
+        <if test=" MENU_NAME !=null and MENU_NAME != ''">
+            AND MENU_NAME like concat('%',#{MENU_NAME},'%')
+        </if>
+        <if test="STATUS !=null and STATUS !=''">
+            AND STATUS=#{STATUS}
+        </if>
+        <if test="VISIBLE !=null and VISIBLE !=''">
+            AND VISIBLE=#{VISIBLE}
+        </if>
+        </where>
+        order by ORDER_NUM asc, MENU_ID asc
+    </select>
+
+    <!--
+    <select id="menuParent" parameterType="map" resultType="java.util.HashMap">
+        <![CDATA[
+            SELECT MENU_NAME MENU_PARENT_NAME FROM
+                 ${schema.plat}.SYS_MENU
+             WHERE MENU_ID = #{PARENT_ID}
+        ]]>
+    </select>
+     -->
+    <select id="menuLoad" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+
+
+                        SELECT (select E.MENU_NAME FROM ${schema.news}.SYS_MENU E WHERE E.MENU_ID = M.PARENT_ID) MENU_PARENT_NAME,
+                               M.MENU_ID,
+                               M.MENU_NAME,
+                               M.PARENT_ID,
+                               M.ORDER_NUM,
+                               M.PATH,
+                               M.COMPONENT,
+                               M.IS_FRAME,
+                               M.IS_CACHE,
+                               M.MENU_TYPE,
+                               M.VISIBLE,
+                               M.PERMS,
+                               M.ICON,
+                               M.REMARK,
+                               M.STATUS
+                        FROM ${schema.plat}.SYS_MENU M
+                        WHERE MENU_ID = #{MENU_ID}
+
+
+        ]]>
+	</select>
+
+    <select id="findMenuByParentId" parameterType="map" resultType="java.util.HashMap">
+        SELECT M.MENU_ID,
+               M.PARENT_ID
+        FROM ${schema.plat}.SYS_MENU M
+        WHERE MENU_ID = #{PARENT_ID}
+
+    </select>
+
+    <insert id="menuAdd" parameterType="map">
+		<![CDATA[
+
+
+                        INSERT INTO ${schema.plat}.sys_menu (MENU_ID,
+                                                     MENU_NAME,
+                                                     PARENT_ID,
+                                                     ORDER_NUM,
+                                                     PATH,
+                                                     COMPONENT,
+                                                     IS_FRAME,
+                                                     IS_CACHE,
+                                                     MENU_TYPE,
+                                                     VISIBLE,
+                                                     PERMS,
+                                                     ICON,
+                                                     REMARK,
+                                                     STATUS,
+                                                     CREATE_BY,
+                                                     CREATE_TIME,
+                                                     LAST_MODI_BY,
+                                                     LAST_MODI_TIME)
+                        VALUES (#{MENU_ID,jdbcType=VARCHAR},
+                                #{MENU_NAME,jdbcType=VARCHAR},
+                                #{PARENT_ID,jdbcType=VARCHAR},
+                                #{ORDER_NUM,jdbcType=INTEGER},
+                                #{PATH,jdbcType=VARCHAR},
+                                #{COMPONENT,jdbcType=VARCHAR},
+                                #{IS_FRAME,jdbcType=VARCHAR},
+                                #{IS_CACHE,jdbcType=VARCHAR},
+                                #{MENU_TYPE,jdbcType=VARCHAR},
+                                #{VISIBLE,jdbcType=VARCHAR},
+                                #{PERMS,jdbcType=VARCHAR},
+                                #{ICON,jdbcType=VARCHAR},
+                                #{REMARK,jdbcType=VARCHAR},
+                                #{STATUS,jdbcType=VARCHAR},
+                                1,
+                                DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s"),
+                                1,
+                                DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s"))
+
+
+        ]]>
+	</insert>
+
+    <update id="menuModi" parameterType="map">
+        UPDATE
+        ${schema.plat}.sys_menu
+        <set>
+            <if test="MENU_NAME!=null">
+                MENU_NAME = #{MENU_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="PARENT_ID!=null">
+                PARENT_ID = #{PARENT_ID,jdbcType=VARCHAR},
+            </if>
+            <if test="ORDER_NUM!=null">
+                ORDER_NUM = #{ORDER_NUM,jdbcType=INTEGER},
+            </if>
+            <if test="PATH!=null">
+                PATH = #{PATH,jdbcType=VARCHAR},
+            </if>
+            <if test="COMPONENT!=null">
+                COMPONENT = #{COMPONENT,jdbcType=VARCHAR},
+            </if>
+            <if test="IS_FRAME!=null">
+                IS_FRAME = #{IS_FRAME,jdbcType=VARCHAR},
+            </if>
+            <if test="IS_CACHE!=null">
+                IS_CACHE = #{IS_CACHE,jdbcType=VARCHAR},
+            </if>
+            <if test="MENU_TYPE!=null">
+                MENU_TYPE = #{MENU_TYPE,jdbcType=VARCHAR},
+            </if>
+            <if test="VISIBLE!=null">
+                VISIBLE = #{VISIBLE,jdbcType=VARCHAR},
+            </if>
+            <if test="PERMS!=null">
+                PERMS = #{PERMS,jdbcType=VARCHAR},
+            </if>
+            <if test="ICON!=null">
+                ICON = #{ICON,jdbcType=VARCHAR},
+            </if>
+            <if test="REMARK!=null">
+                REMARK = #{REMARK,jdbcType=VARCHAR},
+            </if>
+            <if test="STATUS!=null">
+                STATUS = #{STATUS,jdbcType=VARCHAR},
+            </if>
+            LAST_MODI_BY= 1,
+            LAST_MODI_TIME = DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+        </set>
+        WHERE
+        MENU_ID = #{MENU_ID}
+    </update>
+
+    <delete id="menuDel" parameterType="map">
+        DELETE
+        FROM ${schema.plat}.SYS_MENU
+        WHERE MENU_ID = #{MENU_ID}
+    </delete>
+
+    <delete id="menuDelChildren" parameterType="map">
+        DELETE
+        FROM ${schema.plat}.SYS_MENU
+        WHERE MENU_ID IN (
+            SELECT MENU_ID
+            FROM (
+                     SELECT t1.MENU_ID,
+                            t1.PARENT_ID,
+                            IF
+                                (find_in_set(PARENT_ID, @pids) > 0, @pids := concat( @pids, ',', MENU_ID ),
+                                 '0') AS ischild
+                     FROM (SELECT MENU_ID, PARENT_ID
+                           FROM ${schema.plat}.SYS_MENU
+                           ORDER BY PARENT_ID, MENU_ID) t1,
+                          (SELECT @pids := #{MENU_ID,jdbcType=VARCHAR}) t2
+                 ) t3
+            WHERE ischild != '0' OR MENU_ID = #{MENU_ID,jdbcType=VARCHAR}
+	)
+    </delete>
+
+    <select id="menuChildren" parameterType="map" resultType="java.util.HashMap">
+
+        select count(MENU_ID) as NUM
+        from ${schema.plat}.SYS_MENU START
+        where PARENT_ID = #{MENU_ID}
+
+    </select>
+
+    <select id="menuChildrenList" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+
+
+                        select count(MENU_ID) as NUM
+                        from ${schema.plat}.SYS_MENU START WITH PARENT_ID = #{MENU_ID}
+                        CONNECT BY NOCYCLE PRIOR MENU_ID = PARENT_ID
+
+
+        ]]>
+	</select>
+
+    <update id="updateUserInfo" parameterType="map">
+        UPDATE ${schema.plat}.sys_menu
+        <set>
+            <if test="LOGIN_TIME != null">
+                LOGIN_TIME = #{LOGIN_TIME},
+            </if>
+            <if test="LOGIN_IP != null">
+                LOGIN_IP = #{LOGIN_IP},
+            </if>
+            <if test="LOGIN_DATE != null">
+                LOGIN_DATE = #{LOGIN_DATE},
+            </if>
+        </set>
+        WHERE USER_NAME = #{LOGIN_ID}
+    </update>
+
+    <select id="menuTreeList" parameterType="map" resultType="java.util.HashMap">
+        <![CDATA[
+			SELECT
+				t.MENU_ID as id,t.PARENT_ID as pId, t.MENU_NAME as name
+			FROM
+				${schema.plat}.sys_menu t
+			WHERE
+				t.DEL_FLAG = '1'
+
+		]]>
+        <if test=" id != null and id !='' ">
+            <![CDATA[
+				AND t.PARENT_ID like '%'||#{id}||',%'
+			]]>
+        </if>
+    </select>
+
+    <update id="menuUpd">
+        UPDATE ${schema.plat}.sys_menu
+        SET IS_SHOW = #{IS_SHOW}
+        WHERE MENU_ID = #{MENU_ID}
+    </update>
+
+    <!-- 回去菜单配置的角色列表 -->
+    <select id="menuRoleList" parameterType="map" resultType="java.util.HashMap">
+        SELECT r.ROLE_ID, r.ROLE_NAME
+        FROM ${schema.plat}.sys_role_menu m,
+             ${schema.plat}.sys_role r
+        WHERE m.ROLE_ID = r.ROLE_ID
+          AND r.DEL_FLAG = '1'
+          AND m.MENU_ID = #{PID}
+    </select>
+
+    <!-- 记录是否存在 -->
+    <select id="select" parameterType="map" resultType="java.util.HashMap">
+	 	<![CDATA[
+
+
+                        SELECT count(*) FLAG
+                        FROM ${schema.plat}.SYS_MENU
+                        where TRIM(MENU_ID) = #{MENU_ID}
+        ]]>
+	</select>
+</mapper>

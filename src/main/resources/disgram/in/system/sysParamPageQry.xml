@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="system/sysParamPageQry" desc="参数列表分页查询" busi="6">
+    <snd>
+			<field name="PARA_NAME"  desc="参数中文名称"  comment=""/>
+			<field name="PARA_TYPE"  desc="参数类型"  comment=""/>
+    </snd>
+    <rcv>
+        <field name="TOTAL_NUM" desc="总条数" typ="C"/>
+        <field-list name="LIST" desc="列表数据" type="E">
+			<field name="PARA_NAME"  desc="参数中文名称"  comment=""/>
+			<field name="PARA_DESC"  desc="参数描述"  comment=""/>
+			<field name="PARA_TYPE"  desc="参数类型"  comment=""/>
+        </field-list>
+    </rcv>
+</trans>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userPwdModi.flw" desc="用户密码修改">
+  <nodes>
+    <node id="863eb988-c220-411e-bc5b-eeddb4f75784" xPos="360" yPos="50" Width="50" Height="50">
+      <desc>查询单条数据</desc>
+      <type>condition</type>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.queryOldPwd" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="OLD_PWD" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+        <data key="USER_ID" expr="${SESS_USER_ID}" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="9552d7a3-a93f-4afc-9eba-78bfa99406f4" xPos="360" yPos="160" Width="180" Height="40">
+      <desc>修改数据</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userPwdModi" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*msgKey" expr="common.imagecode_error" desc="用途说明"/>
+        <data key="USER_ID" expr="${SESS_USER_ID}" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="2d5565d5-a5b8-44bf-bb67-2634c451d3d1" xPos="650" yPos="50" Width="180" Height="40">
+      <desc>抛异常</desc>
+      <beanId>throwMsgOp</beanId>
+      <data-map>
+        <data key="*msgKey" expr="user.oldPassword.error" desc="异常的MSG_KEY"/>
+        <data key="*msgArgs" expr="原密码错误" desc="异常的MSG_ARGS"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="不存在" condition="${empty OLD_PWD.USER_NAME }" from="863eb988-c220-411e-bc5b-eeddb4f75784" to="2d5565d5-a5b8-44bf-bb67-2634c451d3d1"/>
+    <line desc="存在" condition="${not empty OLD_PWD.USER_NAME }" from="863eb988-c220-411e-bc5b-eeddb4f75784" to="9552d7a3-a93f-4afc-9eba-78bfa99406f4"/>
+  </lines>
+</diagram>

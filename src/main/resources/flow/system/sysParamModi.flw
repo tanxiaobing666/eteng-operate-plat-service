@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="ae8a0cf7-09df-4558-a452-b47900cd167e" xPos="170" yPos="110" Width="180" Height="40">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+    </node>
+    <node id="45acedf6-ab0d-4bcb-baa4-23232e38ef5b" xPos="440" yPos="110" Width="180" Height="40">
+      <desc>删除所有类型的参数</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.deleteByType" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="4398de39-eca7-4183-8beb-93681b7527e9" xPos="440" yPos="220" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+    </node>
+    <node id="12819aaa-2711-4052-9752-f591cc247eca" xPos="440" yPos="330" Width="180" Height="40">
+      <desc>批量生成主键</desc>
+      <beanId>batchSeqGeneOp</beanId>
+      <data-map>
+        <data key="*seqPrefix" expr="P" desc="用途说明"/>
+        <data key="*seqVarName" expr="PARA_ID" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="799f6422-85af-43e2-b371-9f5700ff00cd" xPos="700" yPos="330" Width="180" Height="40">
+      <desc>批量插入数据</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.batchInsert" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="ae8a0cf7-09df-4558-a452-b47900cd167e" to="45acedf6-ab0d-4bcb-baa4-23232e38ef5b"/>
+    <line desc="" condition="" from="45acedf6-ab0d-4bcb-baa4-23232e38ef5b" to="4398de39-eca7-4183-8beb-93681b7527e9"/>
+    <line desc="" condition="" from="4398de39-eca7-4183-8beb-93681b7527e9" to="12819aaa-2711-4052-9752-f591cc247eca"/>
+    <line desc="" condition="" from="12819aaa-2711-4052-9752-f591cc247eca" to="799f6422-85af-43e2-b371-9f5700ff00cd"/>
+  </lines>
+</diagram>

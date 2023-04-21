@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/base/loginStatusCheck" desc="登录状态检查" busi="0">
+	<snd>
+	</snd>
+	<rcv>
+		<field name="LOGIN_STATUS" desc="登录状态" comment="1 已登录，其它为未登录" />
+		<field name="ORG_NO" desc="机构编码 " />
+		<field name="ORG_NAME" desc="机构名称 " />
+		<field name="ROLE_ID" desc="角色主键"  />
+		<field name="ROLE_CODE" desc="角色代码"  />
+		<field name="ROLE_NAME" desc="角色名称 "  />
+		<field name="ROLE_TYPE" desc="类型代码"  comment="角色类型 01-录入员 02-授权员 " />
+		<field name="ROLE_LVL" desc="角色级别"  comment="1、农信银中心 2、省联社3、市办 4、县联社5、网点6、客户" />
+		<field name="USER_NO" desc="操作人员编号"  />
+		<field name="USER_NAME" desc="操作人员名称" />
+		<field name="LOGIN_TIMES" desc="登录次数 " />
+		<field name="HEAD_IMG" desc="用户头像 " />
+	</rcv>
+</trans>

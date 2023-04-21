@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="newsSortDel" desc="删除资讯分类" busi="3">
+    <!-- 请求头 -->
+    <snd>
+        <filed-list xpath="LIST" name="LIST" type="E">
+            <field name="CLS_ID" desc="资讯分类ID" typ="C"/>
+            <field name="ALL_NEWS_COUNT" desc="总资讯数" typ="C"/>
+        </filed-list>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

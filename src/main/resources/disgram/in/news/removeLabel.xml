@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="removeLabel" desc="资讯标签删除" busi="3">
+	<!-- 请求头 -->
+	<snd>
+		<field name="GROUP_ID" desc="标签组ID" typ="C" />
+		<filed-list xpath="LIST" name="LIST" type="E" desc="资讯ID列表">
+			<field name="TAG_ID" desc="标签ID" typ="C" />
+		</filed-list>
+	</snd>
+
+	<!-- 响应头 -->
+	<rcv>
+	</rcv>
+</trans>

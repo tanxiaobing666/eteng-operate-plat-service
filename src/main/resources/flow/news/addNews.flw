@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="97c5778e-f82b-450f-8177-c746450fae97" xPos="770" yPos="320" Width="50" Height="50">
+      <desc>新增资讯</desc>
+      <beanId>addNewsOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

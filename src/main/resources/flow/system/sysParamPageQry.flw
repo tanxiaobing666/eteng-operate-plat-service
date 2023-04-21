@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="c67a65d9-f2e3-4ad5-96b3-804a9429c1f6" xPos="440" yPos="180" Width="180" Height="40">
+      <desc>参数列表查询</desc>
+      <beanId>dbPageQueryOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.listQuery" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="newsLabel">
+    <select id="labelSortList" resultType="java.util.HashMap" parameterType="map">
+        select GROUP_ID,
+        GROUP_NAME,
+        IS_MUTEX
+        from ${schema.news}.news_tag_group
+        where 1=1
+        <if test="GROUP_ID !=null and GROUP_ID !=''">
+            and GROUP_ID =#{GROUP_ID}
+        </if>
+        <if test="GROUP_NAME !=null and GROUP_NAME !=''">
+            and GROUP_NAME =#{GROUP_NAME}
+        </if>
+        order by CREATE_TIME desc
+    </select>
+
+    <select id="labelList" resultType="java.util.HashMap">
+        select
+        GROUP_ID,
+        TAG_ID,
+        TAG_NAME,
+        TAG_TYPE
+        from ${schema.news}.news_tag
+        where 1=1
+        <if test="GROUP_ID !=null and GROUP_ID !=''">
+            and GROUP_ID = #{GROUP_ID}
+        </if>
+        <if test="TAG_ID !=null and TAG_ID !=''">
+            and TAG_ID =#{TAG_ID}
+        </if>
+        order by CREATE_TIME desc
+    </select>
+
+    <select id="labelIsExist" resultType="java.util.HashMap" parameterType="map">
+        select TAG_ID,
+               TAG_NAME,
+               TAG_TYPE,
+               GROUP_ID
+        from ${schema.news}.news_tag
+        where TAG_NAME = #{TAG_NAME}
+        <if test="TAG_ID !=null and TAG_ID !=''">and TAG_ID !=#{TAG_ID}</if>
+    </select>
+
+    <insert id="addLabelSort" parameterType="map">
+        insert into ${schema.news}.news_tag_group(
+        <if test="GROUP_ID !=null and GROUP_ID !=''">GROUP_ID,</if>
+        <if test="GROUP_NAME !=null and GROUP_NAME !=''">GROUP_NAME,</if>
+        <if test="IS_MUTEX !=null and IS_MUTEX !=''">IS_MUTEX,</if>
+        <if test="SORT !=null and SORT !=''">SORT,</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">CORP_ID,</if>
+        <if test="CREATE_BY !=null and CREATE_BY !=''">CREATE_BY,</if>
+        <if test="LAST_MODI_BY !=null and LAST_MODI_BY !=''">LAST_MODI_BY,</if>
+        CREATE_TIME,
+        LAST_MODI_TIME
+        )values (
+        <if test="GROUP_ID !=null and GROUP_ID !=''">#{GROUP_ID},</if>
+        <if test="GROUP_NAME !=null and GROUP_NAME !=''">#{GROUP_NAME},</if>
+        <if test="IS_MUTEX !=null and IS_MUTEX !=''">#{IS_MUTEX},</if>
+        <if test="SORT !=null and SORT !=''">#{SORT},</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">#{CORP_ID},</if>
+        <if test="CREATE_BY !=null and CREATE_BY !=''">#{CREATE_BY},</if>
+        <if test="LAST_MODI_BY !=null and LAST_MODI_BY !=''">#{LAST_MODI_BY},</if>
+        #{CREATE_TIME},
+        #{LAST_MODI_TIME}
+        )
+    </insert>
+
+    <insert id="addLabel" parameterType="map">
+        insert into ${schema.news}.news_tag(
+        TAG_ID,
+        TAG_NAME,
+        TAG_TYPE,
+        GROUP_ID,
+        SORT,
+        CORP_ID,
+        CREATE_BY,
+        LAST_MODI_BY,
+        CREATE_TIME,
+        LAST_MODI_TIME
+        )values
+        <foreach collection="LIST" item="item" separator=",">
+            (
+            #{item.TAG_ID},
+            #{item.TAG_NAME},
+            #{item.TAG_TYPE},
+            #{GROUP_ID},
+            #{item.SORT},
+            #{CORP_ID},
+            #{CREATE_BY},
+            #{LAST_MODI_BY},
+            #{CREATE_TIME},
+            #{LAST_MODI_TIME}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateNewsLabel" parameterType="map">
+        update ${schema.news}.news_tag
+        <set>
+            <if test="TAG_NAME !=null and TAG_NAME !=''">TAG_NAME=#{TAG_NAME},</if>
+            <if test="TAG_TYPE !=null and TAG_TYPE !=''">TAG_TYPE=#{TAG_TYPE},</if>
+            <if test="GROUP_ID !=null and GROUP_ID !=''">GROUP_ID=#{GROUP_ID},</if>
+            <if test="SORT !=null and SORT !=''">SORT=#{SORT},</if>
+            <if test="CORP_ID !=null and CORP_ID !=''">CORP_ID=#{CORP_ID},</if>
+            LAST_MODI_BY=#{LAST_MODI_BY},
+            LAST_MODI_TIME=#{LAST_MODI_TIME}
+        </set>
+        where TAG_ID =#{TAG_ID}
+    </update>
+
+    <insert id="addNewsLabel" parameterType="map">
+        insert into ${schema.news}.news_tag(
+        <if test="TAG_ID !=null and TAG_ID !=''">TAG_ID,</if>
+        <if test="TAG_NAME !=null and TAG_NAME !=''">TAG_NAME,</if>
+        <if test="TAG_TYPE !=null and TAG_TYPE !=''">TAG_TYPE,</if>
+        <if test="GROUP_ID !=null and GROUP_ID !=''">GROUP_ID,</if>
+        <if test="SORT !=null and SORT !=''">SORT,</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">CORP_ID,</if>
+        CREATE_BY,
+        CREATE_TIME,
+        LAST_MODI_BY,
+        LAST_MODI_TIME
+        )values (
+        <if test="TAG_ID !=null and TAG_ID !=''">#{TAG_ID},</if>
+        <if test="TAG_NAME !=null and TAG_NAME !=''">#{TAG_NAME},</if>
+        <if test="TAG_TYPE !=null and TAG_TYPE !=''">#{TAG_TYPE},</if>
+        <if test="GROUP_ID !=null and GROUP_ID !=''">#{GROUP_ID},</if>
+        <if test="SORT !=null and SORT !=''">#{SORT},</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">#{CORP_ID},</if>
+        #{CREATE_BY},
+        #{CREATE_TIME},
+        #{LAST_MODI_BY},
+        #{LAST_MODI_TIME}
+        )
+    </insert>
+
+    <delete id="removeLabel" parameterType="map">
+        delete from ${schema.news}.news_tag
+        WHERE TAG_ID in
+        <foreach collection="LIST" open="(" close=")" item="item" separator=",">
+            #{item.TAG_ID}
+        </foreach>
+    </delete>
+
+    <delete id="removeLabelRel" parameterType="map">
+        delete from ${schema.news}.news_tag_rel
+        WHERE TAG_ID in
+        <foreach collection="LIST" open="(" close=")" item="item" separator=",">
+            #{item.TAG_ID}
+        </foreach>
+    </delete>
+
+    <delete id="removeLabelByGp" parameterType="map">
+        delete
+        from ${schema.news}.news_tag
+        WHERE GROUP_ID = #{GROUP_ID}
+    </delete>
+
+    <update id="updateLabel" parameterType="map">
+        UPDATE ${schema.news}.news_tag
+        SET TAG_NAME=#{TAG_NAME},
+            TAG_TYPE=#{TAG_TYPE},
+            SORT=#{SORT},
+            LAST_MODI_BY =#{LAST_MODI_BY},
+            LAST_MODI_TIME =#{LAST_MODI_TIME}
+        WHERE TAG_ID = #{TAG_ID}
+    </update>
+
+    <insert id="addLabelRel" parameterType="map">
+        insert into ${schema.news}.news_tag_rel(
+        <if test="ID !=null and ID !=''">ID,</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">CORP_ID,</if>
+        <if test="NEWS_ID !=null and NEWS_ID !=''">NEWS_ID,</if>
+        <if test="TAG_ID !=null and TAG_ID !=''">TAG_ID,</if>
+        <if test="TAG_NAME !=null and TAG_NAME !=''">TAG_NAME,</if>
+        CRT_TMS,
+        UPD_TMS
+        )values (
+        <if test="ID !=null and ID !=''">#{ID},</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">#{CORP_ID},</if>
+        <if test="NEWS_ID !=null and NEWS_ID !=''">#{NEWS_ID},</if>
+        <if test="TAG_ID !=null and TAG_ID !=''">#{TAG_ID},</if>
+        <if test="TAG_NAME !=null and TAG_NAME !=''">#{TAG_NAME},</if>
+        #{CRT_TMS},
+        #{UPD_TMS}
+        )
+    </insert>
+
+    <select id="labelListRel" parameterType="map" resultType="java.util.Map">
+        select
+        ntl.TAG_ID,
+        ntl.TAG_NAME,
+        nt.GROUP_ID
+        from ${schema.news}.news_tag_rel ntl
+        left join ${schema.news}.news_tag nt
+        on nt.TAG_ID=ntl.TAG_ID
+        <where>
+            ntl.NEWS_ID=#{NEWS_ID} and ntl.CORP_ID is null
+        </where>
+    </select>
+
+    <delete id="deleteLabelRel" parameterType="map">
+        delete
+        from ${schema.news}.news_tag_rel
+        where NEWS_ID = #{NEWS_ID} and CORP_ID is null
+    </delete>
+
+    <update id="updateGp" parameterType="map">
+        UPDATE ${schema.news}.news_tag_group
+        SET
+            <if test="GROUP_NAME !=null and GROUP_NAME !=''">GROUP_NAME=#{GROUP_NAME},</if>
+            <if test="IS_MUTEX !=null and IS_MUTEX !=''">IS_MUTEX=#{IS_MUTEX},</if>
+            <if test="SORT !=null and SORT !=''">SORT=#{SORT},</if>
+            LAST_MODI_BY =#{LAST_MODI_BY},
+            LAST_MODI_TIME =#{LAST_MODI_TIME}
+        WHERE GROUP_ID = #{GROUP_ID}
+    </update>
+
+    <insert id="addKeys" parameterType="map">
+        insert into ${schema.news}.news_tag_keys_rel(
+        TAG_ID,
+        KEY_WORD
+        )values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{TAG_ID},
+            #{item.KEY_WORD}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="removeKeys" parameterType="map">
+        delete
+        from ${schema.news}.news_tag_keys_rel
+        where TAG_ID = #{TAG_ID}
+    </delete>
+
+    <insert id="addNewsSort" parameterType="map">
+        insert into ${schema.news}.news_tag_cls_rel(
+        TAG_ID,
+        CLS_ID
+        )values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{TAG_ID},
+            #{item.CLS_ID}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="removeNewsSort" parameterType="map">
+        delete
+        from ${schema.news}.news_tag_cls_rel
+        where TAG_ID = #{TAG_ID}
+    </delete>
+
+    <select id="labelClsList" resultType="java.util.Map" parameterType="map">
+        select
+            ntcr.CLS_ID,
+            nci.CLS_NAME
+        from ${schema.news}.news_tag_cls_rel ntcr
+        left join ${schema.news}.news_cls_info nci
+        on nci.CLS_ID=ntcr.CLS_ID
+        where ntcr.TAG_ID=#{TAG_ID}
+    </select>
+
+    <select id="labelKeysList" resultType="java.util.Map" parameterType="map">
+        select
+            KEY_WORD
+        from ${schema.news}.news_tag_keys_rel
+        where TAG_ID=#{TAG_ID}
+    </select>
+
+    <delete id="removeLabelGp" parameterType="map">
+        delete from ${schema.news}.news_tag_group where GROUP_ID=#{GROUP_ID}
+    </delete>
+</mapper>

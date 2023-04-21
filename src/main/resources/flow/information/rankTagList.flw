@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="9787fbb5-45a2-4e1b-a272-e6c6976e2e67" xPos="470" yPos="260" Width="480" Height="170">
+      <desc>标签统计排行</desc>
+      <beanId>rankTagListOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

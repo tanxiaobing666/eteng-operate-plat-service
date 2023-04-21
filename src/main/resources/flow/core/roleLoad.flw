@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="roleLoad.flw" desc="角色详情">
+  <nodes>
+    <node id="fd8edd89-27ad-4985-a3bd-55f7bc4227e9" xPos="300" yPos="220" Width="50" Height="50">
+      <desc>查询角色信息</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleLoad" desc="Mybatis SQL Statement"/>
+        <data key="*mapName" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="93cd2f93-5d3d-49f6-b62c-41979f17dcdd" xPos="600" yPos="220" Width="180" Height="40">
+      <desc>角色菜单列表</desc>
+      <beanId>dbListQueryOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="role.roleMenuListQuery" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="fd8edd89-27ad-4985-a3bd-55f7bc4227e9" to="93cd2f93-5d3d-49f6-b62c-41979f17dcdd"/>
+  </lines>
+</diagram>

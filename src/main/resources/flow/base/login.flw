@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="login.flw" desc="登录">
+  <nodes>
+    <node id="0db5c346-c7e2-4366-9d17-282a9b081c12" xPos="440" yPos="30" Width="180" Height="40">
+      <desc>图像验证码校验</desc>
+      <beanId>imageCodeCheckOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+    <node id="5ab5b9be-26e7-4966-bf8f-512d23f2067e" xPos="440" yPos="140" Width="180" Height="40">
+      <desc>登录信息校验</desc>
+      <beanId>loginDataCheckOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="login.queryLoginUserInfo" desc="Mybatis SQL Statement"/>
+        <data key="*mapName" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*upLoginSqlId" expr="login.updateUserInfo" desc="更新用户登录信息"/>
+        <data key="*orgSql" expr="login.orgSql" desc="查询用户机构信息"/>
+      </data-map>
+    </node>
+    <node id="d5e350a4-d186-4a72-8e98-3aedeefa946e" xPos="440" yPos="230" Width="180" Height="40">
+      <desc>登录会话创建</desc>
+      <beanId>loginSessionCreateOp</beanId>
+    </node>
+    <node id="5adc6fb5-a0cf-4e4d-924d-c2e75cfb3b86" xPos="440" yPos="430" Width="180" Height="40">
+      <desc>单用登录校验</desc>
+      <beanId>loginSingleUserOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="0db5c346-c7e2-4366-9d17-282a9b081c12" to="5ab5b9be-26e7-4966-bf8f-512d23f2067e"/>
+    <line desc="" condition="" from="5ab5b9be-26e7-4966-bf8f-512d23f2067e" to="d5e350a4-d186-4a72-8e98-3aedeefa946e"/>
+    <line desc="" condition="" from="d5e350a4-d186-4a72-8e98-3aedeefa946e" to="5adc6fb5-a0cf-4e4d-924d-c2e75cfb3b86"/>
+  </lines>
+</diagram>

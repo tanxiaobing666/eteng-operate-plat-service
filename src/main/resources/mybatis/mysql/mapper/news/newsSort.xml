@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="newsSort">
+    <select id="sortList" parameterType="map" resultType="java.util.HashMap">
+        select nci.CLS_ID,
+               nci.CLS_NAME,
+               nci.CREATE_TIME,
+               nci.IS_SHOW,
+               (
+                   select count(ni.NEWS_ID)
+                   from ${schema.news}.news_info ni
+                   where ni.CLS_ID = nci.CLS_ID
+                     and ni.DEL_FLAG = "0" and ni.SYN_CHNL_NO !='1'
+                     and (ni.CORP_ID is null or ni.CORP_ID="")
+               ) ALL_NEWS_COUNT,
+               (
+                   select count(ni.NEWS_ID)
+                   from ${schema.news}.news_info ni
+                   where ni.NEWS_STATUS = "1"
+                     and ni.CLS_ID = nci.CLS_ID
+                     and ni.DEL_FLAG = "0" and ni.SYN_CHNL_NO !='1'
+                     and (ni.CORP_ID is null or ni.CORP_ID="")
+               ) SHELVE_COUNT
+        from ${schema.news}.news_cls_info nci
+        where nci.DEL_FLAG = "0" and (nci.CORP_ID is null or nci.CORP_ID="")
+        order by nci.CREATE_TIME desc
+    </select>
+
+    <delete id="relNewsDel" parameterType="map">
+        delete from ${schema.news}.news_chnl_cls_rel
+        where TARGET_CLS_ID in
+        <foreach collection="list" open="(" close=")" item="item" separator=",">
+            #{item.CLS_ID}
+        </foreach>
+    </delete>
+
+    <update id="updateStatus" parameterType="map">
+        update ${schema.news}.news_info
+        <set>
+            NEWS_STATUS="2"
+        </set>
+        where CLS_ID in
+        <foreach collection="list" open="(" close=")" item="item" separator=",">
+            #{item.CLS_ID}
+        </foreach>
+    </update>
+
+    <update id="updateStatusList" parameterType="map">
+        update ${schema.news}.news_chnl_cls
+        <set>
+            REL_STATUS="1"
+        </set>
+        where CLS_ID in
+        <foreach collection="list" open="(" close=")" item="item" separator=",">
+            #{item.SOURCE_CLS_ID}
+        </foreach>
+    </update>
+
+    <delete id="newsSortDel" parameterType="map">
+        update ${schema.news}.news_cls_info
+        <set>
+            DEL_FLAG ="1"
+        </set>
+        WHERE CLS_ID in
+        <foreach collection="list" open="(" close=")" item="item" separator=",">
+            #{item.CLS_ID}
+        </foreach>
+    </delete>
+
+    <select id="newsChnlList" parameterType="map" resultType="java.util.HashMap">
+        select
+        ID,
+        SOURCE_CLS_ID,
+        TARGET_CLS_ID,
+        CHNL_NO,
+        CREATE_BY,
+        CREATE_TIME
+        from ${schema.news}.news_chnl_cls_rel
+        where 1=1
+        <if test="SOURCE_CLS_ID !=null and SOURCE_CLS_ID !=''">
+            and SOURCE_CLS_ID =#{SOURCE_CLS_ID}
+        </if>
+        <if test="TARGET_CLS_ID !=null and TARGET_CLS_ID !=''">
+            and TARGET_CLS_ID =#{TARGET_CLS_ID}
+        </if>
+    </select>
+
+    <update id="updateChnlCls" parameterType="map">
+        update ${schema.news}.news_chnl_cls
+        <set>
+            REL_STATUS ="2"
+        </set>
+        where CLS_ID =#{SOURCE_CLS_ID}
+    </update>
+
+    <select id="newsChnlSortList" resultType="map">
+        select
+        CHNL_NO,
+        CHNL_NAME
+        from ${schema.news}.news_chnl
+        where 1=1
+        <if test="list !=null and list.size > 0">and CHNL_NO in
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                #{item.CHNL_NO}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="chnlList" resultType="map">
+        select
+        CLS_ID,
+        CLS_NAME
+        from ${schema.news}.news_chnl_cls
+        <where>
+            <if test="CHNL_NO !=null and CHNL_NO !=''">
+                and CHNL_NO =#{CHNL_NO}
+            </if>
+            <if test="list !=null and list.size > 0">
+                and CLS_ID in
+                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                    #{item.SOURCE_CLS_ID}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <insert id="addNewsClsInfo" parameterType="map">
+        insert into ${schema.news}.news_cls_info
+        (
+        <if test="CLS_ID !=null and CLS_ID !=''">CLS_ID,</if>
+        <if test="CLS_NAME !=null and CLS_NAME !=''">CLS_NAME,</if>
+        <if test="IS_SHOW !=null and IS_SHOW !=''">IS_SHOW,</if>
+        <if test="CLS_DES !=null and CLS_DES !=''">CLS_DES,</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">CORP_ID,</if>
+        <if test="DEL_FLAG !=null and DEL_FLAG !=''">DEL_FLAG,</if>
+        <if test="CREATE_TIME !=null and CREATE_TIME !=''">CREATE_TIME,</if>
+        <if test="CREATE_BY !=null and CREATE_BY !=''">CREATE_BY,</if>
+        <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">UPDATE_TIME,</if>
+        <if test="UPDATE_BY !=null and UPDATE_BY !=''">UPDATE_BY</if>
+        )
+        values(
+        <if test="CLS_ID !=null and CLS_ID !=''">#{CLS_ID},</if>
+        <if test="CLS_NAME !=null and CLS_NAME !=''">#{CLS_NAME},</if>
+        <if test="IS_SHOW !=null and IS_SHOW !=''">#{IS_SHOW},</if>
+        <if test="CLS_DES !=null and CLS_DES !=''">#{CLS_DES},</if>
+        <if test="CORP_ID !=null and CORP_ID !=''">#{CORP_ID},</if>
+        <if test="DEL_FLAG !=null and DEL_FLAG !=''">#{DEL_FLAG},</if>
+        <if test="CREATE_TIME !=null and CREATE_TIME !=''">#{CREATE_TIME},</if>
+        <if test="CREATE_BY !=null and CREATE_BY !=''">#{CREATE_BY},</if>
+        <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">#{UPDATE_TIME},</if>
+        <if test="UPDATE_BY !=null and UPDATE_BY !=''">#{UPDATE_BY}</if>
+        )
+    </insert>
+
+    <insert id="addNewsRelList" parameterType="map">
+        insert into ${schema.news}.news_chnl_cls_rel(
+        ID,
+        SOURCE_CLS_ID,
+        TARGET_CLS_ID,
+        CHNL_NO,
+        CREATE_BY,
+        CREATE_TIME
+        )values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.ID},
+            #{item.SOURCE_CLS_ID},
+            #{item.TARGET_CLS_ID},
+            #{item.CHNL_NO},
+            #{CREATE_BY},
+            #{CREATE_TIME}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getNewsClsInfo" parameterType="map" resultType="map">
+        select CLS_ID,
+               DEL_FLAG
+        from ${schema.news}.news_cls_info
+        where CLS_NAME = #{CLS_NAME}
+    </select>
+
+    <select id="newsClsInfo" parameterType="map" resultType="map">
+        select CLS_ID,
+               CLS_NAME,
+               DEL_FLAG
+        from ${schema.news}.news_cls_info
+        where CLS_ID = #{CLS_ID}
+          and DEL_FLAG = "0"
+    </select>
+
+    <update id="updateNciStatus" parameterType="map">
+        update ${schema.news}.news_cls_info
+        set DEL_FLAG="0"
+        where CLS_ID = #{CLS_ID}
+    </update>
+
+    <select id="newsSyncList" parameterType="map" resultType="java.util.Map">
+        select
+            ncc.CLS_NAME,
+            count(nsi.*),
+            nsi.CREATE_TIME
+        from ${schema.news}.news_sync_info nsi
+        left join news_chnl_cls ncc
+        on nsi.CLASS_ID=ncc.CLS_ID
+        where
+        group by nsi.CLASS_ID
+        order by nsi.CREATE_TIME desc
+    </select>
+
+    <update id="updateNewsSort" parameterType="map">
+        update ${schema.news}.news_cls_info
+        <set>
+            <if test="CLS_NAME !=null and CLS_NAME !=''">CLS_NAME =#{CLS_NAME},</if>
+            <if test="IS_SHOW !=null and IS_SHOW !=''">IS_SHOW =#{IS_SHOW},</if>
+            <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">UPDATE_TIME =#{UPDATE_TIME},</if>
+            <if test="UPDATE_BY !=null and UPDATE_BY !=''">UPDATE_BY =#{UPDATE_BY}</if>
+        </set>
+        where CLS_ID =#{CLS_ID}
+    </update>
+
+    <update id="updateSortVis" parameterType="map">
+        update ${schema.news}.news_cls_info
+        <set>
+            <if test="IS_SHOW !=null and IS_SHOW !=''">IS_SHOW =#{IS_SHOW},</if>
+            <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">UPDATE_TIME =#{UPDATE_TIME},</if>
+            <if test="UPDATE_BY !=null and UPDATE_BY !=''">UPDATE_BY =#{UPDATE_BY}</if>
+        </set>
+        where CLS_ID=#{CLS_ID}
+    </update>
+</mapper>
+

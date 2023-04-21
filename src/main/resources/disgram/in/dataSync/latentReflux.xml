@@ -1,0 +1,31 @@
+<trans name="in/dataSync/latentReflux" desc="SAAS资讯-潜在客户数据回流" busi="6">
+    <snd>
+		<field name="CORP_ID" desc="企业编号" comment="" required="true" />
+		<field name="BEGIN_TIME" desc="开始时间" comment="" required="false" />
+		<field name="END_TIME" desc="结束时间" comment="" required="false" />
+		
+	</snd>
+    <rcv> 
+       	<field-list name="LIST" desc="潜在客户数据list" type="E">
+	        <field-list name="CUST_LIST" desc="潜在客户数据list" type="E">
+				<field name="OPEN_ID" desc="微信OPENID" type="C" comment="" />
+				<field name="NICK_NAME" desc="用户别名" type="C" comment="" />
+				<field name="CUST_NAME" desc="客户名称" type="C" comment="" />
+				<field name="MOBILE_NO" desc="手机号码" type="C" comment="" />
+				<field name="HEAD_IMG" desc="头像" type="C" comment="" />
+				<field name="GENDER" desc="性别" type="C" comment="" />
+				<field name="ID_TYPE" desc="证件类型 01-身份证" type="C" comment="" />
+				<field name="ID_NO" desc="证件号码" type="C" comment="" />
+				<field name="USER_NO" desc="客户经理编号" type="C" comment="" />
+	        </field-list>
+	         <field-list name="VISIT_LIST" desc="用户行为数据list" type="E">
+	        	<field name="TITLE" desc="标题" type="C" comment="" />
+	         	<field name="BUSI_NO" desc="业务编号" type="C" comment="" />
+	         	<field name="BUSI_TYPE" desc="业务类型 主页:homepage 资讯:news 产品:product" type="C" comment="" />
+	         	<field name="CUST_ID" desc="客户id" type="C" comment="" />
+	         	<field name="USER_ID" desc="客户经理编号" type="C" comment="" />
+	         	<field name="MOBILE_NO" desc="手机号码" type="C" comment="" />
+	         </field-list>
+	    </field-list>   
+    </rcv>
+</trans>

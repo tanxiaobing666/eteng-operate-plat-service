@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+	<group id="netTools" desc="通讯相关">
+		<component beanId="netTools4SCOp" desc="SpringCloud通讯">
+			<items>
+				<item key="*transCode" desc="交易码，根据交易码获取请求报文， 如：/embed/demo" expr=""></item>
+				<item key="apiMethod" desc="接口请求类型，如：1:GET 2:POST 3:PUT 4:PATCH 5:DELETE 6:HEAD 7:OPTIONS" expr=""></item>
+				<item key="backServiceName" desc="后端服务名，如：ares-tsf-provider" expr=""></item>
+				<item key="backApiPath" desc="后端请求地址，如：/common/test/echo" expr=""></item>
+				<item key="mockType" desc="是否开启挡板， 0:否 1:是" expr="0"></item>
+				<item key="mockData" desc="挡板JSON数据 " expr=""></item>
+			</items>
+		</component>
+		
+		<component beanId="netTools4WXGetOp" desc="微信GET通讯">
+			<items>
+				<item key="*transCode" desc="交易报文路径" expr=""></item>
+			</items>
+		</component>
+		
+		<component beanId="netTools4WXPostExtOp" desc="微信POST通讯-小程序码">
+			<items>
+				<item key="*transCode" desc="交易报文路径" expr=""></item>
+			</items>
+		</component>
+		
+	</group>
+	<!-- 更多控件 -->
+	<group id="more" desc="更多控件">
+		<component beanId="gwCheckIllegalCharOp" desc="非法字符检查">
+			<items>
+			</items>
+		</component>
+		<component beanId="checkReplayOp" desc="报文防重放">
+			<items>
+			</items>
+		</component>
+		<component beanId="checkRepeatOp" desc="防重复提交">
+			<items>
+			</items>
+		</component>
+		<component beanId="seqGeneOp" desc="流水号生成">
+			<items>
+				<item key="*seqType" desc="流水号号类型，1：业务流水号，2：系统流水号，3：订单流水号，4：业务主键流水号，默认值1" expr="1"></item>
+				<item key="*seqPrefix" desc="流水号前缀，默认值:S" expr="S"></item>
+				<item key="*seqVarName" desc="流水号自定义变量名称，默认值：BUSI_SEQ_SN" expr="BUSI_SEQ_SN"></item>
+			</items>
+		</component>
+		<component beanId="flowListEmbedOp" desc="列表遍历流程">
+			<items>
+				<item key="*flowPath" desc="列表子流程相对路径" expr="embed/demo"></item>
+				<item key="*listKey" desc="列表数据变量名" expr="LIST"></item>
+				<item key="*itemKey" desc="子项数据变量名" expr="item"></item>
+				<item key="*itemIndex" desc="列表索引变量名" expr="index"></item>
+			</items>
+		</component>
+	</group>
+</project>
+
+

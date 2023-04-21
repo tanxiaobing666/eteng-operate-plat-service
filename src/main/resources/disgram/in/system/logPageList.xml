@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/system/logPageList" desc="操作日志分页查询" busi="6">
+    <snd>
+        <field name="PAGE_SIZE"  desc="条数"  comment=""/>
+        <field name="NEXT_KEY"  desc="页数"  comment=""/>
+        <field name="TITLE" desc="模块标题" comment="" required="false" />
+        <field name="OPERATOR_TYPE" desc="操作类别。0-其它，1-后台用户，2-手机端用户" type="C"  comment="" />
+        <field name="BUSINESS_TYPE" desc="业务类型。0-其它，1-新增，2-修改，3-删除" type="C"  comment="" />
+        <field name="STATUS" desc="状态" comment="" required="false"/>
+    </snd>
+    <rcv>
+        <field name="TOTAL_NUM" desc="总条数"  comment="" />
+        <field-list name="LIST" desc="日志分页查询" type="E">
+            <field name="OPER_ID" type="C" desc="操作用户ID" comment="" />
+            <field name="USER_ID" type="C" desc="操作用户ID" comment=""/>
+            <field name="TITLE" type="C" desc="模块标题" comment=""/>
+            <field name="METHOD" type="C" desc="方法名称" comment=""/>
+            <field name="BUSINESS_TYPE" type="C" desc="'业务类型。0-其它，1-新增，2-修改，3-删除,4-登录,5-登出,6-查询" comment="" />
+            <field name="REQUEST_METHOD" type="C" desc="请求方式" comment=""/>
+            <field name="OPERATOR_TYPE" type="C" desc="操作类别。0-其它，1-后台用户，2-手机端用户" comment=""/>
+            <field name="OPER_NAME" type="C" desc="操作人员" comment=""/>
+            <field name="DEPT_NAME" type="C" desc="部门名称" comment=""/>
+            <field name="OPER_URL" type="C" desc="请求URL" comment=""/>
+            <field name="OPER_IP" type="C" desc="主机地址" comment=""/>
+            <!--<field name="OPER_PARAM" type="C" desc="请求参数" comment=""/>
+            <field name="JSON_RESULT" type="C" desc="返回参数" comment=""/>-->
+            <field name="LOG_STATUS" type="C" desc="操作状态（0正常 1异常）" comment=""/>
+            <field name="OPER_TIME" type="C" desc="操作时间" comment=""/>
+            <field name="CORP_ID" type="C" desc="企业ID" comment=""/>
+        </field-list>
+    </rcv>
+</trans>

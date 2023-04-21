@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="roleDel.flw" desc="角色删除">
+  <nodes>
+    <node id="24b88a56-08bf-4b3c-8ddc-fc3021364a04" xPos="230" yPos="10" Width="180" Height="40">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="e178633e-9b25-4494-bebf-1848e8f9e39c" xPos="230" yPos="110" Width="180" Height="40">
+      <desc>查询关联的角色用户</desc>
+      <type>condition</type>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleUserCnt" desc="Mybatis SQL Statement"/>
+        <data key="*mapName" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="f5c8207f-7497-4658-a923-4b81a4bde790" xPos="230" yPos="220" Width="180" Height="40">
+      <desc>删除角色用户数据</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleUserDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="8ad47bbf-2297-4552-a7b8-9ae8ed3568e6" xPos="530" yPos="220" Width="180" Height="40">
+      <desc>查询关联的角色菜单</desc>
+      <type>condition</type>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleMenuCnt" desc="Mybatis SQL Statement"/>
+        <data key="*mapName" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="d31e1f03-1773-4a02-82e4-c63697082af5" xPos="530" yPos="350" Width="180" Height="40">
+      <desc>删除角色菜单表数据</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleMenuDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="1a98dddf-e47b-47c1-bb95-fda68469ef40" xPos="230" yPos="350" Width="180" Height="40">
+      <desc>删除角色数据</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="b83d8d17-dd95-4fb6-95bd-d60a12fc89cc" xPos="230" yPos="480" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="24b88a56-08bf-4b3c-8ddc-fc3021364a04" to="e178633e-9b25-4494-bebf-1848e8f9e39c"/>
+    <line desc="无关联的角色用户" condition="${USER_CNT == 0}" from="e178633e-9b25-4494-bebf-1848e8f9e39c" to="8ad47bbf-2297-4552-a7b8-9ae8ed3568e6"/>
+    <line desc="有关联的角色用户信息" condition="${USER_CNT &gt;0}" from="e178633e-9b25-4494-bebf-1848e8f9e39c" to="f5c8207f-7497-4658-a923-4b81a4bde790"/>
+    <line desc="" condition="" from="f5c8207f-7497-4658-a923-4b81a4bde790" to="8ad47bbf-2297-4552-a7b8-9ae8ed3568e6"/>
+    <line desc="无关联的角色菜单" condition="${MENU_CNT==0}" from="8ad47bbf-2297-4552-a7b8-9ae8ed3568e6" to="1a98dddf-e47b-47c1-bb95-fda68469ef40"/>
+    <line desc="有关联的角色菜单" condition="${MENU_CNT &gt;0}" from="8ad47bbf-2297-4552-a7b8-9ae8ed3568e6" to="d31e1f03-1773-4a02-82e4-c63697082af5"/>
+    <line desc="" condition="" from="d31e1f03-1773-4a02-82e4-c63697082af5" to="1a98dddf-e47b-47c1-bb95-fda68469ef40"/>
+    <line desc="" condition="" from="1a98dddf-e47b-47c1-bb95-fda68469ef40" to="b83d8d17-dd95-4fb6-95bd-d60a12fc89cc"/>
+  </lines>
+</diagram>

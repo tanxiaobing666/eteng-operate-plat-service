@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userAdd.flw" desc="用户-新增">
+  <nodes>
+    <node id="95dc6d78-0e6e-41ea-9367-826e3325037a" xPos="230" yPos="0" Width="180" Height="40">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="7a1d3db1-3803-4bbb-8c71-e53357b4e3d7" xPos="230" yPos="100" Width="180" Height="40">
+      <desc>查询用户是否存在</desc>
+      <type>condition</type>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.checkUser" desc="Mybatis SQL Statement"/>
+        <data key="*mapName" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="949bdf44-c7bf-4e46-9978-c3efff07ebab" xPos="540" yPos="100" Width="180" Height="40">
+      <desc>抛异常</desc>
+      <beanId>throwMsgOp</beanId>
+      <data-map>
+        <data key="*msgKey" expr="EMKH059B" desc="异常的MSG_KEY"/>
+        <data key="*msgArgs" expr="用户已存在" desc="异常的MSG_ARGS"/>
+      </data-map>
+    </node>
+    <node id="f8cfe05a-4c3c-4ab0-9a02-b2d637864119" xPos="230" yPos="370" Width="180" Height="40">
+      <desc>用户信息插入用户表</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userAdd" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="DEFAULT_PWD" expr="7C4A8D09CA3762AF61E59520943DC26494F8941B"/>
+        <data key="CREATE_USER" expr="${SESS_USER_ID}" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="440afa46-a89a-4e9d-94c9-36fc91755e3c" xPos="230" yPos="480" Width="180" Height="40">
+      <desc>分配角色</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userMenuAdd" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="85781730-526e-4bbd-acf5-2683cc0917e8" xPos="230" yPos="600" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="95dc6d78-0e6e-41ea-9367-826e3325037a" to="7a1d3db1-3803-4bbb-8c71-e53357b4e3d7"/>
+    <line desc="用户不存在" condition="${NUM ==0}" from="7a1d3db1-3803-4bbb-8c71-e53357b4e3d7" to="f8cfe05a-4c3c-4ab0-9a02-b2d637864119"/>
+    <line desc="用户已存在" condition="${NUM &gt;0}" from="7a1d3db1-3803-4bbb-8c71-e53357b4e3d7" to="949bdf44-c7bf-4e46-9978-c3efff07ebab"/>
+    <line desc="" condition="" from="f8cfe05a-4c3c-4ab0-9a02-b2d637864119" to="440afa46-a89a-4e9d-94c9-36fc91755e3c"/>
+    <line desc="" condition="" from="440afa46-a89a-4e9d-94c9-36fc91755e3c" to="85781730-526e-4bbd-acf5-2683cc0917e8"/>
+  </lines>
+</diagram>

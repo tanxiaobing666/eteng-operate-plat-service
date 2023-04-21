@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/roleList" desc="角色列表" busi="6">
+	<snd>
+		<field name="ROLE_NO" desc="角色编号" length="8" />
+		<field name="ROLE_NAME" desc="角色名称"  length="64" />
+		<field name="APPL_ORG_NO" desc="应用机构编号" length="6" />
+		<field name="ROLE_LVL" desc="角色等级" length="16" />
+		<field name="NEXT_KEY" desc="起始位置数值"/>
+		<field name="PAGE_SIZE" desc="每页数量" />
+	</snd>
+	<rcv>
+	     <field name="TOTAL_NUM" desc="总页数"  />
+		<field name="HAS_NEXT" desc="结束标志" />
+		<field name="LIST" type="E" desc="列表数据">
+		    <field name="ROLE_ID" desc="主键数值" required="true" />
+			<field name="ROLE_NAME" desc="角色名称" required="true" />
+			<field name="ORG_ID" desc="机构编号" required="true" />
+			<field name="ORG_ID_TXT" desc="机构名称" required="true" />
+		    <field name="REMARK" desc="备注" required="true" />
+			<field name="CREATE_BY" desc="创建人" required="true" />
+			<field name="CREATE_DATE" desc="创建时间" required="true" />
+			<field name="UPDATE_BY" desc="更新人" required="true"  />
+			<field name="UPDATE_DATE" desc="更新时间" required="true"  />
+			<field name="INCORP_NO" desc="法人编号" required="true"/>
+			<field name="INCORP_NO_TXT" desc="法人名称" required="true" />
+			<field name="DEL_FLAG" desc="删除标记" required="true"/>
+		</field>
+	</rcv>
+</trans>

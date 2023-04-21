@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="logout.flw" desc="安全退出">
+  <nodes>
+    <node id="394555b6-3c77-4a98-9f67-7b25a295efe1" xPos="490" yPos="110" Width="180" Height="40">
+      <desc>安全退出</desc>
+      <beanId>logoutOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

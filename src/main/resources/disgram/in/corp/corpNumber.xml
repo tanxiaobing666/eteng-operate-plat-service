@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpNumber" desc="查看合作总数" busi="6">
+	<snd>
+	</snd>
+	<rcv>
+		<field name="CORP_NUM" desc="合作企业总数" typ="C"/>
+		<field name="CORP_WECHAT_NUM" desc="企微号总数" typ="C"/>
+		<field name="USER_NUM" desc="使用员工总数" typ="C"/>
+	</rcv>
+</trans>

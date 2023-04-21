@@ -1,0 +1,23 @@
+<trans name="in/information/browseCount" desc="浏览统计（次数/人数）" busi="6">
+    <snd>
+		
+		<field name="BANK_ID" desc="企业ID" type="C" comment="" required="false"/>
+		<field name="CORP_ID" desc="企业微信编号" type="C" comment="" required="false"/>
+		<field name="START_TIME" desc="起始时间" type="C" comment="" required="false"/>
+		<field name="END_TIME" desc="结束时间" type="C" comment="" required="false"/>
+	</snd>
+    <rcv>    	       
+		<field-list name="BROWSE_LIST" desc="浏览统计列表" type="E">
+			<field name="CLS_ID" desc="分类ID" type="C" comment="" />
+			<field name="CLS_NAME"  desc="分类名称" type="C" comment=""/>
+			<field name="BROWSE_NUM"  desc="浏览统计（次数/人数）" type="C" comment=""/>
+        </field-list>
+                
+        <field-list name="SHARE_LIST" desc="分享统计列表" type="E">
+			<field name="CLS_ID" desc="分类ID" type="C" comment="" />
+			<field name="CLS_NAME"  desc="分类名称" type="C" comment=""/>
+			<field name="SHARE_NUM"  desc="浏览统计（次数/人数）" type="C" comment=""/>
+        </field-list>    	
+       
+    </rcv>
+</trans>

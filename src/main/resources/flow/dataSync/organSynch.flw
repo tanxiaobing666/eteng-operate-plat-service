@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="d4a26d84-ac5f-40fc-a5cc-a91a9f079d33" xPos="400" yPos="180" Width="230" Height="40">
+      <desc>社群通-机构数据同步</desc>
+      <beanId>organSynchOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

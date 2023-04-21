@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/roleLoad" desc="角色详情" busi="6">
+	<snd>
+		<field name="ROLE_ID" desc="主键数值" target="primKyNumval" required="true" />
+	</snd>
+	<rcv>
+			<field name="ROLE_ID" desc="主键数值" />
+			<field name="ROLE_NO" desc="角色编号" />
+			<field name="REMARK" desc="备注" />
+			<field name="ROLE_NAME" desc="角色名称" />
+			<field name="ROLE_DESC" desc="角色描述" />
+			<field name="LIST" type="E" desc="角色描述" >
+				<field name="MENU_ID" desc="角色描述" />
+				<field name="MENU_TYPE" desc="" />
+				<!-- <field name="MENU_NAME" desc="角色" /> -->
+			</field>
+	</rcv>
+</trans>

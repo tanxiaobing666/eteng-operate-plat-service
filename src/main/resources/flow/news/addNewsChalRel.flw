@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="691f3fc3-a235-4c81-86d5-9788d0fd9020" xPos="480" yPos="430" Width="50" Height="50">
+      <desc>新增关联资讯</desc>
+      <beanId>addNewsChalRelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

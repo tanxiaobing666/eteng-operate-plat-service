@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="996e1eb5-f4f6-4cf3-b165-f0cac1d9ac69" xPos="410" yPos="270" Width="50" Height="50">
+      <desc>删除企业号</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="corpWechat.corpWechatDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

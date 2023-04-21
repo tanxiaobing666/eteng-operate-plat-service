@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/roleUserSave" desc="保存角色分配的用户" busi="0">
+	<snd>
+		<field name="ROLE_ID" desc="角色名称" />
+		<field name="ROLE_NAME" desc="角色名称" />
+
+		<field-list name="LIST" desc="用户列表" type="E">
+			<field name="MENU_ID" desc="菜单编号" />
+			<field name="MENU_NAME" desc="菜单名称" />
+		</field-list>
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

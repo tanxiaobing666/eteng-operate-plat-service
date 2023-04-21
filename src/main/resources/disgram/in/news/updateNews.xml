@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="updateNews" desc="修改资讯" busi="2">
+    <!-- 请求头 -->
+    <snd>
+        <field name="NEWS_ID" desc="资讯ID" type="C"/>
+        <field name="TITLE" desc="资讯标题" type="C"/>
+        <field name="CLS_ID" desc="资讯分类ID" type="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E">
+            <field name="TAG_ID" desc="资讯标签ID" type="C"/>
+            <field name="TAG_NAME" desc="资讯标签名称" type="C"/>
+        </filed-list>
+        <field name="NEWS_IMAGE" desc="上传封面" type="C"/>
+        <field name="ABSTRACT" desc="文章摘要" type="C"/>
+        <field name="CONTENT" desc="资讯内容" type="C"/>
+        <field name="NEWS_COMMENT" desc="资讯点评" type="C"/>
+        <field name="NEWS_ADD_TYPE" desc="添加方式 1-手动添加 2-系统同步" type="C"/>
+    </snd>
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

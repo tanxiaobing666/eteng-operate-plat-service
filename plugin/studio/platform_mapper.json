@@ -1,0 +1,15 @@
+{
+	"files": [
+		{
+			"path": "{project}/src/main/resources/application.properties",
+			"when": "exists",
+			"type": "properties",
+			"keyMapper": [
+				{
+					"source": "port",
+					"target": "server.port"
+				}
+			]
+		}
+	]
+}

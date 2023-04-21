@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="78918871-1570-47e3-bcad-eb9581445e0d" xPos="430" yPos="220" Width="50" Height="50">
+      <desc>咨询平台数量</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="chnlList.chnlNum" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+    <node id="270b6d28-02fe-46d5-9245-afbeadd5bc42" xPos="430" yPos="320" Width="180" Height="40">
+      <desc>查询资讯分类数量</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="news.newsClsNum" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+    <node id="75c98fa1-f56b-4c92-b457-69de389dc19a" xPos="430" yPos="400" Width="180" Height="40">
+      <desc>查询单条数据</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="news.newsNum" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="78918871-1570-47e3-bcad-eb9581445e0d" to="270b6d28-02fe-46d5-9245-afbeadd5bc42"/>
+    <line desc="" condition="" from="270b6d28-02fe-46d5-9245-afbeadd5bc42" to="75c98fa1-f56b-4c92-b457-69de389dc19a"/>
+  </lines>
+</diagram>

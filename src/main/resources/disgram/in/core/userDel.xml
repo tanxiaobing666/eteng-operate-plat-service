@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="core/userDel" desc="用户-删除" busi="3">
+    <snd>
+		<field name="USER_ID"  desc="用户ID"  comment=""  required="true"  length="20" />
+    </snd>
+    <rcv></rcv>
+</trans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="41e02be7-5d1a-4a6c-ad8a-c1b8f4feee5f" xPos="380" yPos="290" Width="180" Height="40">
+      <desc>编辑企业号</desc>
+      <type/>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="corpWechat.corpWechatUpdate" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

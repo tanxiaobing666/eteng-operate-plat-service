@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+    <select id="userList" parameterType="map" resultType="java.util.HashMap">
+        <![CDATA[
+			SELECT S.USER_ID,S.USER_NAME,S.MOBILE,S.STAT,UR.ROLE_ID,R.ROLE_NAME
+	        FROM ${schema.plat}.SYS_USER S
+            LEFT JOIN ${schema.plat}.SYS_USER_ROLE UR ON UR.USER_ID = S.USER_ID
+            LEFT JOIN ${schema.plat}.SYS_ROLE R ON R.ROLE_ID = UR.ROLE_ID
+		]]>
+        <where>
+            <if test="USER_NAME !=null and USER_NAME != ''">
+                AND ( S.USER_NAME LIKE CONCAT('%',#{USER_NAME},'%') OR S.MOBILE LIKE CONCAT('%',#{USER_NAME},'%'))
+            </if>
+            <if test="ROLE_ID!=null and ROLE_ID!=''">
+                AND R.ROLE_ID = #{ROLE_ID}
+            </if>
+            <if test=" USER_ID !=null and USER_ID != ''">
+                <!-- AND S.USER_ID = #{USER_ID}  -->
+                AND S.USER_ID like CONCAT('%',#{USER_ID},'%')
+            </if>
+        </where>
+
+
+    </select>
+    <select id="userLoad" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+
+                    SELECT
+                        U.USER_ID,
+                        U.LOGIN_IP,
+                        U.USER_NAME,
+                        U.STAT,
+                        U.SEX,
+                        U.MOBILE,
+                        U.EMAIL,
+                        U.ADDR,
+                        U.IDT_TYPE,
+                        U.IDT_NO,
+                        U.CREATE_TIME,
+                        U.CREATE_USER,
+                        U.UPDATE_USER,
+                        U.UPDATE_TIME,
+                        UR.ROLE_ID
+                    FROM
+                        ${schema.plat}.SYS_USER U
+                    LEFT JOIN ${schema.plat}.SYS_USER_ROLE UR ON U.USER_ID = UR.USER_ID
+                    WHERE U.USER_ID = #{USER_ID}
+
+        ]]>
+	</select>
+
+    <!--查询启动节点后的第一个节点事件 -->
+    <select id="queryLoginUserInfo" parameterType="map" resultType="java.util.HashMap">
+        <![CDATA[
+			SELECT
+				u.USER_ID,
+				u.USER_NAME,
+				u.USER_NAME NAME,
+				u.PWD PASSWORD,
+				u.IDT_NO,
+				u.IDT_TYPE,
+				u.PHONE,
+				u.SEX,
+				u.HEAD_IMG,
+				u.STAT
+			FROM
+				${schema.plat}.sys_user u
+			WHERE u.STAT = '0'
+			]]>
+        <if test="USER_NO != null">
+            AND u.USER_NO = #{USER_NO}
+        </if>
+        <if test="USER_NAME != null">
+            AND u.USER_NAME = #{USER_NAME}
+        </if>
+        <if test="APPL_ORG_NO != null">
+            AND u.APPL_ORG_NO = #{APPL_ORG_NO}
+        </if>
+        <if test="ROLE_ID != null">
+            AND o.ROLE_ID = #{ROLE_ID}
+        </if>
+    </select>
+
+    <insert id="userAdd" parameterType="map">
+		<![CDATA[
+
+                     INSERT INTO ${schema.plat}.sys_user (
+                        USER_ID,
+                        PWD,
+                        USER_NAME,
+                        IDT_TYPE,
+                        IDT_NO,
+                        USER_TYPE,
+                        ADDR,
+                        EMAIL,
+                        PHONE,
+                        MOBILE,
+                        SEX,
+                        STAT,
+                        CREATE_TIME,
+                        CREATE_USER,
+                        UPDATE_USER,
+                        UPDATE_TIME
+                    ) VALUES (
+                        #{USER_ID,jdbcType=VARCHAR},
+                        #{DEFAULT_PWD,jdbcType=VARCHAR},
+                        #{USER_NAME,jdbcType=VARCHAR},
+                        #{IDT_TYPE,jdbcType=VARCHAR},
+                        #{IDT_NO,jdbcType=VARCHAR},
+                        '1',
+                        #{ADDR,jdbcType=VARCHAR},
+                        #{EMAIL,jdbcType=VARCHAR},
+                        #{PHONE,jdbcType=VARCHAR},
+                        #{MOBILE,jdbcType=VARCHAR},
+                        #{SEX,jdbcType=VARCHAR},
+                        #{STAT,jdbcType=VARCHAR},
+                        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+                        #{CREATE_USER},
+                        #{CREATE_USER},
+                        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
+                    )
+
+        ]]>
+	</insert>
+
+
+    <!-- 插入到用户菜单表 -->
+    <insert id="userMenuAdd" parameterType="map">
+		INSERT INTO ${schema.plat}.SYS_USER_ROLE
+		(
+			USER_ID,
+			ROLE_ID
+		)values(
+			#{USER_ID,jdbcType=VARCHAR},
+			#{ROLE_ID}
+		)
+	</insert>
+
+
+    <delete id="userDel" parameterType="map">
+      delete from  ${schema.plat}.sys_user where  user_id=#{USER_ID}
+	</delete>
+    <!--在userDel后删除关联角色信息 -->
+    <delete id="userRoleDelById" parameterType="map">
+      delete from  ${schema.plat}.sys_user_role  where user_id=#{USER_ID}
+	</delete>
+
+    <update id="userModi" parameterType="map">
+        UPDATE
+        ${schema.plat}.sys_user
+        SET
+        USER_NAME = #{USER_NAME,jdbcType=VARCHAR},
+        EMAIL = #{EMAIL},
+        MOBILE = #{MOBILE},
+        STAT = #{STAT},
+        <!-- LOGIN_IP = #{LOGIN_IP,jdbcType=VARCHAR},
+        ADDR = #{ADDR,jdbcType=CHAR},
+        EMAIL = #{EMAIL,jdbcType=CHAR}, -->
+        PHONE = #{PHONE,jdbcType=CHAR},
+        UPDATE_USER =#{CREATE_USER},
+        STAT = #{STAT,jdbcType=INTEGER},
+        UPDATE_TIME =DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
+        <!-- MOBILE = #{MOBILE,jdbcType=CHAR},
+        SEX = #{SEX,jdbcType=CHAR},
+        STAT = #{STAT,jdbcType=INTEGER},
+        MKT_ACCT=#{MKT_ACCT,jdbcType=VARCHAR} -->
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+    <update id="userModiRole" parameterType="map">
+        UPDATE ${schema.plat}.sys_user_role
+        <set>
+            ROLE_ID = #{ROLE_ID,jdbcType=VARCHAR}
+        </set>
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+    <update id="updateUserStatus" parameterType="map">
+        UPDATE ${schema.plat}.sys_user
+        <set>
+            <if test="STAT == 0">
+                STAT = '1'
+            </if>
+            <if test="STAT != 0">
+                STAT = '0'
+            </if>
+        </set>
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+    <update id="updateUserInfo" parameterType="map">
+        UPDATE ${schema.plat}.sys_user
+        <set>
+            <if test="LOGIN_TIME != null">
+                LOGIN_TIME = #{LOGIN_TIME,jdbcType=VARCHAR},
+            </if>
+            <if test="LOGIN_IP != null">
+                LOGIN_IP = #{LOGIN_IP,jdbcType=VARCHAR},
+            </if>
+            <if test="LOGIN_DATE != null">
+                LOGIN_DATE = #{LOGIN_DATE,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE USER_NAME = #{LOGIN_ID}
+    </update>
+
+    <update id="resetPwd" parameterType="map">
+        UPDATE ${schema.plat}.sys_user
+        <set>
+            PWD = #{DEFAULT_PWD},
+            ERR_LGN_CNT = '0',
+            STAT = '0'
+        </set>
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+    <select id="roleUserList" parameterType="map" resultType="java.util.HashMap">
+			SELECT
+                t.user_id "id",
+                t.user_name, 
+		        'Y'  "enblFlg"
+			FROM
+				${schema.plat}.SYS_USER t ,
+				${schema.plat}.SYS_USER_ROLE r
+			WHERE
+				t.USER_ID = r.USER_ID
+			AND t.STAT = '0'
+			AND r.ROLE_ID = #{ROLE_ID}
+			union all
+			SELECT   
+			  t.USER_ID id,
+              t.user_name, 
+		      'C'  enFlag 
+		   FROM  
+             ${schema.plat}.SYS_USER t
+         WHERE t.USER_ID not in (select r2.user_id from  ${schema.plat}.SYS_USER_ROLE r2 where  r2.ROLE_ID!=#{ROLE_ID} )
+	</select>
+
+
+    <delete id="userRoleDel" parameterType="map">
+      delete from  ${schema.plat}.sys_user_role where  role_id=#{ROLE_ID}
+	</delete>
+
+    <insert id="userRoleAdd" parameterType="map">
+        INSERT ALL
+        <foreach collection="LIST" item="item" open="" separator=" " close="">
+            INTO ${schema.plat}.sys_user_role(USER_ID,ROLE_ID) VALUES
+            (#{item.USER_ID},#{ROLE_ID,jdbcType=VARCHAR})
+        </foreach>
+        SELECT * FROM DUAL
+    </insert>
+
+    <!--修改密码时，先检测老密码是否正确-->
+    <select id="queryOldPwd" parameterType="map" resultType="map">
+        SELECT USER_NAME FROM ${schema.plat}.sys_user
+        WHERE USER_ID = #{USER_ID} AND PWD = #{PWD_OLD}
+    </select>
+
+    <update id="userPwdModi" parameterType="map">
+        UPDATE ${schema.plat}.sys_user
+        <set>
+            PWD = #{PWD_NEW,jdbcType=VARCHAR}
+        </set>
+        WHERE USER_ID = #{USER_ID}
+        and PWD = #{PWD_OLD}
+    </update>
+
+    <update id="userHeadImgModi" parameterType="map">
+        UPDATE ${schema.plat}.sys_user
+        <set>
+            HEAD_IMG = #{HEAD_IMG,jdbcType=VARCHAR}
+        </set>
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+
+    <select id="checkUser" parameterType="map" resultType="java.util.HashMap">
+		SELECT count(1) NUM   
+		FROM  ${schema.plat}.sys_user
+		WHERE  USER_ID=#{USER_ID}
+	</select>
+
+    <!-- 通过所选的机构查询机构的成员行编号 -->
+    <select id="queryOrgMbankNo" parameterType="map" resultType="java.util.HashMap">
+		SELECT 
+			CORP_ID
+		FROM
+			${schema.plat}.SYS_ORGAN
+		WHERE 
+			ORG_ID=#{ORG_ID}
+	</select>
+
+    <select id="findInformationByLoginName" parameterType="map" resultType="java.util.HashMap">
+	       SELECT S.USER_ID,S.USER_NAME,S.PHONE,S.STAT,S.REMARK,S.EMAIL,S.SEX,S.ADDR,S.IDT_TYPE,S.IDT_NO,S.MKT_ACCT,
+	        O.ORG_ID,O.ORG_NAME,R.ROLE_ID,R.ROLE_NAME
+	        FROM ${schema.plat}.SYS_USER S
+            LEFT JOIN ${schema.plat}.SYS_USER_ROLE UR ON UR.USER_ID = S.USER_ID
+            LEFT JOIN ${schema.plat}.SYS_ROLE R ON R.ROLE_ID = UR.ROLE_ID
+            LEFT JOIN ${schema.plat}.SYS_ORGAN O ON O.ORG_ID = S.ORG_ID
+	        WHERE  S.USER_ID=#{USER_ID}
+	</select>
+
+
+    <!-- 查询用户状态 -->
+    <select id="checkUserStat" parameterType="map" resultType="java.util.HashMap">
+		select
+			STAT
+		from ${schema.plat}.SYS_USER
+		where USER_ID =#{USER_ID}
+	</select>
+
+
+</mapper>

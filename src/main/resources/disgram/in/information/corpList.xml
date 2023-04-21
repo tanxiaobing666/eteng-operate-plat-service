@@ -1,0 +1,13 @@
+<trans name="in/information/corpList" desc="企业查询列表" busi="6">
+    <snd>
+    <field name="BANK_TYPE" desc="统计类型" type="C" comment="" required="false" />
+	</snd>
+    <rcv>
+        <field-list name="BANK_LIST" desc="企业查询列表" type="E">
+        	<field name="BANK_ID" desc="企业ID" type="C" comment=""  />			
+			<field name="BANK_NAME"  desc="企业名称" type="C" comment=""/>
+			<field name="CORP_WECHAT_LIST"  desc="企业产品列表" type="C" comment=""/>
+			
+        </field-list>
+    </rcv>
+</trans>

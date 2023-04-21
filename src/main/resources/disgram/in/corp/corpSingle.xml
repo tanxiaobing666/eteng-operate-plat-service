@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpSingle" desc="查看单个企业" busi="6">
+	<snd>
+		<filed name="BANK_ID" type="C" desc="企业ID" required="ture" />
+	</snd>
+	<rcv>
+		<field name="BANK_ID" desc="企业ID" typ="C"/>
+		<field name="BANK_NAME" desc="企业名称" typ="C"/>
+		<field name="ADMIN_NAME" desc="联系人" typ="C"/>
+		<field name="MOBILE" desc="联系电话" typ="C"/>
+		<field name="ADDRESS" desc="企业地址" typ="C"/>
+		<field name="LOGO_IMG" desc="企业LOGO" typ="C"/>
+		<field name="CORP_DESC" desc="企业描述" typ="C"/>
+		<field name="CORPSTATUS" desc="企业状态" typ="C"/>
+		<field name="USEWECHATNUM" desc="该企业下使用的企微号数量" typ="C"/>
+	</rcv>
+</trans>

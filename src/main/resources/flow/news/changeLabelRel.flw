@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="2d8919ea-cb4d-4ee9-8627-01bcad7380c1" xPos="340" yPos="270" Width="50" Height="50">
+      <desc>新增/修改标签关联</desc>
+      <beanId>changeLabelRelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

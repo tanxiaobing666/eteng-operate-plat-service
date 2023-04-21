@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="e3bcf59c-8c6f-4e82-b3e2-da0299df7906" xPos="450" yPos="350" Width="50" Height="50">
+      <desc>修改数据</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="news.removeNews" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

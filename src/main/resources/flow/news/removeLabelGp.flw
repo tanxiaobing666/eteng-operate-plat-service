@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="3849edad-1b3a-4b7d-ada5-accf98fea684" xPos="560" yPos="290" Width="50" Height="50">
+      <desc>删除标签组</desc>
+      <beanId>removeLabelGp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

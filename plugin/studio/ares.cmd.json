@@ -1,0 +1,133 @@
+[
+	{
+		"name": "服务管理",
+		"comment": "",
+		"icon": "",
+		"theme": "",
+		"type": "catalog",
+		"items": [
+			{
+				"name": "配置",
+				"icon": "",
+				"theme": "danger",
+				"type": "file",
+				"cmd": "plugin/studio/ares.cmd.json"
+			},
+			{
+				"name": "自定义命令调用",
+				"icon": "",
+				"theme": "info disable",
+				"type": "text"
+			}
+		]
+	},{
+		"name": "应用服务",
+		"comment": "",
+		"icon": "",
+		"theme": "",
+		"type": "catalog",
+		"items": [
+			{
+				"name": "启动",
+				"icon": "",
+				"theme": "primary",
+				"type": "javaLaunch",
+				"cmd": "cn.com.yitong.ares.AresSpringCloudApplication",
+				"launchId": "{projectName} launch"
+			},
+			{
+				"name": "以Java Main Class 方式启动",
+				"icon": "",
+				"theme": "info",
+				"type": "tip"
+			}
+		]
+	},
+	{
+		"name": "应用打包",
+		"icon": "",
+		"type": "catalog",
+		"items": [
+			{
+				"name": "prod",
+				"icon": "",
+				"theme": "primary",
+				"type": "mavenLaunch",
+				"cmd": "clean package -P prod -D maven.test.skip=true",
+				"launchId": "{projectName} pkg prod",
+				"profile": "prod"
+			},
+			{
+				"name": "test",
+				"icon": "",
+				"theme": "warn",
+				"type": "mavenLaunch",
+				"cmd": "clean package -P test -D maven.test.skip=true",
+				"launchId": "{projectName} pkg test",
+				"profile": "test"
+			}
+		]
+	},
+	{
+		"name": "更多功能",
+		"comment": "",
+		"icon": "",
+		"theme": "",
+		"type": "catalog",
+		"items": [
+			{
+				"name": "交易测试",
+				"icon": "",
+				"theme": "primary",
+				"type": "url",
+				"cmd": "http://localhost:{port}{ctx}/test/debug.html"
+			},
+			{
+				"name": "回归测试",
+				"icon": "",
+				"theme": "warning",
+				"type": "url",
+				"cmd": "http://localhost:{port}{ctx}/test/auto.html"
+			}, 
+			{
+				"name": "数据库监控",
+				"icon": "",
+				"theme": "success",
+				"type": "url",
+				"cmd": "http://localhost:{port}{ctx}/druid/login.html"
+			}
+		]
+	},
+	{
+		"name": "文件同步",
+		"comment": "",
+		"icon": "",
+		"theme": "",
+		"type": "catalog",
+		"items": [
+			{
+				"name": "属性映射配置",
+				"icon": "",
+				"theme": "primary",
+				"type": "file",
+				"cmd": "plugin/studio/platform_mapper.json"
+			}
+		]
+	},
+	{
+		"name": "服务组件",
+		"comment": "",
+		"icon": "",
+		"theme": "",
+		"type": "catalog",
+		"items": [
+			{
+				"name": "服务组件配置",
+				"icon": "",
+				"theme": "primary",
+				"type": "file",
+				"cmd": "plugin/studio/ares.palette.xml"
+			}
+		]
+	}
+]

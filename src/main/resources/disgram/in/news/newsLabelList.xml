@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="newsLabelList" desc="资讯标签分类查询" busi="6">
+    <!-- 请求头 -->
+    <snd>
+        <filed name="GROUP_ID" type="C" desc="组ID" comment=""/>
+        <filed name="TAG_ID" type="C" desc="标签ID" comment=""/>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="资讯分类列表">
+            <field name="GROUP_ID" desc="组id" typ="C"/>
+            <field name="GROUP_NAME" desc="组名称" typ="C"/>
+            <field name="IS_MUTEX" desc="是否互斥" typ="C"/>
+            <filed-list xpath="LABELLIST" name="LABELLIST" type="E" desc="资讯分类列表">
+                <field name="GROUP_ID" desc="组id" typ="C"/>
+                <field name="TAG_ID" desc="标签id" typ="C"/>
+                <field name="TAG_NAME" desc="标签名称" typ="C"/>
+                <field name="TAG_TYPE" desc="标签类别" typ="C"/>
+            </filed-list>
+        </filed-list>
+    </rcv>
+</trans>

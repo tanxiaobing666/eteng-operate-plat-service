@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userMenuList.flw" desc="用户菜单查询">
+  <nodes>
+    <node id="3c2147be-62e5-482f-af9a-f3c9d8450c6a" xPos="270" yPos="140" Width="50" Height="50">
+      <desc>渠道服务平台通讯</desc>
+      <beanId>netTools4NxyOp</beanId>
+      <data-map>
+        <data key="*transCode" expr="core/userMenuList" desc="交易报文路径"/>
+        <data key="*remove" expr="KEY_1,KEY_2" desc="请求字段清理，*为全部字段"/>
+        <data key="*direct" expr="" desc="是否穿透，true为穿透"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

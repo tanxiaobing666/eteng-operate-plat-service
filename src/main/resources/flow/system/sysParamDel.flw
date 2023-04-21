@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="a9823414-6718-4357-bd21-b9d700fda023" xPos="540" yPos="180" Width="50" Height="50">
+      <desc>根据类型删除参数</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.deleteByType" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/news/newsSyncRecord" desc="同步记录" busi="6">
+    <snd>
+        <field name="TITLE" type="C" desc="资讯标题" comment=""/>
+        <field name="PAGE_SIZE" desc="条数" comment=""/>
+        <field name="NEXT_KEY" desc="页数" comment=""/>
+        <field name="CHNL_NO" type="C" desc="渠道编号" comment=""/>
+    </snd>
+    <rcv>
+        <field name="TOTAL_NUM"  desc="总条数"  comment=""/>
+        <field-list name="LIST" desc="同步记录" type="E">
+            <field name="TITLE" type="C" desc="资讯标题" comment=""/>
+            <field name="CHNL_NAME" type="C" desc="资讯来源" comment=""/>
+            <field name="CLS_NAME" type="C" desc="资讯源分类" comment=""/>
+            <field name="UPDATE_TIME" type="C" desc="更新时间" comment=""/>
+        </field-list>
+    </rcv>
+</trans>

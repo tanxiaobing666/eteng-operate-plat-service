@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/system/userRoleMenuList" desc="常用功能菜单查询" busi="6">
+	<snd>
+	</snd>
+	<rcv>
+		<field-list name="LIST" desc="菜单列表" type="E" >
+			<field name="MENU_ID" desc="菜单id" />
+			<field name="ICON" desc="icon"  />
+			<field name="COMPONENT" desc="组件" />
+			<field name="IS_FRAME" desc="是否为外链" />
+			<field name="IS_CACHE" desc="是否缓存" />
+			<field name="MENU_TYPE" desc="菜单类型" />
+			<field name="PERMS" desc="权限标识" />
+			<field name="PATH" desc="路由地址" />
+			<field name="PARENT_ID" desc="父菜单ID" />
+			<field name="MENU_TYPE" desc="菜单类型" />
+			<field name="ORDER_NUM" desc="显示顺序" />
+			<field name="VISIBLE" desc="菜单状态" />
+			<field name="MENU_NAME" desc="菜单名称" />
+		</field-list>
+	</rcv>
+</trans>

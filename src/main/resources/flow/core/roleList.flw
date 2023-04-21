@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="roleList.flw" desc="角色列表">
+  <nodes>
+    <node id="8e96ffa5-0ab2-4491-9232-69098264734e" xPos="480" yPos="90" Width="180" Height="40">
+      <desc>获取当前登录用户的成员行编号</desc>
+      <beanId>emptyOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+    <node id="de2c6375-3c3c-4061-a333-1e766ac66eab" xPos="480" yPos="240" Width="180" Height="40">
+      <desc>查询角色信息</desc>
+      <beanId>dbPageQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleList" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="8e96ffa5-0ab2-4491-9232-69098264734e" to="de2c6375-3c3c-4061-a333-1e766ac66eab"/>
+  </lines>
+</diagram>

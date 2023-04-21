@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info" monitorInterval="30" packages="cn.com.yitong.framework.logging.log4j2.appender">
+	<properties>
+		<!-- 日志存放根目录 -->
+		<property name="LOG_HOME">logs</property>
+		<!-- 应用名称 -->
+		<property name="APP_NAME">application</property>
+		<!--  -->
+		<!-- 普通日志文件名称 -->
+		<property name="FILE_NAME">${APP_NAME}-normal</property>
+		<!-- 错误日志文件名称 -->
+		<property name="ERROR_FILE_NAME">${APP_NAME}-error</property>
+		<!-- 日志打印格式 -->
+		<property name="PATTERN">%d|%-5level|%-15t|%X{client_addr}|%X{device_type}|%X{method}|%X{app_id}|%X{api_id}|%X{channel_serial_no}|[%-31c:%-3L]|%m%ex{20}%n</property>
+		<!-- <property name="PATTERN">%highlight{%d|%-5level|%-15t|%X{local_addr}|%X{client_addr}|%X{device_no}|%X{session_id}|%X{device_type}|%X{app_main_id}|%X{app_id}|%X{api_id}|%X{channel_serial_no}|%X{trans_code}|%X{method}|%X{back_method}|[%-40c:%-3L]|%m%ex{20}%n}</property> -->
+		
+		
+		<!-- 回滚策略开始 -->
+		<!-- 单个文件最大大小，单位GB、MB、KB等，详见log4j2官网 -->
+		<property name="SINGLE_FILE_MAX_SIZE">100MB</property>
+		<!-- 单个日期目录中最大保留文件个数 -->
+		<property name="SINGLE_DAY_FILE_MAX_COUNT">500</property>
+		
+		<!-- 自动删除多少天之前的日志 -->
+		<property name="DELETE_BEFORE_DAY">7d</property>
+		<!-- 回滚策略结束 -->
+		
+	</properties>
+	<appenders>
+		<!-- 控制台 -->
+		<Console  name="CONSOLE" target="SYSTEM_OUT">
+			<!-- <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/> -->
+			<PatternLayout pattern="${PATTERN}"/>
+		</Console>
+		<!-- 文件滚动 -->
+		<RollingFile name="ROLLING_FILE" fileName="${LOG_HOME}/${FILE_NAME}.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"
+					interval="1" />
+				<!-- <CronTriggeringPolicy schedule="${schedule}"/> -->
+				<SizeBasedTriggeringPolicy size="${SINGLE_FILE_MAX_SIZE}" />
+			</Policies>
+			<DefaultRolloverStrategy max="${SINGLE_DAY_FILE_MAX_COUNT}">
+				<Delete basePath="${LOG_HOME}" maxDepth="2">
+					<ifFileName glob="*/*.log">
+						<ifLastModified age="${DELETE_BEFORE_DAY}">
+						</ifLastModified>
+					</ifFileName>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		<!-- 错误日志 -->
+		<RollingFile name="ROLLING_FILE_ERROR" fileName="${LOG_HOME}/${ERROR_FILE_NAME}.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/${ERROR_FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
+						<PatternLayout pattern="${PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"
+					interval="1" />
+				<!-- <CronTriggeringPolicy schedule="${schedule}"/> -->
+				<SizeBasedTriggeringPolicy size="${SINGLE_FILE_MAX_SIZE}" />
+			</Policies>
+			<DefaultRolloverStrategy max="${SINGLE_DAY_FILE_MAX_COUNT}">
+				<Delete basePath="${LOG_HOME}" maxDepth="2">
+					<ifFileName glob="*/*.log">
+						<ifLastModified age="${DELETE_BEFORE_DAY}">
+						</ifLastModified>
+					</ifFileName>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		<!-- 日志归集 bootstrap.servers  Kafka集群地址：格式 ip1:port,ip2:port,...,ipn:port  (默认端口9092) -->
+		<!-- 需要集成统一日志，请放开此下面的注释，集群IP地址，使用“逗号”分割 
+			 syncsend是否同步写日志，true：同步、false：异步，默认异步
+			 retryIntervalSeconds故障（kafka）重试间隔，单位：秒，默认：60秒
+		-->
+      <!--  <KafkaAppender name="KAFKA" topic="logs" syncsend="false"  retryIntervalSeconds="60" ignoreExceptions="false">
+            <Property name="bootstrap.servers">66.3.43.102:9092</Property>
+        </KafkaAppender>-->
+        
+        <!-- FAILOVER 在syncsend=true 只同步模式下启作用，异步模式不启作用 -->
+       <!--  <Failover name="FAILOVER" primary="KAFKA" >
+			<Failovers>
+				<AppenderRef ref="ROLLING_FILE" />
+			</Failovers>
+		</Failover> --> 
+		
+		
+	</appenders>
+	<loggers>
+		<root level="info" >
+			<!-- 输出到控制台 -->
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="ROLLING_FILE" />
+			<appender-ref ref="ROLLING_FILE_ERROR" level="ERROR" />
+			
+			<!-- 需要集成统一日志请放开此注释 -->
+			<!-- <appender-ref ref="FAILOVER" /> -->
+		</root>
+		
+		<!-- Spring日志只打印 -->
+		<logger name="org.springframework" level="INFO"></logger>
+		
+		<!-- 业务日志 -->
+		<asyncLogger name="cn.com.yitong" level="DEBUG" includeLocation="true" additivity="false">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="ROLLING_FILE" />
+			<appender-ref ref="ROLLING_FILE_ERROR" level="ERROR" />
+			
+			<!-- 需要集成统一日志请放开此注释 -->
+			<!-- <appender-ref ref="FAILOVER" /> -->
+		</asyncLogger>
+		
+		<!-- 数据库操作日志 -->
+		<logger name="dao" level="info">
+		</logger>
+
+		<!-- 配置文件密码加密 -->
+		<logger name="com.ulisesbocchio" level="warn"></logger>
+		
+		<!-- 设置nacos日志为警告级别 -->
+		<logger name="com.alibaba.nacos" level="warn"></logger>
+		
+		<logger name="cn.com.yitong.ares.starter.sentinel.mapper" level="info"></logger>
+	</loggers>
+</configuration>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="system/organDel" desc="机构信息表-删除" busi="3">
+    <snd>
+		<field name="ID"  desc="编号"  comment=""  required="true"  length="64" />
+    </snd>
+    <rcv></rcv>
+</trans>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="57c37c72-8a98-4f1e-85d1-e36d16f3292d" xPos="600" yPos="110" Width="180" Height="40">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="2ad5d1a3-5d63-409b-b860-e46ab74556a2" xPos="600" yPos="220" Width="180" Height="40">
+      <desc>查询子菜单数量</desc>
+      <type>condition</type>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="menu.menuChildren" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+    <node id="250eaa32-cc4d-4460-860d-aa01e31144e1" xPos="910" yPos="220" Width="180" Height="40">
+      <desc>删除菜单及其子菜单数据</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="menu.menuDelChildren" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="9f7b32d4-ff7d-4f17-9512-39dd69a728d9" xPos="600" yPos="320" Width="180" Height="40">
+      <desc>删除当前菜单</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="menu.menuDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="165ffb0f-b53f-4560-8aa1-f07b9b208a88" xPos="600" yPos="430" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="57c37c72-8a98-4f1e-85d1-e36d16f3292d" to="2ad5d1a3-5d63-409b-b860-e46ab74556a2"/>
+    <line desc="不存在子菜单" condition="${NUM==0}" from="2ad5d1a3-5d63-409b-b860-e46ab74556a2" to="9f7b32d4-ff7d-4f17-9512-39dd69a728d9"/>
+    <line desc="存在子菜单" condition="${NUM&gt;0}" from="2ad5d1a3-5d63-409b-b860-e46ab74556a2" to="250eaa32-cc4d-4460-860d-aa01e31144e1"/>
+    <line desc="" condition="" from="250eaa32-cc4d-4460-860d-aa01e31144e1" to="165ffb0f-b53f-4560-8aa1-f07b9b208a88"/>
+    <line desc="" condition="" from="9f7b32d4-ff7d-4f17-9512-39dd69a728d9" to="165ffb0f-b53f-4560-8aa1-f07b9b208a88"/>
+  </lines>
+</diagram>

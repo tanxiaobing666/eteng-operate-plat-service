@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userUpd.flw" desc="用户-修改">
+  <nodes>
+    <node id="90dc2948-ff8b-44e7-a708-408e19c85c58" xPos="400" yPos="110" Width="180" Height="40">
+      <desc>修改用户信息</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userModi" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="DEFAULT_PWD" expr="7C4A8D09CA3762AF61E59520943DC26494F8941B"/>
+        <data key="CREATE_USER" expr="${SESS_USER_ID}" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="eccc692b-9476-4f68-9e22-296a11fe5f79" xPos="400" yPos="220" Width="180" Height="40">
+      <desc>修改用户角色信息</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userModiRole" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="90dc2948-ff8b-44e7-a708-408e19c85c58" to="eccc692b-9476-4f68-9e22-296a11fe5f79"/>
+  </lines>
+</diagram>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="roleModi.flw" desc="角色修改">
+  <nodes>
+    <node id="b0df14b4-76d3-4f2d-a8a1-fcae164217c3" xPos="80" yPos="70" Width="180" Height="40">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="33e35ff0-f55e-46a4-a7d3-6b30ef3dc534" xPos="380" yPos="70" Width="180" Height="40">
+      <desc>修改数据</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleModi" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="21d24e58-15f3-479f-ad02-ada8f089e70f" xPos="380" yPos="180" Width="180" Height="40">
+      <desc>删除角色信息</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleMenuDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="528373e9-f055-44ce-8cb2-70d03c9d08ca" xPos="380" yPos="310" Width="180" Height="30">
+      <desc>插入角色菜单列表</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="role.roleMenuAdd" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="19a42421-de00-489e-ab9e-5b201458b7a5" xPos="380" yPos="430" Width="190" Height="30">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="b0df14b4-76d3-4f2d-a8a1-fcae164217c3" to="33e35ff0-f55e-46a4-a7d3-6b30ef3dc534"/>
+    <line desc="" condition="" from="33e35ff0-f55e-46a4-a7d3-6b30ef3dc534" to="21d24e58-15f3-479f-ad02-ada8f089e70f"/>
+    <line desc="" condition="" from="21d24e58-15f3-479f-ad02-ada8f089e70f" to="528373e9-f055-44ce-8cb2-70d03c9d08ca"/>
+    <line desc="" condition="" from="528373e9-f055-44ce-8cb2-70d03c9d08ca" to="19a42421-de00-489e-ab9e-5b201458b7a5"/>
+  </lines>
+</diagram>

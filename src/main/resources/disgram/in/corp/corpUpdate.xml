@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpUpdate" desc="编辑企业" busi="2">
+	<snd>
+		<filed name="BANK_ID" type="C" desc="企业ID" required="ture" />
+		<filed name="BANK_NAME" type="C" desc="企业名称" required="ture" />
+		<filed name="STATUS" type="C" desc="状态" required="ture" />
+		<filed name="ADMIN_NAME" type="C" desc="企业联系人" required="ture" />
+		<filed name="MOBILE" type="C" desc="联系电话" required="ture" />
+		<filed name="ADDRESS" type="C" desc="企业地址" required="ture" />
+		<filed name="LOGO_IMG" type="C" desc="企业LOGO" required="ture" />
+		<filed name="CORP_DESC" type="C" desc="企业描述" required="ture" />
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

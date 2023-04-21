@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userDel.flw" desc="用户-删除">
+  <nodes>
+    <node id="dd98a330-3cda-47bf-beed-1abc84bc180d" xPos="580" yPos="40" Width="180" Height="40">
+      <desc>简单任务</desc>
+      <type>condition</type>
+      <beanId>emptyOp</beanId>
+      <data-map>
+        <data key="USER_SELF_ID" expr="${SESS_USER_ID}" desc="必需项检查"/>
+        <data key="FLAG" expr="1" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="05a9cf8a-d1eb-4742-996d-ec6e74ca7e88" xPos="400" yPos="170" Width="180" Height="40">
+      <desc>事务开启</desc>
+      <beanId>transactionBeginOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="5bf8eb26-c296-48a4-b2a6-361be3f6f7ad" xPos="400" yPos="280" Width="180" Height="40">
+      <desc>用户数据删除</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userDel" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="a5c5a81c-ce1f-48bd-b198-1ac0c08a45ef" xPos="400" yPos="390" Width="180" Height="40">
+      <desc>关联角色删除</desc>
+      <beanId>dbDelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.userRoleDelById" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false"/>
+      </data-map>
+    </node>
+    <node id="8aef4470-f7e7-44b0-bd47-03aafafa448a" xPos="400" yPos="490" Width="180" Height="40">
+      <desc>事务提交</desc>
+      <beanId>transactionEndOp</beanId>
+      <data-map>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+    <node id="f4d778b6-97ca-4179-a864-2c5543678968" xPos="770" yPos="170" Width="180" Height="40">
+      <desc>异常</desc>
+      <beanId>throwMsgOp</beanId>
+      <data-map>
+        <data key="*msgKey" expr="user.cannot.del" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="删除id与自己id不同" condition="${USER_SELF_ID ne USER_ID}" from="dd98a330-3cda-47bf-beed-1abc84bc180d" to="05a9cf8a-d1eb-4742-996d-ec6e74ca7e88"/>
+    <line desc="删除id与自己id相同" condition="${USER_SELF_ID eq USER_ID}" from="dd98a330-3cda-47bf-beed-1abc84bc180d" to="f4d778b6-97ca-4179-a864-2c5543678968"/>
+    <line desc="" condition="" from="05a9cf8a-d1eb-4742-996d-ec6e74ca7e88" to="5bf8eb26-c296-48a4-b2a6-361be3f6f7ad"/>
+    <line desc="" condition="" from="5bf8eb26-c296-48a4-b2a6-361be3f6f7ad" to="a5c5a81c-ce1f-48bd-b198-1ac0c08a45ef"/>
+    <line desc="" condition="" from="a5c5a81c-ce1f-48bd-b198-1ac0c08a45ef" to="8aef4470-f7e7-44b0-bd47-03aafafa448a"/>
+  </lines>
+</diagram>

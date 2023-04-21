@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="loginStatusCheck.flw" desc="登录状态检查">
+  <nodes>
+    <node id="cd191a40-c2ac-4bd4-929c-adf26203b83b" xPos="390" yPos="100" Width="180" Height="40">
+      <desc>登录状态判断</desc>
+      <beanId>loginStatusCheckOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="user.findInformationByLoginName" desc="Mybatis SQL Statement"/>
+      </data-map>
+    </node>
+    <node id="5971fe91-67b0-4bdf-b8ff-1a2c90aeca34" xPos="390" yPos="210" Width="180" Height="40">
+      <desc>查询用户信息</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="login.queryLoginUserInfo" desc="用途说明"/>
+        <data key="LOGIN_ID" expr="${SESS_USER_ID}" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="cd191a40-c2ac-4bd4-929c-adf26203b83b" to="5971fe91-67b0-4bdf-b8ff-1a2c90aeca34"/>
+  </lines>
+</diagram>

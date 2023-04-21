@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="removeLabelGp" desc="标签组删除" busi="3">
+    <!-- 请求头 -->
+    <snd>
+        <field name="GROUP_ID" desc="标签组ID" typ="C" />
+    </snd>
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

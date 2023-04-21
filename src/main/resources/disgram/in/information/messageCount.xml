@@ -1,0 +1,20 @@
+<trans name="in/information/messageCount" desc="银行端资讯统计" busi="6">
+	<snd>
+		<field name="START_TIME" desc="起始时间" type="C" comment="" required="false"/>
+		<field name="END_TIME" desc="结束时间" type="C" comment="" required="false"/>
+
+	</snd>
+	<rcv>
+		<field name="BROWSE_SUM" desc="浏览总数" type="C" comment="" />
+		<field name="SHARE_SUM" desc="分享总数" type="C" comment="" />
+		<field name="AUTH_SUM" desc="授权昵称总数" type="C" comment="" />
+		<field name="AUTH_COUNT" desc="授权手机号总数" type="C" comment="" />
+		<field-list name="MESSAGE_LIST" desc="资讯统计列表" type="E">
+			<field name="COUNT_TIME" desc="统计时间" type="C" comment="" />
+			<field name="AUTH_PHONE_NUM" desc="授权手机号" type="C" comment="" />
+			<field name="AUTH_NICKNAME_NUM" desc="授权昵称" type="C" comment="" />
+			<field name="BROWSE_NUM" desc="浏览次数" type="C" comment="" />
+			<field name="SHARE_NUM" desc="分享次数" type="C" comment="" />
+		</field-list>
+	</rcv>
+</trans>

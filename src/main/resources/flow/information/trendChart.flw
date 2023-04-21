@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="40299b70-d7b8-4bac-94e2-1be297f1c279" xPos="310" yPos="230" Width="250" Height="120">
+      <desc>资讯趋势图</desc>
+      <beanId>trendChartOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

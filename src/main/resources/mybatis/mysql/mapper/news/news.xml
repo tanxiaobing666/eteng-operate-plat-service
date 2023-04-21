@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="news">
+
+    <!--<select id="newsSync" parameterType="map" resultType="java.util.Map">
+        SELECT
+            CHNL_NO,
+            CHNL_NAME,
+            SUM( SYN_SUCCESS_NUM ) AS SYN_SUCCESS_NUM,
+            t.TODAY_SYN_SUCCESS_NUM,
+            SYN_TIME
+        FROM
+            ${schema.news}.news_syn_batch nsb
+            LEFT JOIN (
+            SELECT
+                CHNL_NO CHNL_NO_TEMP,
+                SUM( SYN_SUCCESS_NUM ) AS TODAY_SYN_SUCCESS_NUM
+            FROM
+                ${schema.news}.news_syn_batch
+            WHERE
+                DATE_FORMAT( SYN_TIME, "%Y-%m-%d" )= DATE_FORMAT( NOW(), "%Y-%m-%d" )
+            GROUP BY
+                CHNL_NO
+            ) t ON t.CHNL_NO_TEMP = nsb.CHNL_NO
+        <where>
+            <if test="CHNL_NO !=null and CHNL_NO !=''">CHNL_NO=#{CHNL_NO}</if>
+        </where>
+        GROUP BY
+            CHNL_NO, CHNL_NAME, SYN_TIME
+        ORDER BY DATE_FORMAT( SYN_TIME,"%Y-%m-%d %H:%i:%s" ) desc
+</select>-->
+
+    <select id="newsSync" parameterType="map" resultType="java.util.Map">
+        SELECT
+        SYN_CHNL_NO CHNL_NO,
+        SYN_CHNL_NAME CHNL_NAME,
+        count(*) AS SYN_SUCCESS_NUM,
+        sum(CASE WHEN DATE_FORMAT( CREATE_TIME, "%Y-%m-%d" )= DATE_FORMAT( NOW(), "%Y-%m-%d" ) and SYN_CHNL_NO!='0' and SYN_CHNL_NO!='1'  THEN 1 ELSE 0 END) as TODAY_SYN_SUCCESS_NUM,
+        MAX(UPDATE_TIME) SYN_TIME
+        FROM
+        ${schema.news}.news_info ni
+        <where>
+             ni.SYN_CHNL_NO!='0' and ni.SYN_CHNL_NO!='1'
+            <if test="CHNL_NO !=null and CHNL_NO !=''"> and nsb.SYN_CHNL_NO=#{CHNL_NO}</if>
+        </where>
+        GROUP BY
+        SYN_CHNL_NO
+        ORDER BY DATE_FORMAT( CREATE_TIME,"%Y-%m-%d %H:%i:%s" ) desc
+    </select>
+    <select id="newsSyncRecords" parameterType="map" resultType="java.util.Map">
+        SELECT
+        ni.TITLE,
+        ni.SYN_CHNL_NAME CHNL_NAME,
+        ncc.CLS_NAME,
+        ni.UPDATE_TIME
+        FROM
+        ${schema.news}.news_info ni
+        LEFT JOIN ${schema.news}.news_chnl_cls_rel nccr on nccr.TARGET_CLS_ID = ni.CLS_ID
+        LEFT JOIN ${schema.news}.news_chnl_cls ncc ON ncc.CLS_ID = nccr.SOURCE_CLS_ID
+        <where>
+            SYN_CHNL_NO!='0' and SYN_CHNL_NO!='1'
+            <if test="TITLE!=null and TITLE!=''">
+                AND ni.TITLE LIKE CONCAT('%',#{TITLE},'%')
+            </if>
+            <if test="CHNL_NO!=null and CHNL_NO!=''">
+                AND ni.SYN_CHNL_NO =#{CHNL_NO}
+            </if>
+        </where>
+        group by NEWS_ID
+        ORDER BY DATE_FORMAT( ni.UPDATE_TIME,"%Y-%m-%d %H:%i:%s" ) desc
+    </select>
+
+    <!--<select id="newsSyncRecords" parameterType="map" resultType="java.util.Map">
+        SELECT
+	        nsi.TITLE,
+	        nsb.CHNL_NAME,
+	        ncc.CLS_NAME,
+	        nsi.UPDATE_TIME
+        FROM
+            ${schema.news}.news_sync_info nsi
+	    LEFT JOIN ${schema.news}.news_chnl_cls ncc ON ncc.CLS_ID = nsi.CLASS_ID
+	    LEFT JOIN ${schema.news}.news_syn_batch nsb ON nsb.NEWS_BATCH_ID = nsi.NEWS_BATCH_ID
+	    <where>
+            <if test="TITLE!=null and TITLE!=''">
+                AND nsi.TITLE LIKE CONCAT('%',#{TITLE},'%')
+            </if>
+            <if test="CHNL_NO!=null and CHNL_NO!=''">
+                AND nsb.CHNL_NO =#{CHNL_NO}
+            </if>
+        </where>
+</select>-->
+
+
+    <select id="newsList" parameterType="map" resultType="java.util.HashMap">
+        select
+        ni.NEWS_ID,
+        ni.TITLE,
+        ni.UPDATE_TIME,
+        ni.NEWS_STATUS,
+        ni.NEWS_COMMENT,
+        ni.NEWS_IMAGE,
+        ni.ABSTRACT,
+        ni.CONTENT,
+        ni.SYN_CHNL_NO,
+        ni.SYN_CHNL_NAME,
+        ncl.CLS_ID,
+        ncl.CLS_NAME
+        from ${schema.news}.news_info ni
+        left join ${schema.news}.news_cls_info ncl
+        on ni.CLS_ID=ncl.CLS_ID
+        where (ni.CORP_ID is null or LENGTH(trim(ni.CORP_ID))=0) and ni.DEL_FLAG='0' and  ni.SYN_CHNL_NO !='1'
+        <if test="TITLE !=null and TITLE !=''">and ni.TITLE like concat('%',#{TITLE},'%')</if>
+        <if test="NEWS_ID !=null and NEWS_ID !=''">and ni.NEWS_ID =#{NEWS_ID}</if>
+        <if test="CLS_ID !=null and CLS_ID !=''">and ni.CLS_ID=#{CLS_ID}</if>
+        <if test="SYN_CHNL_NO =='0'.toString()">and ni.SYN_CHNL_NO='0'</if>
+        <if test="SYN_CHNL_NO !=null and SYN_CHNL_NO !='' and SYN_CHNL_NO !='0'.toString()">and ni.SYN_CHNL_NO=#{SYN_CHNL_NO}</if>
+        <if test="NEWS_COMMENT_STATUS =='1'.toString()">and ni.NEWS_COMMENT is not null and LENGTH(trim(ni.NEWS_COMMENT))>0 </if>
+        <if test="NEWS_COMMENT_STATUS =='2'.toString()">and (ni.NEWS_COMMENT is null or LENGTH(trim(ni.NEWS_COMMENT))=0)</if>
+        <if test="NEWS_STATUS !=null and NEWS_STATUS !=''">and ni.NEWS_STATUS=#{NEWS_STATUS}</if>
+        <if test="START_TIME !=null and START_TIME !=''">and DATE_FORMAT(ni.UPDATE_TIME,'%Y-%m-%d') &gt;= #{START_TIME}
+        </if>
+        <if test="END_TIME !=null and END_TIME !=''">and DATE_FORMAT(ni.UPDATE_TIME,'%Y-%m-%d') &lt;= #{END_TIME}
+        </if>
+        order by ni.UPDATE_TIME desc
+    </select>
+
+
+    <update id="updateNewsStatus" parameterType="map">
+        update ${schema.news}.news_info
+        set NEWS_STATUS =#{ALT_NEWS_STATUS},
+        PUT_TIME =#{PUT_TIME},
+        UPDATE_BY =#{UPDATE_BY},
+        UPDATE_TIME =#{UPDATE_TIME}
+        where NEWS_ID in
+        <foreach collection="LIST" open="(" close=")" item="item" separator=",">
+            #{item.NEWS_ID}
+        </foreach>
+    </update>
+
+    <update id="removeNews" parameterType="map">
+        update ${schema.news}.news_info
+        <set>
+            DEL_FLAG ="1"
+        </set>
+        WHERE NEWS_ID in
+        <foreach collection="LIST" open="(" close=")" item="item" separator=",">
+            #{item.NEWS_ID}
+        </foreach>
+    </update>
+
+    <update id="updateNews" parameterType="map" useGeneratedKeys="true" keyProperty="NEWS_ID" keyColumn="NEWS_ID">
+        update ${schema.news}.news_info
+        <set>
+            <if test="TITLE !=null and TITLE !=''">TITLE=#{TITLE},</if>
+            <if test="AUTHOR !=null and AUTHOR !=''">AUTHOR=#{AUTHOR},</if>
+            <if test="ORIGINAL_URL !=null and ORIGINAL_URL !=''">ORIGINAL_URL=#{ORIGINAL_URL},</if>
+            <if test="NEWS_SOURCES !=null and NEWS_SOURCES !=''">NEWS_SOURCES=#{NEWS_SOURCES},</if>
+            <if test="NEWS_STATUS !=null and NEWS_STATUS !=''">NEWS_STATUS=#{NEWS_STATUS},</if>
+            <if test="CLS_ID !=null and CLS_ID !=''">CLS_ID=#{CLS_ID},</if>
+            <if test="TAG_ID !=null and TAG_ID !=''">TAG_ID=#{TAG_ID},</if>
+            <if test="NEWS_IMAGE !=null and NEWS_IMAGE !=''">NEWS_IMAGE=#{NEWS_IMAGE},</if>
+            <if test="ABSTRACT !=null and ABSTRACT !=''">ABSTRACT=#{ABSTRACT},</if>
+            <if test="CONTENT !=null and CONTENT !=''">CONTENT=#{CONTENT},</if>
+            <if test="CORP_ID !=null and CORP_ID !=''">CORP_ID=#{CORP_ID},</if>
+            <!--        <if test="PUT_TIME !=null and PUT_TIME !=''">PUT_TIME,</if>-->
+            <if test="NEWS_ADD_TYPE !=null and NEWS_ADD_TYPE !=''">NEWS_ADD_TYPE=#{NEWS_ADD_TYPE},</if>
+            <if test="DEL_FLAG !=null and DEL_FLAG !=''">DEL_FLAG=#{DEL_FLAG},</if>
+            <if test="PUT_TIME !=null and PUT_TIME !=''">PUT_TIME=#{PUT_TIME},</if>
+            <if test="CREATE_TIME !=null and CREATE_TIME !=''">CREATE_TIME=#{CREATE_TIME},</if>
+            <if test="CREATE_BY !=null and CREATE_BY !=''">CREATE_BY=#{CREATE_BY},</if>
+            <if test="UPDATE_BY !=null and UPDATE_BY !=''">UPDATE_BY=#{UPDATE_BY},</if>
+            <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">UPDATE_TIME=#{UPDATE_TIME},</if>
+            <if test="SYN_TIME !=null and SYN_TIME !=''">SYN_TIME=#{SYN_TIME},</if>
+            <if test="SYN_CHNL_NO !=null">SYN_CHNL_NO=#{SYN_CHNL_NO},</if>
+            <if test="SYN_CHNL_NAME !=null and SYN_CHNL_NAME !=''">SYN_CHNL_NAME=#{SYN_CHNL_NAME}</if>
+            NEWS_COMMENT=#{NEWS_COMMENT}
+        </set>
+        where NEWS_ID=#{NEWS_ID}
+    </update>
+
+    <insert id="addNews" parameterType="map" useGeneratedKeys="true" keyProperty="NEWS_ID" keyColumn="NEWS_ID">
+        insert into ${schema.news}.news_info(
+            NEWS_ID,
+            TITLE,
+            AUTHOR,
+            ORIGINAL_URL,
+            NEWS_SOURCES,
+            NEWS_STATUS,
+            CLS_ID,
+            NEWS_IMAGE,
+            ABSTRACT,
+            CONTENT,
+            CORP_ID,
+            NEWS_ADD_TYPE,
+            DEL_FLAG,
+            PUT_TIME,
+            CREATE_TIME,
+            CREATE_BY,
+            UPDATE_BY,
+            UPDATE_TIME,
+            SYN_TIME,
+            SYN_CHNL_NO,
+            SYN_CHNL_NAME
+        )
+        values (
+                   #{NEWS_ID},
+                   #{TITLE},
+                   #{AUTHOR},
+                   #{ORIGINAL_URL},
+                   #{NEWS_SOURCES},
+                   #{NEWS_STATUS},
+                   #{CLS_ID},
+                   #{NEWS_IMAGE},
+                   #{ABSTRACT},
+                   #{CONTENT},
+                   #{CORP_ID},
+                   #{NEWS_ADD_TYPE},
+                   #{DEL_FLAG},
+                   #{PUT_TIME},
+                   #{CREATE_TIME},
+                   #{CREATE_BY},
+                   #{UPDATE_BY},
+                   #{UPDATE_TIME},
+                   #{SYN_TIME},
+                   #{SYN_CHNL_NO},
+                   #{SYN_CHNL_NAME}
+               )
+    </insert>
+
+
+    <insert id="addNewsLead" parameterType="map">
+        insert into ${schema.news}.news_lead(
+        <if test="LEAD_ID !=null and LEAD_ID !=''">LEAD_ID,</if>
+        <if test="NEWS_ID !=null and NEWS_ID !=''">NEWS_ID,</if>
+        <if test="COMMENT !=null and COMMENT !=''">COMMENT,</if>
+        <if test="ASLEAD_TIME !=null and ASLEAD_TIME !=''">ASLEAD_TIME,</if>
+        <if test="LEAD_STATUS !=null and LEAD_STATUS !=''">LEAD_STATUS,</if>
+        <if test="CREATE_BY !=null and CREATE_BY !=''">CREATE_BY,</if>
+        <if test="UPDTAE_BY !=null and UPDTAE_BY !=''">UPDTAE_BY,</if>
+        <if test="CREATE_TIME !=null and CREATE_TIME !=''">CREATE_TIME,</if>
+        <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">UPDATE_TIME</if>
+        )
+        values (
+        <if test="LEAD_ID !=null and LEAD_ID !=''">#{LEAD_ID},</if>
+        <if test="NEWS_ID !=null and NEWS_ID !=''">#{NEWS_ID},</if>
+        <if test="COMMENT !=null and COMMENT !=''">#{COMMENT},</if>
+        <if test="ASLEAD_TIME !=null and ASLEAD_TIME !=''">#{ASLEAD_TIME},</if>
+        <if test="LEAD_STATUS !=null and LEAD_STATUS !=''">#{LEAD_STATUS},</if>
+        <if test="CREATE_BY !=null and CREATE_BY !=''">#{CREATE_BY},</if>
+        <if test="UPDTAE_BY !=null and UPDTAE_BY !=''">#{UPDTAE_BY},</if>
+        <if test="CREATE_TIME !=null and CREATE_TIME !=''">#{CREATE_TIME},</if>
+        <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">#{UPDATE_TIME}</if>
+        )
+    </insert>
+
+
+    <update id="updateNewsLead" parameterType="map">
+        update ${schema.news}.news_lead
+        <set>
+            <if test="LEAD_ID !=null and LEAD_ID !=''">LEAD_ID=#{LEAD_ID},</if>
+            <if test="NEWS_ID !=null and NEWS_ID !=''">NEWS_ID=#{NEWS_ID},</if>
+            <if test="COMMENT !=null and COMMENT !=''">COMMENT=#{COMMENT},</if>
+            <if test="ASLEAD_TIME !=null and ASLEAD_TIME !=''">ASLEAD_TIME=#{ASLEAD_TIME},</if>
+            <if test="CANCEL_LEAD_TIME !=null and CANCEL_LEAD_TIME !=''">CANCEL_LEAD_TIME=#{CANCEL_LEAD_TIME},</if>
+            <if test="LEAD_STATUS !=null and LEAD_STATUS !=''">LEAD_STATUS=#{LEAD_STATUS},</if>
+            <if test="UPDTAE_BY !=null and UPDTAE_BY !=''">UPDTAE_BY=#{UPDTAE_BY},</if>
+            <if test="UPDATE_TIME !=null and UPDATE_TIME !=''">UPDATE_TIME=#{UPDATE_TIME}</if>
+        </set>
+        WHERE NEWS_ID =#{NEWS_ID}
+    </update>
+
+    <select id="newsLeadList" parameterType="map" resultType="map">
+        select
+        LEAD_ID,
+        NEWS_ID,
+        LEAD_STATUS,
+        ASLEAD_TIME,
+        CANCEL_LEAD_TIME,
+        COMMENT,
+        CORP_ID,
+        CREATE_TIME,
+        CREATE_BY,
+        UPDATE_TIME,
+        UPDTAE_BY
+        from ${schema.news}.news_lead
+        where 1=1
+        <if test="NEWS_ID !=null and NEWS_ID !=''">and NEWS_ID=#{NEWS_ID}</if>
+    </select>
+
+    <select id="newsSourceList" resultType="java.util.HashMap">
+        select PARA_VALUE_NAME,
+               PARA_VALUE
+        from ${schema.news}.sys_param_info
+        where PARA_TYPE = "NEWS_SOURCE"
+    </select>
+
+    <!--查询咨询种类数量-->
+    <select id="newsClsNum" parameterType="map" resultType="map">
+        SELECT COUNT(1) AS NEWSCLS_NUM
+        FROM ${schema.news}.news_cls_info
+        WHERE DEL_FLAG=0
+    </select>
+
+    <!--查询咨询总条数-->
+    <select id="newsNum" parameterType="map" resultType="map">
+        SELECT COUNT(1) AS NEWS_NUM
+        FROM ${schema.news}.news_info ni
+        WhERE ni.DEL_FLAG ='0' and ( ni.CORP_ID is null OR LENGTH(trim(ni.CORP_ID))=0) and  ni.SYN_CHNL_NO !='1'
+    </select>
+
+    <!--查询每种咨询的新闻数量以及今日新增数量-->
+    <select id="newsNumByCls" resultType="map" parameterType="map">
+        SELECT
+            nci.CLS_ID,
+            nci.CLS_NAME,
+            IFNULL( ni.NEWSNUM, 0 ) AS NEWS_NUM,
+            IFNULL(tni.TODAYADDNUM,0) AS TODAY_ADDNUM
+        FROM ${schema.news}.news_cls_info nci
+        LEFT JOIN ( SELECT COUNT( 1 ) NEWSNUM, CLS_ID FROM ${schema.news}.news_info WHERE DEL_FLAG ='0' and ( CORP_ID is null OR LENGTH(trim(CORP_ID))=0) and  SYN_CHNL_NO !='1' GROUP BY CLS_ID ) ni ON nci.CLS_ID = ni.CLS_ID
+        LEFT JOIN (SELECT COUNT(1) TODAYADDNUM ,CLS_ID FROM ${schema.news}.news_info WHERE DEL_FLAG ='0' and ( CORP_ID is null OR LENGTH(trim(CORP_ID))=0) and  SYN_CHNL_NO !='1' AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d') GROUP BY CLS_ID) tni ON tni.CLS_ID=nci.CLS_ID
+        WHERE  nci.DEL_FLAG=0
+        order by  NEWS_NUM desc
+    </select>
+</mapper>

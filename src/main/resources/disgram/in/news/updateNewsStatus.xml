@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="updateNewsStatus" desc="修改资讯上下架" busi="2">
+    <!-- 请求头 -->
+    <snd>
+        <field name="ALT_NEWS_STATUS" desc="资讯状态" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="资讯ID">
+            <field name="NEWS_ID" desc="资讯ID" typ="C"/>
+            <field name="NEWS_STATUS" desc="资讯状态" typ="C"/>
+        </filed-list>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

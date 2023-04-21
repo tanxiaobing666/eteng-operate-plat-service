@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="removeNews" desc="removeNews" busi="3">
+    <!-- 请求头 -->
+    <snd>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="资讯ID列表">
+                <field name="NEWS_ID" desc="资讯ID" typ="C"/>
+        </filed-list>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

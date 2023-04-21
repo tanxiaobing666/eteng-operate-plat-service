@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="head" desc="报文头">
+	<!-- 请求头 -->
+	<snd>
+		<field name="TRANS_URL" desc="TRANS_URL" required="true" />
+	</snd>
+
+	<!-- 响应头 -->
+	<rcv>
+	</rcv>
+</trans>

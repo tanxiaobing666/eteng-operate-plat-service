@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="2e0c2d4a-4aa8-4568-8e1d-0383d521dfbe" xPos="320" yPos="420" Width="50" Height="50">
+      <desc>简单任务</desc>
+      <beanId>updateNewsChalRelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

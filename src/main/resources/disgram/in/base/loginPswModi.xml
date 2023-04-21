@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/base/loginPswModi" desc="重置安全认证密码" busi="2">
+	<snd>
+		<field name="APPL_ORG_NO" desc="应用机构编码 " target="applnBrchEncd" />
+		<field name="AUDI_USER_ID" desc="授权操作人员ID" target="authrzOprtPsnlId" />
+		<field name="AUDI_USER_PWD" desc="管理员密码" target="adminPwd" />
+		<field name="USER_NO" target="lgnNm" desc="登录名称"/>
+		<field name="SECRTY_TTPE_CODE" target="certnTypcd" desc="认证类型代码" default="1" />
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

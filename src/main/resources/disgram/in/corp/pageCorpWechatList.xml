@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/pageCorpWechatList" desc="企业号列表分页查询" busi="6">
+    <snd>
+        <filed name="PAGE_SIZE" type="C" desc="条数" comment=""/>
+        <filed name="NEXT_KEY" type="C" desc="页数" comment=""/>
+        <filed name="CORP_WECHAT_NAME" type="C" desc="企业号名称" comment=""/>
+        <filed name="STATUS" type="C" desc="企业号状态" comment=""/>
+        <filed name="BANK_ID" type="C" desc="所属企业" comment=""/>
+    </snd>
+    <rcv>
+        <field name="ENT_URL" desc="企业端地址连接" typ="C"/>
+        <field name="TOTAL_NUM" desc="总条数" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="企业列表">
+            <field name="CORP_WECHAT_ID" desc="企业微信号主键ID" typ="C"/>
+            <field name="CORP_ID" desc="企业号ID" typ="C"/>
+            <field name="CORP_WECHAT_NAME" desc="企业号名称" typ="C"/>
+            <field name="BANK_NAME" desc="归属企业" typ="C"/>
+            <field name="STATUS" desc="企业号状态" typ="C"/>
+            <field name="CREATE_TIME" desc="创建日期" typ="C"/>
+            <filed name="AGENT_ID" type="C" desc="企业H5应用id" required="ture"/>
+            <filed name="SECRET_H" type="C" desc="H5通讯密钥" required="ture"/>
+        </filed-list>
+    </rcv>
+</trans>

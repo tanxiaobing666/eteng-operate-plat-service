@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="role">
+
+	<select id="roleList" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				o.ROLE_ID,
+				o.ROLE_NAME,
+				o.REMARK,
+				o.CREATE_BY,
+				o.CREATE_DATE,
+				o.UPDATE_BY,
+				o.UPDATE_DATE,
+				o.DEL_FLAG
+			FROM
+				${schema.plat}.sys_role o
+			WHERE
+				o.DEL_FLAG = '1'
+		]]>
+		<if test=" ROLE_NAME !=null and ROLE_NAME != ''">
+			AND o.ROLE_NAME LIKE CONCAT('%',#{ROLE_NAME},'%')
+		</if>	
+		<if test="ROLE_ID != null and ROLE_ID != ''">
+			AND o.ROLE_ID like '%'||#{ROLE_ID}||'%' 
+			<!-- AND o.ROLE_ID  = #{ROLE_ID} -->
+		</if>
+		
+	</select>
+	
+	<select id="roleLoad" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				O.ROLE_ID,
+				O.ROLE_NAME,
+				O.REMARK,
+				O.CREATE_BY,
+				O.CREATE_DATE,
+				O.UPDATE_BY,
+				O.UPDATE_DATE,
+				O.DEL_FLAG
+			FROM
+				${schema.plat}.sys_role  O
+			WHERE o.ROLE_ID = #{ROLE_ID}
+		]]>
+	</select>
+    <select id="checkRole" parameterType="map" resultType="java.util.HashMap">
+		SELECT count(1) NUM   
+		FROM  ${schema.plat}.sys_role
+		WHERE ROLE_ID=#{ROLE_ID}
+	</select>
+	<insert id="roleAdd" parameterType="map" >
+		<![CDATA[
+			 INSERT INTO ${schema.plat}.sys_role (
+				ROLE_ID,
+				ROLE_NAME,
+				REMARK,
+				CREATE_BY,
+				CREATE_DATE,
+				DEL_FLAG
+			) VALUES (
+				#{ROLE_ID,jdbcType=VARCHAR},
+				#{ROLE_NAME,jdbcType=VARCHAR},
+				#{REMARK,jdbcType=VARCHAR},
+				#{CREATE_BY,jdbcType=VARCHAR},
+				DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+				'1'
+			)
+		]]>
+	</insert>
+
+	<update id="roleModi" parameterType="map" >
+		UPDATE 
+			${schema.plat}.sys_role
+		SET
+			ROLE_NAME = #{ROLE_NAME,jdbcType=VARCHAR},
+			REMARK = #{REMARK,jdbcType=VARCHAR}, 
+			UPDATE_BY = #{UPDATE_BY,jdbcType=VARCHAR}, 
+			UPDATE_DATE = DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
+		WHERE 
+			ROLE_ID = #{ROLE_ID}
+
+	</update>
+
+	<delete id="roleDel" parameterType="map">
+      DELETE 
+      FROM  
+      	${schema.plat}.SYS_ROLE
+      WHERE  
+      	ROLE_ID=#{ROLE_ID} 
+
+	</delete>
+
+
+	<select id="roleMenuListAll" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				t.MENU_ID,
+				t.MENU_NAME NAME,
+				t.PARENT_ID,
+				t.SORT
+			FROM
+				${schema.plat}.SYS_MENU t
+			WHERE
+				t.DEL_FLAG = '1'
+		]]>
+	</select>
+	
+	<select id="roleMenuList" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				t.MENU_ID,
+				t.MENU_NAME,
+				t.PARENT_ID,
+				t.SORT
+			FROM
+				${schema.plat}.SYS_MENU t
+			LEFT JOIN ${schema.plat}.SYS_ROLE_MENU R on t.MENU_ID = r.MENU_ID
+			WHERE t.DEL_FLAG = '1'
+		]]>
+		<if test=" ROLE_ID !=null and ROLE_ID !=''">
+			AND r.ROLE_ID = #{ROLE_ID}
+		</if>
+	</select>
+	
+	
+	<select id="roleUserList" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				t.USER_ID,
+				t.USER_NAME
+			FROM
+				${schema.plat}.SYS_USER t,
+				${schema.plat}.SYS_USER_ROLE r
+			WHERE
+				t.USER_ID = r.USER_ID
+			AND t.STAT = '0'
+
+		]]>
+		<if test=" ROLE_ID !=null and ROLE_ID !=''">
+			AND r.ROLE_ID = #{ROLE_ID}
+		</if>
+	</select>
+	
+	<!-- 角色菜单列表查询 -->
+	<select id="roleMenuListQuery" parameterType="map" resultType="java.util.HashMap">
+		SELECT A.MENU_ID,(SELECT MENU_TYPE FROM ${schema.plat}.SYS_MENU WHERE MENU_ID = A.MENU_ID) AS MENU_TYPE
+		FROM ${schema.plat}.sys_role_menu A
+		<where>
+			AND A.ROLE_ID = #{ROLE_ID}
+		</where>
+	</select>
+	
+	<delete id="roleMenuDel" parameterType="map">
+		<![CDATA[
+			DELETE FROM ${schema.plat}.sys_role_menu  WHERE ROLE_ID = #{ROLE_ID}
+		]]>	
+	</delete>
+	
+	<delete id="roleUserDel" parameterType="map">
+		<![CDATA[
+			DELETE FROM ${schema.plat}.SYS_USER_ROLE  WHERE ROLE_ID = #{ROLE_ID}
+		]]>	
+	</delete>
+	
+	<select id="roleUserCnt" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT COUNT(*) AS USER_CNT FROM ${schema.plat}.SYS_USER_ROLE  WHERE ROLE_ID = #{ROLE_ID}
+		]]>
+	</select>
+	
+	<select id="roleMenuCnt" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT COUNT(*) AS MENU_CNT FROM ${schema.plat}.SYS_ROLE_MENU  WHERE ROLE_ID = #{ROLE_ID}
+		]]>
+	</select>
+	
+	<!-- oracle批量插入 -->
+	<insert id="roleMenuAdd" parameterType="map">
+		INSERT INTO ${schema.plat}.sys_role_menu(ROLE_ID,MENU_ID)
+		VALUES 
+		<foreach collection="LIST" item="item" open="" separator="," close="">
+			 (#{ROLE_ID}, #{item.MENU_ID})
+		</foreach>
+	</insert>
+   
+  		<select id="roleListMenu" parameterType="map" resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				o.ROLE_ID,
+				o.ROLE_NAME
+			FROM
+				${schema.plat}.sys_role o
+				WHERE  o.DEL_FLAG = '1'
+		]]>
+		
+	</select>
+</mapper>

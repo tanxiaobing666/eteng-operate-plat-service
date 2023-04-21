@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <modelVersion>4.0.0</modelVersion>  
+  <parent> 
+    <groupId>org.springframework.boot</groupId>  
+    <artifactId>spring-boot-starter-parent</artifactId>  
+    <version>2.3.1.RELEASE</version>  
+    <relativePath/>  
+    <!-- lookup parent from repository --> 
+  </parent>  
+  <groupId>cn.com.yitong.ares</groupId>  
+  <artifactId>eteng-plat-service</artifactId>  
+  <version>6.0.5</version>  
+  <name>eteng-plat-service</name>  
+  <description>Ares Spring Cloud 平台管理端服务工程</description>  
+  <properties> 
+    <java.version>1.8</java.version>  
+    <ares.version>6.0.13</ares.version>  
+    <ares.starter.version>6.0.4</ares.starter.version> 
+    <log4j2.version>2.17.1</log4j2.version>
+  </properties>  
+  <dependencies> 
+    <dependency> 
+      <groupId>cn.com.yitong</groupId>  
+      <artifactId>ares-core</artifactId>  
+      <version>${ares.version}</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>cn.com.yitong</groupId>  
+      <artifactId>ares-web-core</artifactId>  
+      <version>${ares.version}</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>cn.com.yitong</groupId>  
+      <artifactId>ares-action-atom</artifactId>  
+      <version>${ares.version}</version> 
+    </dependency>  
+    <!-- redis集成支持 -->  
+    <dependency> 
+      <groupId>cn.com.yitong.ares</groupId>  
+      <artifactId>ares-spring-boot-starter-redis</artifactId>  
+      <version>${ares.starter.version}</version> 
+    </dependency>  
+    <!-- 数据库连接支持 -->  
+    <dependency> 
+      <groupId>cn.com.yitong.ares</groupId>  
+      <artifactId>ares-spring-boot-starter-jdbc</artifactId>  
+      <version>${ares.starter.version}</version> 
+    </dependency>  
+    <!-- Spring-session分布式会话支持 -->  
+    <dependency> 
+      <groupId>cn.com.yitong.ares</groupId>  
+      <artifactId>ares-spring-boot-starter-spring-session</artifactId>  
+      <version>${ares.starter.version}</version> 
+    </dependency>  
+    <!-- nacos配置中心 -->  
+    <!-- <dependency> <groupId>cn.com.yitong.ares</groupId> <artifactId>ares-spring-boot-starter-nacos</artifactId> <version>${ares.version}</version> 
+			</dependency> -->  
+    <!-- dubbo支持 -->  
+    <!-- <dependency> <groupId>cn.com.yitong.ares</groupId> <artifactId>ares-spring-boot-starter-dubbo</artifactId> <version>${ares.version}</version> 
+			</dependency> <dependency> <groupId>org.apache.dubbo</groupId> <artifactId>dubbo-registry-nacos</artifactId> <version>2.7.7</version> 
+			<exclusions> <exclusion> <groupId>org.apache.dubbo</groupId> <artifactId>dubbo-common</artifactId> </exclusion> <exclusion> 
+			<groupId>org.apache.dubbo</groupId> <artifactId>dubbo-remoting-api</artifactId> </exclusion> <exclusion> <groupId>org.apache.dubbo</groupId> 
+			<artifactId>dubbo-registry-api</artifactId> </exclusion> </exclusions> </dependency> -->  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter</artifactId>  
+      <exclusions> 
+        <exclusion> 
+          <groupId>org.springframework.boot</groupId>  
+          <artifactId>spring-boot-starter-logging</artifactId> 
+        </exclusion> 
+      </exclusions> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-log4j2</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-web</artifactId> 
+    </dependency>  
+    <!-- <dependency> <groupId>org.mybatis.spring.boot</groupId> <artifactId>mybatis-spring-boot-starter</artifactId> <version>2.1.2</version> 
+			</dependency> -->  
+    <dependency> 
+      <groupId>com.oracle.ojdbc</groupId>  
+      <artifactId>ojdbc8</artifactId>  
+      <scope>runtime</scope> 
+    </dependency>  
+    <dependency> 
+      <groupId>mysql</groupId>  
+      <artifactId>mysql-connector-java</artifactId>  
+      <scope>runtime</scope> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-test</artifactId>  
+      <scope>test</scope>  
+      <exclusions> 
+        <exclusion> 
+          <groupId>org.junit.vintage</groupId>  
+          <artifactId>junit-vintage-engine</artifactId> 
+        </exclusion> 
+      </exclusions> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-configuration-processor</artifactId>  
+      <optional>true</optional> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.alibaba.cloud</groupId>  
+      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>  
+      <version>2.2.5.RELEASE</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-actuator</artifactId> 
+    </dependency>  
+    <!-- java工具集 -->  
+    <dependency> 
+      <groupId>cn.hutool</groupId>  
+      <artifactId>hutool-all</artifactId>  
+      <version>5.3.7</version> 
+    </dependency>  
+    <!--java模板引擎  -->  
+    <dependency> 
+      <groupId>org.beetl</groupId>  
+      <artifactId>beetl-core</artifactId>  
+      <version>2.2.3</version> 
+    </dependency>  
+    <!-- 
+		<dependency>
+			<groupId>net.coobird</groupId>
+		   	<artifactId>thumbnailator</artifactId>
+		   	<version>0.4.8</version>
+		</dependency>
+		-->  
+    <!-- zipkin -->  
+    <!-- <dependency>
+			<groupId>cn.com.yitong.ares</groupId>
+			<artifactId>ares-spring-boot-starter-sleuth</artifactId>
+			<version>${ares.starter.version}</version>
+		</dependency> --> 
+  </dependencies>  
+  <dependencyManagement> 
+    <dependencies> 
+      <!-- 导入Spring Cloud的依赖管理 -->  
+      <dependency> 
+        <groupId>org.springframework.cloud</groupId>  
+        <artifactId>spring-cloud-dependencies</artifactId>  
+        <version>Hoxton.SR9</version>  
+        <type>pom</type>  
+        <scope>import</scope> 
+      </dependency> 
+    </dependencies> 
+  </dependencyManagement>  
+  <profiles> 
+    <profile> 
+      <id>local</id>  
+      <properties> 
+        <profiles.active>local</profiles.active> 
+      </properties>  
+      <activation> 
+        <!-- 默认激活的环境 -->  
+        <activeByDefault>true</activeByDefault> 
+      </activation> 
+    </profile>  
+    <profile> 
+      <id>dev</id>  
+      <properties> 
+        <profiles.active>dev</profiles.active> 
+      </properties>  
+      <activation> 
+        <activeByDefault>false</activeByDefault> 
+      </activation> 
+    </profile>  
+    <profile> 
+      <id>sit</id>  
+      <properties> 
+        <profiles.active>sit</profiles.active> 
+      </properties> 
+    </profile>  
+    <profile> 
+      <id>poc</id>  
+      <properties> 
+        <profiles.active>poc</profiles.active> 
+      </properties>  
+      <!-- <activation> 默认激活的环境 <activeByDefault>true</activeByDefault> </activation> --> 
+    </profile>  
+    <profile> 
+      <id>prod</id>  
+      <properties> 
+        <profiles.active>prod</profiles.active> 
+      </properties> 
+    </profile> 
+  </profiles>  
+  <build> 
+    <finalName>${project.artifactId}</finalName>  
+    <resources> 
+      <resource> 
+        <directory>src/main/resources</directory>  
+        <filtering>true</filtering>  
+        <includes> 
+          <include>*.properties</include> 
+        </includes> 
+      </resource>  
+      <resource> 
+        <directory>src/main/resources</directory>  
+        <excludes> 
+          <exclude>*.properties</exclude> 
+        </excludes> 
+      </resource>  
+      <resource> 
+        <directory>src/env/${profiles.active}</directory>  
+        <excludes> 
+          <exclude>assembly.xml</exclude> 
+        </excludes>  
+        <includes> 
+          <include>**</include> 
+        </includes>  
+        <filtering>true</filtering> 
+      </resource> 
+    </resources>  
+    <plugins> 
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-jar-plugin</artifactId>  
+        <configuration> 
+          <includes> 
+            <include>cn/**</include> 
+          </includes>  
+          <!-- 不打包资源文件（配置文件和依赖包分开） -->  
+          <excludes> 
+            <exclude>**/*.xml</exclude>  
+            <exclude>**/*.flw</exclude>  
+            <exclude>**/*.properties</exclude>  
+            <exclude>**/*.yml</exclude> 
+          </excludes>  
+          <outputDirectory>${project.build.directory}</outputDirectory> 
+        </configuration> 
+      </plugin>  
+      <plugin> 
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-maven-plugin</artifactId>  
+        <configuration> 
+          <addResources>true</addResources>  
+          <skip>true</skip> 
+        </configuration> 
+      </plugin>  
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-assembly-plugin</artifactId>  
+        <dependencies/>  
+        <configuration> 
+          <appendAssemblyId>false</appendAssemblyId>  
+          <descriptors> 
+            <descriptor>src/env/assembly.xml</descriptor> 
+          </descriptors> 
+        </configuration>  
+        <executions> 
+          <execution> 
+            <id>make-assembly</id>  
+            <phase>package</phase>  
+            <goals> 
+              <goal>single</goal> 
+            </goals> 
+          </execution> 
+        </executions> 
+      </plugin> 
+    </plugins> 
+  </build> 
+</project>

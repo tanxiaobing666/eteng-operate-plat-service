@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/system/menuLoad" desc="菜单信息表-加载" busi="6">
+    <snd>
+		<field name="MENU_ID"  desc="编号"  comment=""  required="true"  length="32" />
+    </snd>
+    <rcv>
+		<field name="MENU_ID"  desc="菜单ID"  comment=""/>
+		<field name="MENU_NAME"  desc="菜单名称"  comment=""/>
+		<field name="PARENT_ID"  desc="父菜单ID"  comment=""/>
+		<field name="ORDER_NUM"  desc="显示顺序"  comment=""/>
+		<field name="PATH"  desc="路由地址"  comment=""/>
+		<field name="COMPONENT"  desc="组件地址"  comment=""/>
+		<field name="IS_FRAME"  desc="是否为外链"  comment="1是 0否"/>
+		<field name="IS_CACHE"  desc="是否缓存"  comment="1是 0否"/>
+		<field name="MENU_TYPE"  desc="菜单类型"  comment="M目录 C菜单 F按钮"/>
+		<field name="VISIBLE"  desc="菜单状态"  comment="1显示 0隐藏"/>
+		<field name="PERMS"  desc="权限标识"  comment=""/>
+		<field name="ICON"  desc="菜单图标"  comment=""/>
+		<field name="REMARK"  desc="备注"  comment=""/>
+		<field name="STATUS"  desc="状态"  comment="1正常 0停用"/>
+    </rcv>
+</trans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="public">
+
+	<!-- 分页前面包装部分 -->
+	<sql id="pageBegin">
+		<if test="END_ROW != null and END_ROW != ''">
+	        <![CDATA[ select * from ( ]]>
+		</if>
+	</sql>
+
+	<!-- 分页后面包装部分 -->
+	<sql id="pageEnd">
+		<if test="END_ROW != null and END_ROW != '' ">
+			<if test="START_ROW == 0 ">
+	          <![CDATA[ ) row_ where row_.rn <=#{END_ROW} ]]>
+			</if>
+			<if test="START_ROW != 0 ">
+	         <![CDATA[ ) row_  where row_.rn > #{START_ROW} and row_.rn <= #{END_ROW} ]]>
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 分页查询 -->
+	<select id="pageQuery" parameterType="map" resultType="java.util.HashMap">
+		<include refid="pageBegin"></include>
+			select ROW_NUMBER() OVER() AS rn,count(1) over() TOTAL_NUM,t.* from (
+				${SQL}
+			) t
+		<include refid="pageEnd"></include>
+	
+	</select>
+</mapper>
+

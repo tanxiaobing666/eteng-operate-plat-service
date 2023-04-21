@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper表示映射到哪个dao接口-->
+<mapper namespace="dataSync">
+
+	<sql id="selectWhere">
+		<where>
+   			AND CORP_ID =#{CORP_ID}
+   			AND CUST_SATATUS =#{CUST_SATATUS}
+   			AND MOBILE_NO IS NOT NULL
+   			AND MOBILE_NO != ''
+   			<if test="BEGIN_TIME != null and BEGIN_TIME != '' and END_TIME != null and END_TIME != ''">
+	   			<![CDATA[AND
+	   			((
+		   				    DATE_FORMAT(CREATE_TIME,'%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#{END_TIME},'%Y-%m-%d %H:%i:%s')
+		   				AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(#{BEGIN_TIME},'%Y-%m-%d %H:%i:%s')
+	   			) OR (
+		   				    DATE_FORMAT(UPDATE_TIME,'%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#{END_TIME},'%Y-%m-%d %H:%i:%s')
+		   				AND DATE_FORMAT(UPDATE_TIME,'%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(#{BEGIN_TIME},'%Y-%m-%d %H:%i:%s')
+	   			))
+	   			]]>
+   			</if>
+   		</where>
+	</sql>
+	
+	<!-- 查询用户信息 -->
+   <select id="latentReflux" parameterType="java.util.Map" resultType="java.util.HashMap">
+   		SELECT
+   			OPEN_ID,
+   			NICK_NAME,
+   			CUST_NAME,
+   			MOBILE_NO,
+   			HEAD_IMG,
+   			GENDER,
+   			USER_ID AS USER_NO
+   		FROM ${schema.news}.NEWS_CUST_INFO
+   		<include refid="selectWhere"></include>
+   </select>
+   
+   
+   <!-- 查询用户行为数据 -->
+   <select id="selVisitInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
+   		SELECT
+   			V.BUSI_NO,
+   			V.BUSI_TYPE,
+   			V.CUST_ID,
+   			V.USER_ID,
+   			C.MOBILE_NO,
+   			(
+				CASE BUSI_TYPE 
+	   			WHEN 'homepage' THEN '资讯首页'
+	   			WHEN 'news'		THEN (SELECT TITLE FROM ${schema.news}.NEWS_INFO WHERE NEWS_ID = V.BUSI_NO)
+				ELSE ''
+   			END
+   			) AS TITLE
+   		FROM ${schema.news}.NEWS_VISIT V
+   		LEFT JOIN 
+   		(
+   			SELECT CUST_ID, MOBILE_NO FROM ${schema.news}.NEWS_CUST_INFO 
+   			<include refid="selectWhere"></include>
+   		) C
+   		ON V.CUST_ID = C.CUST_ID
+   		<where>
+   			AND V.CORP_ID =#{CORP_ID}
+   			<if test="BEGIN_TIME != null and BEGIN_TIME != '' and END_TIME != null and END_TIME != ''">
+   				AND DATE_FORMAT(V.CREATE_TIME,'%Y-%m-%d %H:%i:%s') &lt;= #{END_TIME}
+   				AND DATE_FORMAT(V.CREATE_TIME,'%Y-%m-%d %H:%i:%s') &gt;= #{BEGIN_TIME}
+   			</if>
+   		</where>
+   			
+   </select>
+   
+</mapper>

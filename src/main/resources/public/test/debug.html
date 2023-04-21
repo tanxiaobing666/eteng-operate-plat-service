@@ -1,0 +1,740 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>ARES调试平台</title>
+
+<link rel="stylesheet" href="css/page.css">
+<link rel="stylesheet" href="css/page-min.css">
+<link rel="stylesheet" href="css/select2.min.css">
+<script src="js/jquery-1.8.2.js"></script>
+<script src="js/juicer-min.js"></script>
+<script src="js/CharToPin.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/test-case.js"></script>
+<script src="js/plus.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/module.js"></script>
+<script src="js/test-case.js"></script>
+<script src="js/util.js"></script>
+
+<style type="text/css">
+
+.left{
+	text-align: left;
+}
+
+.add,.del{
+	cursor: pointer;
+	margin-left: 10px;
+	font-size: large;
+}
+
+.bold{
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+		
+<div class="ui-wrapper" id="main-content">
+		<div class="ui-main-header">
+			<a class="ui-logo-wrapper" data-event="toTop">
+				<span class="ui-logo-min">Ares</span>
+				<span class="ui-logo-lg">服务调试工具</span>
+			</a>
+			<div class="ui-navbar-top">
+				<a class="ui-sidebar-toggle" data-event="navToggle"></a>
+				<div class="ui-sidebar-nav" style="float: left;">
+					<ul class="ui-navbar-nav">
+							<li>
+							<a class="current" data-value="PP" data-event="topNav" >全部</a>
+						</li>
+						<!-- 多个系统，按此模式在此添加 -->
+						<li>
+							<a data-value="PP_acct" data-event="topNav" >客户</a>
+						</li>
+					</ul> 
+				</div>
+				
+			</div>     
+		</div>
+		<div class="ui-main-sidebar">
+			<ul class="ui-sidebar-menu-search">
+				<li class="ui-search-group">
+					<input type="text" id="search-menus" placeholder="支持中英文、拼音模糊查询" />
+					<i class="ui-icon-search" data-event="searchBtn"></i>
+				</li>
+			</ul>
+			<ul class="ui-sidebar-menu"  id="TRAN_AREA">
+			</ul>
+		</div>
+		
+		<div class="ui-content-wrapper">
+			<div class="ui-form">
+				<div class="ui-form-row ui-float">
+					<label class="control-label">交易路径：</label>
+					<div class="ui-form-control">
+						<input type="text" data-name="TRANS_URL" id="trans_url" class="form-control" placeholder="请选择交易" />
+					</div>
+					<div class="ui-form-more">
+						<div class="ui-btn-group">
+							<button class="ui-btn" data-event="sendData">测 试</button>
+							<button class="ui-btn" data-event="queryTrans">查 找</button>
+							<button class="ui-btn" data-event="clean">清 理</button>
+							<!-- <button class="ui-btn">填 值</button> -->
+						</div>
+					</div>
+					<div class="ui-form-result">
+						<i class="ui-result-loadding"></i>
+						<i class="ui-result-success"></i>
+						<i class="ui-result-fail"></i>
+					</div>
+				</div>
+				<div class="ui-form-row ui-float" align="left">
+					<label class="control-label">测试场景：</label>
+					<div class="ui-form-control">
+						<select class="form-control fileName">
+						</select>
+					</div>
+					<div class="ui-form-control">
+						<input type="text" style="width: 100px" data-name="SAVE_NAME" id="trans_url" class="form-control fileName2" placeholder="保存名称" />
+					</div>
+					<div class="ui-form-more">
+						<div class="ui-btn-group">
+							<button class="ui-btn" data-event="save">保存</button>
+						</div>
+					</div>
+					<label class="control-label">历史数据：</label>
+					<div class="ui-form-control">
+						<select class="form-control testData" data-change="showData">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div>
+			<div class="head" >
+				<form id="headForm">
+				<span style="float: left;line-height: 30px;margin-left: 25px;margin-right: 10px;">请求头：</span>
+				<input id="H_CHNL_ID" name="H_CHNL_ID" placeholder="渠道号"
+					title="H_CHNL_ID" data-type="text" size="6" value="" class=" formInput head_form-control"/>
+				<input id="BUSI_TRACE_NO" name="BUSI_TRACE_NO" placeholder="请求流水号"
+					title="BUSI_TRACE_NO" data-type="text" size="10" value="" class=" formInput head_form-control"/>
+				<input id="SESSION" name="SESSION" placeholder="会话编号"
+					title="SESSION" data-type="text" size="10" value="" class=" formInput head_form-control"/>
+				<input id="CLIENT_IP" name=CLIENT_IP placeholder="时间戳"
+					title="CLIENT_IP" data-type="text" size="10" value="127.0.0.1" class=" formInput head_form-control"/>
+			    </form>
+			 </div>
+		
+			<div class="title-bar" style="clear:both;" >
+				<div>
+					<span>交易请求</span>
+				</div>
+			</div>
+			<div class="ui-form-data">
+				<h1>交易请求</h1>
+				<div id="REQ_FORM" class="bg01"></div>
+				<table>
+					<tr>
+						<th align="left">
+							<b>请求报文</b>
+						</th>
+						<th align="left">
+							<b>响应报文</b>
+						</th>
+					</tr>
+					<tr>
+						<td>
+							<textarea id="REQ_DATA" rows="10" cols="60"></textarea>
+						</td>
+						<td>
+							<textarea id="RSP_DATA" rows="10" cols="60"></textarea>
+						</td>
+					</tr>
+				</table>
+				<h1>交易响应</h1>
+				<div id="RSP_FORM" class="bg01"></div>
+			</div>
+		</div>
+</div>
+		
+	<script type="text/javascript">  
+	    var me;
+		$(function() {
+			var panel;
+			var navBar;
+			var sidebarMenu;
+			var transUrl;
+			var tempData = [];
+			var timeWait;
+			
+			var lastBtn;
+			var transConfPath ;
+			 me = {
+				init : function() {
+					panel = $('#main-content');
+					transUrl = panel.find('[data-name=TRANS_URL]');
+					navBar = panel.find('.ui-navbar-nav');
+					sidebarMenu = panel.find('.ui-sidebar-menu');
+					panel.find('.testData').select2();
+					me.initEvent();
+					me.initMenus();
+					me.initFileName();
+				},
+				//初始化事件
+				initEvent : function() {
+					panel.on('click', '[data-event]', function() {
+						var thizz = $(this);
+						var evtName = thizz.attr('data-event');
+						me[evtName] && me[evtName](thizz);
+					})
+					panel.on('change','[data-change=showData]',function(){
+						me.showData($(this));
+					});
+					$('#trans_url').keyup(function(e){
+						var keyCode = e.keyCode;
+						if(keyCode == 13){
+							me.queryTrans();
+						}
+					});
+					panel.on('click', '.ui-sidebar-menu>li', me.loadForm);
+					$('#search-menus').keyup(function(e){
+						var keyCode = e.keyCode;
+						//if(keyCode == 13){
+							var thizz = $(this);
+							var filter = thizz.val();
+							me.queryTrans(filter);
+						//}
+					});
+				},
+				//发送测试信息
+				sendData : function(){
+					$("#RSP_DATA").val("");
+					var url = "../api/" + transUrl.val();
+					if (url.indexOf(".do") == -1) {
+						url += ".do";
+					}
+					var data = $("#REQ_DATA").val();
+					var ajax = new TransAjax();
+					me.openWaitPanel();
+					ajax.sendPostData(url, data, function(rpdata) {
+						me.showResult(rpdata.STATUS);
+						var rst = formatJson(JsonToStr(rpdata),false);
+						$("#RSP_DATA").val(rst);
+						me.closeWaitPanel(500);
+					});
+				},
+				//加载左侧菜单
+				initMenus : function() {
+					
+ 					var as = navBar.find('a');
+					var model = as.eq(0).attr('data-value');
+					var html = loadMenusLi(model);
+					sidebarMenu.html(html); 
+					
+	/* 				var model;
+					$(function() {
+						$("#TRAN_AREA").load("${ctx}test/trans.do");
+						var panel = $("#TEST_PANEL");
+						var group = panel.find("ul.trans_model>li");
+						group.each(function(index) {
+							$(this)
+									.bind(
+											"click",
+											function() {
+												$(this).parent().find("li").removeClass(
+														"selected");
+												$(this).addClass("selected");
+												model = $(this).attr("data-value");
+												if(model == 'ebank'){
+													custTranType = 'E';
+												}else{
+													custTranType = 'P';
+												}
+												var btns = $("#TRAN_AREA button").hide()
+														.filter("." + model).show();
+											});
+						});
+
+					}); */
+					
+					
+					
+				},
+				topNav : function(ele){
+					$('html,body').animate({scrollTop: 0}, 200);
+					navBar.find('>li a').removeClass('current');
+					ele.addClass('current');
+					var model = ele.attr('data-value');
+					var html = loadMenusLi(model);
+					sidebarMenu.html(html);
+				},
+				//初始化测试场景
+				initFileName : function() {
+					var tpl = "{@each datas as item}<option value='$"+"{item.code}'>[$"+"{item.code}] $"+"{item.desc}</option>{@/each}";
+					var html = juicer(tpl, {
+						datas : cases
+					});
+					var fileName = panel.find('.fileName');
+					fileName.html(html);
+					fileName.select2();
+				},
+				//加载报文定义
+				loadForm : function(e) {
+					$('html,body').animate({scrollTop: 0}, 200);
+					var ele = $(e.currentTarget);
+					panel.find('.ui-sidebar-menu>li').removeClass('active');
+					ele.addClass('active');
+					transUrl.val(ele.attr("data-url"));
+					transConfPath = ele.attr("data-path");
+					$("#RSP_DATA").val("");
+					$("#RSP_FORM").html("");
+					$("#REQ_FORM").html("");
+					$("#REQ_DATA").val("{}");
+					if (transConfPath == "") {
+						$("#REQ_FORM").html("*************无报文定义***************");
+						return;
+					}
+					var url = "../test/transConf.do";
+					var data = {
+						"fullTransId" : transConfPath
+					};
+					var ajax = new TransAjax();
+					ajax.sendPostData(url, JsonToStr(data), function(rpdata) {
+						var data = {
+							conf : rpdata
+						};
+						var formTpl = $("#formTpl").html();
+						var html = juicer(formTpl, data);
+						html = html.replace(/null/g, "");
+						$("#REQ_FORM").html(html);
+
+						var rspTpl = $("#rspTpl").html();
+						html = juicer(rspTpl, data);
+						$("#RSP_FORM").html(html);
+						try {
+							me.afterLoadTransConf();
+						} catch (e) {
+							alert(e);
+						}
+					});
+					me.loadTestData();
+					
+
+				 /* 	var ele = $(e.currentTarget);
+					panel.find('.ui-sidebar-menu>li').removeClass('active');
+					ele.addClass('active');
+					transUrl.val(ele.attr("data-url"));
+					var transConfPath = ele.attr("data-path");
+					$("#RSP_DATA").val("");
+					$("#RSP_FORM").html("");
+					$("#REQ_FORM").html("");
+					$("#REQ_DATA").val("{}");
+					if (transConfPath == "") {
+						$("#REQ_FORM").html("*************无报文定义***************");
+						return;
+					}
+					var url = "${ctx}req.do?filePath=" + transUrl.val() + "&v=" + new Date().getTime();
+					$("#REQ_FORM").load(url);
+					$("#RSP_DATA").val("");
+					
+					me.loadTestData();  */
+				},
+				afterLoadTransConf : function(){
+					var form = $("#form");
+					var reqData = $("#REQ_DATA");
+					$(".formInput").live("keyup", function() {
+						me.initFormJson(form, reqData);
+					});
+					me.initFormJson(form, reqData); 
+				},
+				initFormJson : function(form, reqData){
+					var bodyJson = getFormJson(form);
+					var headJson = getFormJson($("#headForm"));
+					// var json = {"head":headJson,"body":bodyJson};
+					var json =bodyJson;
+					var str = formatJson(JsonToStr(json), false);
+					$("#REQ_DATA").val(str);
+				},
+				loadTestData : function(){
+					tempData = [];
+					var transCode = transUrl.val();
+					var url = "../test/qdzhFind.do?transCode=" + transCode;
+					var ajax = new TransAjax();
+					ajax.sendPostData(url, "{}", function(rpdata) {
+						var list = rpdata.LIST;
+						var sb = [];
+						sb[sb.length] = "<option></option>";
+						for (var i = 0; i < list.length; i++) {
+							var map = list[i];
+							tempData[i] = map.CONTENT;
+							sb[sb.length] = '<option value='+i+' url='+map.URL+'>' + map.NAME + '</option>';
+						}
+						panel.find('.testData').html(sb.join());
+						panel.find('.testData').trigger("create");
+					});
+				},
+				searchBtn : function(){
+					var val = $('#search-menus').val();
+					me.queryTrans(val);
+				},
+				queryTrans : function(val){
+					var filter;
+					if(typeof val === "string"){
+						filter = val;
+					}else{
+						filter = transUrl.val();
+					}
+					var html;
+					html = loadMenusLi(filter);
+					sidebarMenu.html(html);
+				},
+				clean : function(){
+					$("#RSP_DATA").val("");
+				},
+				save : function(){
+					var data = $("#REQ_DATA").val();
+					var transCode = transUrl.val();
+					if (data == '' || transCode == '') {
+						alert("没有需要保存的信息");
+						return;
+					}
+					alert(data);
+					var url = "../test/qdzhSave.do?transCode=" + transCode + "&fileName=" + panel.find('.fileName').val()+"_"+panel.find('.fileName2').val();
+					var ajax = new TransAjax();
+					ajax.sendPostData(url, data, function(rpdata) {
+						if (rpdata.STATUS == "1") {
+							alert("保存成功！");
+							me.loadTestData();
+						} else {
+							alert(rpdata.MSG || "保存失败！");
+						}
+					});
+				},
+				showData : function showData(o) {
+					//重新初始化
+					var url = "../test/transConf.do";
+					var data = {
+						"fullTransId" : transConfPath
+					};
+					var ajax = new TransAjax();
+					ajax.sendPostData(url, JsonToStr(data), function(rpdata) {
+						var index = o.val();
+						var value = tempData[index];
+						$("#REQ_DATA").val(formatJson(value,false));
+						$("#RSP_DATA").val("");
+						$("#RSP_FORM").html("");
+						var data = {
+							conf : rpdata
+						};
+						
+						var store = eval("(" + value + ")");
+						var head = store.head;
+						for(var key in head){
+							$("#headForm #" + key).val(head[key]);
+						}
+						
+						var json = store.body;
+						for ( var key in json) {
+							if (json[key] instanceof Array) {
+								var array = json[key];
+								var jsonLength = array.length;
+								$("._" + key).slice(1).remove();
+
+								var par = $("#form ._" + key);
+								for ( var index = 1; index < jsonLength; index++) {
+									par.first().clone().insertAfter(par.last());
+								}
+								par = $("#form ._" + key);
+								for ( var i = 0; i < array.length; i++) {
+									var obj = array[i];
+									for ( var key2 in obj) {
+										
+										if(obj[key2] instanceof Array){
+											
+											var array2 = obj[key2];
+											var jsonLength2 = array2.length;
+											$("._" + key2).slice(1).remove();
+
+											var par2 = $("div ._" + key+"_"+key2).eq(i).parent().nextAll(".divbatch");
+											for ( var index2 = 1; index2 < jsonLength2; index2++) {
+												par2.first().clone().insertAfter(par2.last());
+											}
+											par2 = $("div ._" + key+"_"+key2).eq(i).parent().nextAll(".divbatch");
+											for ( var i2 = 0; i2 < array2.length; i2++) {
+												var obj2 = array2[i2];
+												for ( var k2 in obj2) {
+													par2.eq(i2).find(".__" + k2).val(obj2[k2]);
+												}
+											}
+											
+											
+										}else{
+											par.eq(i).find(".__" + key2).val(obj[key2]);
+										}
+									}
+								}
+							} else {
+								$(".__" + key+"").val(json[""+key+""]);
+							}
+						}
+					});
+				},
+				initFormData : function(json){
+					$(".formInput").each(function() {
+						var name = this.name;
+						var item = $(this);
+						var groupName = item.data("group");
+						if (groupName && groupName.length > 0) {
+							var list = json[groupName];
+							if (list && list.length > 0) {
+								$(this).val(list[0][name] || "");
+							}
+						} else {
+							$(this).val(json[name] || "");
+						}
+					});
+				},
+				navToggle : function(e) {
+					panel.toggleClass('ui-sidebar-mini');
+				},
+				stringLength : function(str){
+					return str.replace(/[^\x00-\xff]/g, "**").length;
+				},
+				openWaitPanel : function(){
+					var tpl = '<div class="ui-wait-wrapper"><div class="ui-wait-layout"></div><div class="ui-wait-center">'+
+							'<i class="logo"></i><div class="msg">加载中...</div></div></div>';
+					$('body').css('overflow','hidden').append(tpl);
+					panel.find('.ui-form-result>i').hide();
+					panel.find('.ui-form-result .ui-result-loadding').css("display","inline-block");
+					timeWait = setTimeout(function(){
+						me.closeWaitPanel();
+					},15000);
+				},
+				closeWaitPanel : function(time){
+					time = time ? time : 0;
+					setTimeout(function(){
+						$('.ui-wait-wrapper').remove();
+						$('body').css('overflow','auto');
+					},time);
+					if(timeWait){
+						clearTimeout(timeWait);
+					}
+				},
+				showResult: function(status){
+					setTimeout(function(){
+						panel.find('.ui-form-result>i').hide();
+						if(status == "1"){
+							panel.find('.ui-form-result .ui-result-success').show();
+						}else{
+							panel.find('.ui-form-result .ui-result-fail').show();
+						}
+					},500);
+				},
+				toTop : function(){
+					$('html,body').animate({scrollTop: 0}, 200);
+				},
+				showMore:function(id,obj) {
+					//var obj = $("." + id);
+					var obj = $(obj).parent().parent().nextAll(".divbatch");
+					if(obj.size() == 0){
+						alert('最后一个节点删除后，无法新增新节点，请注意');
+						return;
+					}
+					if(obj.first().is(':hidden')){
+						obj.first().show();
+						obj.find("input").attr("data-flag","1");
+					}else{
+						var newBatch = obj.last().clone();
+						var index = newBatch.attr("index");
+						obj.last().clone().insertAfter(obj.last());
+						obj.last().attr("index",parseInt(index)+1);
+					}
+					me.initFormJson($("#form"));
+					//setTimeout(initFormJson, 100);
+				},
+				showLess:function(id,obj) {
+					//var obj = $("." + id);
+					var obj = $(obj).parent().parent().nextAll(".divbatch");
+					if (obj.size() == 1) {
+						obj.hide();
+						obj.find("input").attr("data-flag","0");
+						me.initFormJson($("#form"));
+						return;
+					} 
+					obj.last().remove();
+					me.initFormJson($("#form"));
+				}
+			}
+			me.init();
+		});
+		
+		
+	</script>
+	
+<script type="text/juicer" id="formTpl">
+<div id="form" class="form reqForm" style="width: 900px;">
+<div>接口名称：${conf.name } 接口描述：${conf.desc }</div>
+{@each conf.req as item}
+     {@if item.type !='E'}
+		<div style="float: left;">
+			<label class="label" style="width: 300px">${item.desc} [${item.name}]:</label>
+			<input style="width: 200px;" name="${item.name}" data-type="text"
+				class="formInput __${item.name}" data-name="${item.name}"
+				data-maxlength="${item.length }" data-minlength="" placeholder="{@if item.required == true}必输{@/if}"
+				value="${item.defaultValue }" data-required="${item['required']}">
+			   ${item['comment']}
+		</div>
+     {@else}
+		<fieldset style=" border:1px solid #9bdf70;background:#f0fbeb;padding: 10px;padding-left:50px;">
+		<legend>
+		<div >
+			<label class="label bold" style="width: 400px" name="${item.name}"
+				data-type="nodeList">${item.desc} [${item.name}]:</label> 
+				<input type="button" class="add left " value="+" onclick="me.showMore('_${item.name}',this)" /> 
+				<input type="button" class="del left" value="-" onclick="me.showLess('_${item.name}',this)" />
+		</div>
+		</legend>
+		<div class="divbatch _${item.name}" style="border:1px solid #96c2f1;background:#eff7ff;padding: 10px;padding-left:50px;" index="0">
+			
+             {@each item.children as child,index}
+                {@if child.type !='E'}
+					<div>
+						<label class="label" style="width: 300px">${child.desc} [${child.name}]:</label>
+						<input name="${child.name}" data-type="textList"
+							class="formInput __${child.name}" data-name="${child.name}"
+							data-maxlength="${child.length }" data-minlength=""
+							value="${child.defaultValue }" placeholder="{@if child.required == true}必输{@/if}"
+							data-required="${child['required']}">
+						${child['comment']}
+					</div>
+                 {@else}
+
+					<fieldset style="border:1px solid pink;background:#f0fbeb;padding: 10px;">
+					<legend>
+					<div class="_${item.name}_${child.name} bold" >
+						<label class="label" style="width: 400px" name="${child.name}"
+							data-type="subNodeList">${child.desc}
+							[${child.name}]:</label> 
+							<input type="button" class="add" value="+"
+							onclick="me.showMore('_${child.name}${index}',this)" /> 
+							<input type="button" class="del" value="-" onclick="me.showLess('_${child.name}${index}',this)" />
+					</div>
+					</legend>
+
+					<div class="divbatch _${child.name}${index}" style="border:1px solid pink;background:#eff7ff;padding: 10px;padding-left:50px;">
+                        {@each child.children as child2}
+							<label class="label" style="width: 400px">${child2.desc}
+								[${child2.name}]:</label>
+							<input name="${child2.name}" data-type="subTextList" 
+								class="formInput __${child2.name}"
+								data-name="${child2.name}" data-maxlength="${child2.length }"
+								data-minlength="" value="${child2.defaultValue }" placeholder="{@if child2.required == true}必输{@/if}"
+								data-required="${child2['required']}"> ${child2['comment']}
+                        {@/each}
+						<input type="hidden" data-type="subMapEnd"/> 
+					</div>
+						<input type="hidden" data-type="subListEnd"/>
+				</fieldset>
+
+               {@/if}
+             {@/each}
+
+				<input type="hidden" data-type="mapEnd"/>
+		</div>
+				<input type="hidden" data-type="listEnd"/>
+	</fieldset>
+    {@/if}
+{@/each}
+<br>
+</div>
+
+</script>	
+	
+<script type="text/juicer" id="formTpl2">
+	<div id="form" class="form">
+	<div><b>接口名称：${conf.name } <br>接口描述：${conf.desc } </b></div>
+		{@each conf.req as item}
+		<div>
+			<label class="label">${item.desc}</label> 
+			<label class="label">[${item.name}]:</label>
+			{@if item.type=='E'}
+				<label><b>列表结构</b></label>
+				<label data-event="addFormRow" class="btn-s"><span class="ui-btn-pro add">新增${item.name}节点</span></label>
+				<div data-group="${item.name}" class="list">
+				{@each item.children as child}
+					<div class="row">
+						<label class="label">${child.desc}</label> 
+						<label class="label">|--[${child.name}]:</label>
+						<label><input name="${child.name}" data-group="${item.name}" data-type="text" class="formInput" value="${child.defaultValue }"></label>
+						<label>必需项[${child["required"]}]; 最大长度[${child.length }]; 备注[${child["comment"]}];</label>
+					</div>
+				{@/each}
+				</div>
+	
+			{@else}
+
+				<label><input name="${item.name}" data-type="text" class="formInput" value="${item.defaultValue }"> </label>
+				<label>必需项[${item["required"]}]; 最大长度[${item.length }]; 备注[${item["comment"]}];</label>
+			{@/if}
+		</div>
+		{@/each}
+	</div>
+</script>
+	<script type="text/juicer" id="subTpl">
+	{@each children as child}
+		{@if child.type=="E"}
+		  <div>
+			<label class="label">${child.desc}</label> 
+			<label class="label2">|--[${child.name}]:</label>
+			<label><b>++列表结构</b></label>
+			{@include "#subTpl", child} 
+		  </div>
+	    {@else if child.type=="M"}
+		  <div>
+			<label class="label">${child.desc}</label> 
+			<label class="label2">|--[${child.name}]:</label>
+			<label><b>++实体结构</b></label>
+			{@include "#subTpl", child}
+		  </div>
+		{@else}
+		<div>
+			<label class="label">${child.desc} </label> 
+			<label class="label2">|--[${child.name}]:</label>
+			<label>最大长度[${child.length }]; 备注[${child["comment"]}];  </label>
+		</div>
+		{@/if}
+	{@/each}
+</script>
+	<script type="text/juicer" id="rspTpl">
+	{@each conf.rsp as item}
+		{@if item.type=="E"}
+		  <div>
+			<label class="label">${item.desc}</label> 
+			<label class="label2">[${item.name}]:</label>
+			<label><b>列表结构</b></label>
+		  </div>
+          <div class="list2">{@include "#subTpl", item}</div>
+		{@else if item.type=="M"}
+		  <div>
+			<label class="label">${item.desc}</label> 
+			<label class="label2">[${item.name}]:</label>
+			<label><b>实体结构</b></label> 
+		  </div>
+          <div class="list2">{@include "#subTpl", item}</div>
+		{@else}
+		  <div>
+			<label class="label">${item.desc}</label> 
+			<label class="label2">[${item.name}]:</label>
+			<label>最大长度[${item.length }]; 备注[${item["mapKey"]}];  </label>
+		  </div>
+		{@/if}
+	{@/each}
+</script>
+
+</body>
+</html>
+

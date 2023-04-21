@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="1fe25b68-3381-478d-b197-3ad4b93403a2" xPos="440" yPos="120" Width="180" Height="40">
+      <desc>查询当日SAAS资讯潜在客户信息</desc>
+      <beanId>dbListQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="dataSync.latentReflux" desc="Mybatis SQL Statement"/>
+        <data key="*listName" expr="CUST_LIST" desc="结果输出字段名"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+        <data key="CUST_SATATUS" expr="1" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="893dcbda-bc4f-4d5f-9ba9-0bb7ddef77f6" xPos="440" yPos="240" Width="180" Height="40">
+      <desc>查询用户行为数据信息</desc>
+      <beanId>dbListQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="dataSync.selVisitInfo" desc="Mybatis SQL Statement"/>
+        <data key="*listName" expr="VISIT_LIST" desc="结果输出字段名"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+    <node id="4a25b7a2-fdba-4564-9f9e-9b4bdb1b25e7" xPos="440" yPos="380" Width="180" Height="40">
+      <desc>潜客数据和用户行为数据整合</desc>
+      <beanId>setRefluxInfoOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="1fe25b68-3381-478d-b197-3ad4b93403a2" to="893dcbda-bc4f-4d5f-9ba9-0bb7ddef77f6"/>
+    <line desc="" condition="" from="893dcbda-bc4f-4d5f-9ba9-0bb7ddef77f6" to="4a25b7a2-fdba-4564-9f9e-9b4bdb1b25e7"/>
+  </lines>
+</diagram>

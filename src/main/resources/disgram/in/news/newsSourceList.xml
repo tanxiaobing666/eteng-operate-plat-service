@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="newsSourceList" desc="资讯列表" busi="6">
+    <!-- 请求头 -->
+    <snd>
+    </snd>
+    <!-- 响应头 -->
+    <rcv>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="资讯来源列表">
+            <field name="PARA_VALUE" desc="来源ID" typ="C"/>
+            <field name="PARA_VALUE_NAME" desc="来源名称" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

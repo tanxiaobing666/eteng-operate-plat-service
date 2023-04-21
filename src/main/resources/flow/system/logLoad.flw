@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="dcfe4a4e-5cd8-4dfa-b8d0-ab9c13d12e3a" xPos="680" yPos="330" Width="50" Height="50">
+      <desc>日志单条数据查询</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="log.logLoad" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

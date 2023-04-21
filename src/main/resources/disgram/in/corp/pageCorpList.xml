@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/pageCorpList" desc="企业列表分页查询" busi="6">
+    <snd>
+        <filed name="PAGE_SIZE" type="C" desc="条数" comment=""/>
+        <filed name="NEXT_KEY" type="C" desc="页数" comment=""/>
+        <filed name="BANK_NAME" type="C" desc="企业名称" comment=""/>
+        <filed name="STATUS" type="C" desc="企业状态" comment=""/>
+    </snd>
+    <rcv>
+        <field name="TOTAL_NUM" desc="总条数" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="企业列表">
+            <field name="BANK_ID" desc="企业ID" typ="C"/>
+            <field name="BANK_NAME" desc="企业名称" typ="C"/>
+            <field name="ADMIN_NAME" desc="联系人" typ="C"/>
+            <field name="MOBILE" desc="联系电话" typ="C"/>
+            <field name="ADDRESS" desc="企业地址" typ="C"/>
+            <field name="WECHATNUM" desc="企业号总数" typ="C"/>
+            <field name="STATUS" desc="企业状态" typ="C"/>
+            <field name="LOGO_IMG" desc="企业LOGO" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

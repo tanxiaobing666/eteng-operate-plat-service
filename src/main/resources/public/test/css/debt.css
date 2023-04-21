@@ -1,0 +1,81 @@
+.ui-table-debtinfo{
+	width: 100%;
+	line-height: 27px;
+	border-collapse: collapse;
+	font-family: 'Microsoft YaHei' !important; 
+  	font-size:13px;
+  	color:#36648B;
+}
+.ui-table-debtinfo td.td-label{
+	text-align: right;
+	padding-right: 40px;
+}
+
+.ui-table-debtinfo td.td-input{
+	text-align: left;
+	
+}
+.ui-table-debtinfo td.money{
+	font-color:red;
+	color: red;
+}
+/****贷款种类介绍*****/
+.species{
+	border-style: solid;
+	border-color:#CCCCCC;
+	border-width:2pt;
+	height:85px;
+	cursor:pointer;
+	text-align: left;
+	float:right;
+	border-style: solid;
+	border-color:#CCCCCC;
+	margin-top: 5px;
+}
+.species .loan_card_selected{
+	background: #FFCC00;
+	background-image: url('../../../css/images/08/selected.jpg');
+	background-repeat: no-repeat;
+	background-position: bottom right;
+}
+.introduce{
+	margin-left: 25px;
+	
+	width: 70%;
+	height: 500px;
+	float: left;
+}
+/*******贷款申请*******/
+.apply a span{
+	background:url("../../../css/images/08/debt_info.gif") right 0;  
+	padding:7px 8px 7px 0; 
+	margin:0 0 0 8px; 
+	float:left; 
+	height:16px;
+	font-size: 15px;
+}
+
+.debt_info{
+	background:url('../../../css/images/08/debt_info.gif') left 0;  
+	color:#fff; 
+	text-decoration:none;
+	height:30px; 
+	float:left; 
+	cursor:hand;
+	margin:0 5px 0 0;
+}
+
+.apply a:hover{
+	background:url('../../../css/images/08/debt_info.gif') left -30px;
+	height:30px;
+}
+
+.apply a:hover span{
+	background:url('../../../css/images/08/debt_info.gif') right -30px; 
+	color:#000;  
+	padding:7px 8px 7px 0;
+	margin:0 0 0 8px; 
+	height:16px; 
+ }  
+
+

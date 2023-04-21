@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="changeLabelRel" desc="资讯标签关联新增/修改" busi="2">
+    <!-- 请求头 -->
+    <snd>
+        <filed name="GROUP_ID" type="C" desc="组ID" comment=""/>
+        <filed name="TAG_ID" type="C" desc="标签ID" comment=""/>
+        <filed name="TAG_NAME" type="C" desc="标签名称" comment=""/>
+        <field name="TAG_TYPE" desc="标签类别" typ="C"/>
+        <filed-list xpath="CLSLIST" name="LIST" type="E" desc="渠道分类列表">
+            <filed name="CLS_ID" type="C" desc="资讯分类ID" comment=""/>
+        </filed-list>
+        <filed-list xpath="KEYLIST" name="LIST" type="E" desc="">
+            <field name="KEY_WORD" desc="关键词" type="C"/>
+        </filed-list>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

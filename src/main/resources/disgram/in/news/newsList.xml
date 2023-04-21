@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="newsList" desc="资讯列表" busi="6">
+    <!-- 请求头 -->
+    <snd>
+        <filed name="PAGE_SIZE" type="C" desc="条数" comment=""/>
+        <filed name="NEXT_KEY" type="C" desc="页数" comment=""/>
+        <field name="TITLE" desc="资讯标题" typ="C"/>
+        <field name="CLS_ID" desc="资讯分类ID" typ="C"/>
+        <field name="SYN_CHNL_NO" desc="资讯来源" typ="C"/>
+        <field name="NEWS_ID" desc="资讯来源ID" typ="C"/>
+        <field name="NEWS_STATUS" desc="资讯状态" typ="C"/>
+        <field name="NEWS_COMMENT_STATUS" desc="点评状态" typ="C"/>
+        <field name="START_TIME" desc="开始时间" typ="C"/>
+        <field name="END_TIME" desc="结束时间" typ="C"/>
+    </snd>
+    <!-- 响应头 -->
+    <rcv>
+        <field name="TOTAL_NUM" desc="总条数" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="资讯列表">
+            <field name="NEWS_ID" desc="资讯ID" typ="C"/>
+            <field name="CLS_NAME" desc="资讯分类名称" typ="C"/>
+            <field name="CLS_ID" desc="资讯分类ID" typ="C"/>
+            <field name="TITLE" desc="资讯标题" typ="C"/>
+            <filed-list xpath="TAGLIST" name="TAGLIST" type="E" desc="资讯列表">
+                <field name="GROUP_ID" desc="标签组ID" typ="C"/>
+                <field name="TAG_ID" desc="标签ID" typ="C"/>
+                <field name="TAG_NAME" desc="标签名称" typ="C"/>
+            </filed-list>
+            <field name="UPDATE_TIME" desc="更新时间" typ="C"/>
+            <field name="NEWS_STATUS" desc="资讯状态" typ="C"/>
+            <field name="SYN_CHNL_NAME" desc="资讯来源渠道名称" typ="C"/>
+            <field name="SYN_CHNL_NO" desc="资讯来源渠道" typ="C"/>
+            <field name="NEWS_COMMENT" desc="点评内容" typ="C"/>
+            <field name="NEWS_IMAGE" desc="资讯图片" typ="C"/>
+            <field name="ABSTRACT" desc="摘要" typ="C"/>
+            <field name="CONTENT" desc="资讯内容" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

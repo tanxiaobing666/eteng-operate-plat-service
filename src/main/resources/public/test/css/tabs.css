@@ -1,0 +1,57 @@
+/* root element for tabs  */
+#ui-footer-bar ul.tabs-bottom {
+    margin:0 !important;
+    padding:0;
+}
+
+/* single tab */
+ul.tabs-bottom li {
+    float:left;
+    padding:0;
+    margin:0;
+    list-style-type:none;
+}
+
+/* link inside the tab. uses a background image */
+ul.tabs-bottom a {
+    float:left;
+    font-size:14px;
+    display:block;
+    padding:5px 5px;
+    text-decoration:none;
+    border:1px solid #666;
+    border-top:0px;
+    height:18px;
+    min-width:100px;
+    background-color:#555;
+    color:#fff;
+    margin-right:2px;
+    position:relative;
+    outline:0;
+    -moz-border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+	text-shadow: 0 /*{a-bar-shadow-x}*/ -1px /*{a-bar-shadow-y}*/ 1px /*{a-bar-shadow-radius}*/ #000 /*{a-bar-shadow-color}*/;
+}
+
+ul.tabs-bottom a:hover {
+    background-color:#ddd;
+    color:#333;
+	text-shadow: 0 /*{a-bar-shadow-x}*/ -1px /*{a-bar-shadow-y}*/ 1px /*{a-bar-shadow-radius}*/ #fff /*{a-bar-shadow-color}*/;
+}
+
+/* selected tab */
+ul.tabs-bottom a.current { 
+    border-top:1px solid #ddd;
+    top:-1px;
+    color:#000;text-shadow: 0;
+    background-color:#fff;
+    cursor:default;
+	text-shadow: 0 /*{a-bar-shadow-x}*/ -1px /*{a-bar-shadow-y}*/ 1px /*{a-bar-shadow-radius}*/ #fff /*{a-bar-shadow-color}*/;
+}
+
+/* panel of tabs-bottom*/
+#ui-content > div {
+	display: none;  
+}
+ 

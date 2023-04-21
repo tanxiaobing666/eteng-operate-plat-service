@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userRePwd.flw" desc="重置安全认证密码">
+  <nodes>
+    <node id="4b5d2b78-6796-4eed-9526-366fe1015a92" xPos="260" yPos="240" Width="50" Height="50">
+      <desc>修改数据</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.resetPwd" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="DEFAULT_PWD" expr="7C4A8D09CA3762AF61E59520943DC26494F8941B" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

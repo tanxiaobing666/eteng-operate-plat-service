@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <trans name="updateNewsChalRel" desc="修改分类关联渠道" busi="2">
+    <!-- 请求头 -->
+    <snd>
+        <field name="CLS_ID" desc="内部资讯分类ID" typ="C"/>
+        <field name="CLS_NAME" desc="内部资讯分类名称" typ="C"/>
+        <field name="IS_SHOW" desc="是否展示0:不展示1:展示" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E">
+            <field name="CHNL_NO" desc="渠道编号" typ="C"/>
+            <field name="SOURCE_CLS_ID" desc="外部资讯分类ID" typ="C"/>
+        </filed-list>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

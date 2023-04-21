@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="5f06ce80-6caf-4a25-b74c-6c2b59cc8a05" xPos="300" yPos="260" Width="350" Height="100">
+      <desc>浏览统计</desc>
+      <beanId>browseCountOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="7a9c5705-d120-4f3e-ac4d-8fd1ec1ef9c3" xPos="350" yPos="370" Width="180" Height="40">
+      <desc>新增/修改资讯标签</desc>
+      <beanId>changeNewsLabelOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="" desc="Mybatis SQL Statement"/>
+        <data key="*target" expr="" desc="输出结果字段名，非必须"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

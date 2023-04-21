@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chnlList">
+    <select id="chnlSortList" resultType="java.util.HashMap">
+        select CHNL_NO,
+               CHNL_NAME
+        from ${schema.news}.news_chnl
+    </select>
+
+    <select id="chnlList" resultType="java.util.HashMap">
+        select CLS_ID,
+               CLS_NAME
+        from ${schema.news}.news_chnl_cls
+        where CHNL_NO = #{CHNL_NO}
+    </select>
+
+    <!--咨询平台数量-->
+    <select id="chnlNum" parameterType="map" resultType="map">
+        SELECT COUNT(1) AS CHNL_NUM FROM ${schema.news}.news_chnl
+    </select>
+
+    <!-- <select id="getList" parameterType="map" resultType="map">
+            select
+                CLS_ID,
+                CLS_NAME,
+                CHNL_NO
+            from news_chnl_cls
+            where CLS_ID in (select
+                                 SOURCE_CLS_ID
+                             from news_chnl_cls_rel
+                             where TARGET_CLS_ID=#{CLS_ID}
+                )
+    </select> -->
+</mapper>

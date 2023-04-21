@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/system/menuList" desc="菜单-列表" busi="6">
+    <snd>
+    </snd>
+    <rcv>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="菜单列表">
+            <field name="MENU_ID"  desc="菜单ID"  comment=""/>
+            <field name="PATH"  desc="菜单路径"  comment=""/>
+            <field name="PARENT_ID"  desc="父菜单ID"  comment=""/>
+            <field name="MENU_NAME"  desc="菜单名称"  comment=""/>
+            <field name="ICON"  desc="菜单图标"  comment=""/>
+            <field name="ORDER_NUM"  desc="排序"  comment=""/>
+            <field name="PERMS"  desc="权限标识"  comment=""/>
+            <field name="COMPONENT"  desc="组件路径"  comment=""/>
+            <field name="STATUS"  desc="状态"  comment="1正常 0停用"/>
+            <field name="VISIBLE"  desc="菜单状态（1显示 0隐藏）"   />
+            <field name="IS_FRAME"  desc="是否为外链（1是 0否）"   />
+        </filed-list>
+    </rcv>
+</trans>

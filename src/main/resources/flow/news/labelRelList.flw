@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="645d3cc5-eddd-4d47-90e5-19a80807b9b2" xPos="300" yPos="300" Width="50" Height="50">
+      <desc>查询标签关联</desc>
+      <beanId>labelRelListOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

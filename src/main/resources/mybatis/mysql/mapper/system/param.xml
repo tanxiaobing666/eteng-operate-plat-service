@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="param">
+
+    <!-- 查询参数信息 -->
+    <select id="listQuery" parameterType="map" resultType="java.util.HashMap">
+        <![CDATA[
+			SELECT
+				PARA_TYPE,
+				PARA_NAME,
+				PARA_DESC
+			FROM
+				${schema.plat}.sys_param_info
+		]]>
+        <where>
+            <if test="PARA_TYPE != null and PARA_TYPE != ''">
+                PARA_TYPE like CONCAT('%', #{PARA_TYPE}, '%')
+            </if>
+            <if test="PARA_NAME != null and PARA_NAME != ''">
+                AND PARA_NAME like CONCAT('%', #{PARA_NAME}, '%')
+            </if>
+        </where>
+        GROUP BY PARA_TYPE, PARA_NAME, PARA_DESC
+        ORDER BY PARA_TYPE DESC
+    </select>
+    
+    <!-- 参数批量插入 -->
+    <delete id="batchInsert" parameterType="map">
+    	INSERT INTO ${schema.plat}.sys_param_info
+    	(
+    		PARA_ID,
+    		PARA_TYPE,
+			PARA_NAME,
+			PARA_DESC,
+			PARA_VALUE,
+			PARA_VALUE_NAME,
+			PARA_ORDER
+    	)
+    	VALUES
+    	<foreach collection="LIST" item="item" open="" separator="," close="">
+            (#{item.PARA_ID},#{PARA_TYPE,jdbcType=VARCHAR},#{PARA_NAME,jdbcType=VARCHAR},#{PARA_DESC,jdbcType=VARCHAR},
+            #{item.PARA_VALUE}, #{item.PARA_VALUE_NAME}, #{item.PARA_ORDER})
+        </foreach> 
+    </delete>
+    
+    <!-- 根据类型查询记录 -->
+    <select id="queryByType" parameterType="map" resultType="java.util.HashMap">
+    	SELECT COUNT(PARA_ID) AS NUM
+    	FROM ${schema.plat}.sys_param_info
+    	<where>
+    		PARA_TYPE = #{PARA_TYPE}
+    	</where>
+    </select>
+    
+    <!-- 查询参数详情 -->
+    <select id="load" parameterType="map" resultType="java.util.HashMap">
+    	SELECT PARA_TYPE,PARA_NAME,PARA_DESC
+    	FROM ${schema.plat}.sys_param_info
+    	<where>
+    		PARA_TYPE = #{PARA_TYPE}
+    	</where>
+    	GROUP BY PARA_TYPE,PARA_NAME,PARA_DESC
+    </select>
+    
+    <!-- 查询参数值列表 -->
+    <select id="listQueryByType" parameterType="map" resultType="java.util.HashMap">
+    	SELECT PARA_VALUE,PARA_VALUE_NAME,PARA_ORDER
+    	FROM ${schema.plat}.sys_param_info
+    	<where>
+    		PARA_TYPE = #{PARA_TYPE}
+    	</where>
+    	ORDER BY PARA_VALUE
+    </select>
+    
+    <!-- 根据类型删除参数 -->
+    <delete id="deleteByType" parameterType="map">
+    	DELETE FROM ${schema.plat}.sys_param_info
+    	<where>
+    		PARA_TYPE = #{PARA_TYPE}
+    	</where>
+    </delete>
+
+</mapper>

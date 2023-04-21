@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpWechatSingle" desc="查看单个企业号详情" busi="6">
+    <snd>
+        <filed name="CORP_WECHAT_ID" type="C" desc="企业微信号ID" required="ture"/>
+    </snd>
+    <rcv>
+        <field name="CORP_WECHAT_ID" desc="企业微信号ID" typ="C"/>
+        <field name="CORP_ID" desc="所属企业编号" typ="C"/>
+        <field name="BANK_ID" desc="所属企业主键ID" typ="C"/>
+        <field name="SHOP_APP_ID" desc="SHOP_APP_ID" typ="C"/>
+        <field name="CORP_WECHAT_NAME" desc="企业微信号名称" typ="C"/>
+        <field name="SECRET" desc="通讯秘钥" typ="C"/>
+        <field name="WEBANK_SECRET" desc="数据授权秘钥" typ="C"/>
+        <field name="WEBANK_URL" desc="数据授权地址" typ="C"/>
+        <field name="WECHATSTATUS" desc="企业微信状态" typ="C"/>
+        <field name="corpStatus" desc="所属企业状态" typ="C"/>
+        <filed name="AGENT_ID" type="C" desc="企业H5应用id" required="ture"/>
+        <filed name="SECRET_H" type="C" desc="H5通讯密钥" required="ture"/>
+    </rcv>
+</trans>

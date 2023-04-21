@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="5532ba77-f206-4e72-befc-dabe14afffcf" xPos="340" yPos="300" Width="180" Height="40">
+      <desc>新增企业</desc>
+      <beanId>corpAddOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

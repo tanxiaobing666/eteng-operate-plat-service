@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="labelRelList" desc="根据ID查询标签关联" busi="6">
+    <!-- 请求头 -->
+    <snd>
+        <filed name="TAG_ID" type="C" desc="标签ID" comment=""/>
+    </snd>
+    <!-- 响应头 -->
+    <rcv>
+        <field name="GROUP_ID" desc="标签组ID" typ="C"/>
+        <field name="TAG_ID" desc="标签ID" typ="C"/>
+        <field name="TAG_NAME" desc="标签名称" typ="C"/>
+        <field name="TAG_TYPE" desc="标签类别" typ="C"/>
+        <filed-list xpath="CLSLIST" name="CLSLIST" type="E" desc="">
+            <field name="CLS_NAME" desc="资讯分类名称" typ="C"/>
+            <field name="CLS_ID" desc="资讯分类ID" typ="C"/>
+        </filed-list>
+        <filed-list xpath="KEYLIST" name="KEYLIST" type="E" desc="">
+            <field name="KEY_WORD" desc="关键词" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

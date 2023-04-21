@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="system/sysParamDel" desc="通用的参数信息表数据-删除" busi="3">
+    <snd>
+		<field name="PARA_TYPE"  desc="参数值" required="true"/>
+    </snd>
+    <rcv>
+    	
+    </rcv>
+</trans>

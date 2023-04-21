@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="chnlList" desc="渠道分类查询" busi="6">
+    <!-- 请求头 -->
+    <snd>
+        <field name="CHNL_NO" desc="渠道分类id" typ="C"/>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+        <field name="CLS_NAME" desc="渠道名称" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="渠道分类列表">
+            <field name="CLS_ID" desc="渠道id" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

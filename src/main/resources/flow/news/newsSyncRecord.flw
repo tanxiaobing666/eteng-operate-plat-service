@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="19ac7a11-3df9-47d2-9715-ca04d907be8a" xPos="580" yPos="270" Width="50" Height="50">
+      <desc>同步记录</desc>
+      <beanId>newsSyncRecordOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

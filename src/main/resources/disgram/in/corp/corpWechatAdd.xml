@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpWechatAdd" desc="新增企业号" busi="1">
+    <snd>
+        <filed name="CORP_WECHAT_NAME" type="C" desc="企业微信名称" required="ture"/>
+        <filed name="BANK_ID" type="C" desc="银行编号" required="ture"/>
+        <filed name="CORP_ID" type="C" desc="所属企业编号" required="ture"/>
+        <filed name="SHOP_APP_ID" type="C" desc="小店应用APPID" required="ture"/>
+        <filed name="WEBANK_URL" type="C" desc="数据授权地址" required="ture"/>
+        <filed name="WEBANK_SECRET" type="C" desc="数据授权秘钥" required="ture"/>
+        <filed name="SECRET" type="C" desc="通讯秘钥" required="ture"/>
+        <filed name="STATUS" type="C" desc="状态" required="ture"/>
+        <filed name="CREATE_BY" type="C" desc="创建人" required="ture"/>
+        <filed name="AGENT_ID" type="C" desc="企业H5应用id" required="ture"/>
+        <filed name="SECRET_H" type="C" desc="H5通讯密钥" required="ture"/>
+    </snd>
+    <rcv>
+    </rcv>
+</trans>

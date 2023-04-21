@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/system/sysUserInit" desc="企业端初始化管理用户" busi="0">
+	<snd>
+		<filed name="CORP_ID" type="C" desc="CORP_ID" required="ture" />
+	</snd>
+	<rcv>
+	</rcv>
+</trans>

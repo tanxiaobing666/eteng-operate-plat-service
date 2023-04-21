@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="chnlSortList" desc="渠道查询" busi="6">
+    <!-- 请求头 -->
+    <snd>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="渠道分类列表">
+            <field name="CHNL_NO" desc="渠道分类id" typ="C"/>
+            <field name="CHNL_NAME" desc="渠道分类名称" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

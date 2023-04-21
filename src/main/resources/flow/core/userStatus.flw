@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="userStatus.flw" desc="用户-禁用">
+  <nodes>
+    <node id="80dc4fa0-be26-4c0b-8dd0-8c24688b9d0c" xPos="520" yPos="120" Width="180" Height="40">
+      <desc>修改用户状态</desc>
+      <beanId>dbUpdOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="user.updateUserStatus" desc="Mybatis SQL Statement"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

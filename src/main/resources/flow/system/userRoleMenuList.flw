@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="roleMenuList.flw" desc="查询角色分配的菜单">
+  <nodes>
+    <node id="becce428-16f4-4d99-9067-fce2880c9bfa" xPos="420" yPos="130" Width="180" Height="40">
+      <desc>处理用户多角色信息</desc>
+      <beanId>setUserRoleInfoOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

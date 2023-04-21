@@ -1,0 +1,18 @@
+<trans name="in/information/rankTagList" desc="标签统计排行" busi="6">
+    <snd>
+    	<field name="PAGE_SIZE"  desc="条数"  comment=""/>
+		<field name="NEXT_KEY"  desc="页数"  comment=""/>
+		<field name="BANK_ID" desc="企业ID" type="C" comment="" required="false"/>
+		<field name="CORP_ID" desc="企业微信编号" type="C" comment="" required="true"/>
+		<field name="RANK_TIME" desc="统计时间" comment="" required="false" />
+	</snd>
+    <rcv>
+    	<field name="TOTAL_NUM" desc="总条数"  comment="" />
+        <field-list name="LIST" desc="标签统计排行" type="E">
+        	<field name="RANK_ID" desc="排名" type="C" comment=""  />			
+			<field name="TAG_NAME"  desc="标签名称" type="C" comment=""/>
+			<field name="TAG_ID"  desc="标签编号" type="C" comment=""/>
+			<field name="USE_NUM"  desc="使用次数" type="C" comment=""/>
+        </field-list>
+    </rcv>
+</trans>

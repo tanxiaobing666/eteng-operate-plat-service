@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="3430d8fa-a7bb-4d34-ad7b-e2a9950a1337" xPos="370" yPos="150" Width="180" Height="40">
+      <desc>企业端地址</desc>
+      <beanId>entUrlOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+    <node id="0453e1e8-fff0-4024-8b83-408e881c2b16" xPos="370" yPos="240" Width="50" Height="50">
+      <desc>分页数据查询</desc>
+      <beanId>dbPageQueryOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必输项检查"/>
+        <data key="*sqlId" expr="corpWechat.queryPageCorpWechatList" desc="Mybatis SQL Statement"/>
+        <data key="*listName" expr="LIST" desc="结果输出字段名"/>
+        <data key="*dbName" expr="" desc="数据库名，指定数据源"/>
+        <data key="*throw" expr="false" desc="结果为空时，true抛出异常"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="3430d8fa-a7bb-4d34-ad7b-e2a9950a1337" to="0453e1e8-fff0-4024-8b83-408e881c2b16"/>
+  </lines>
+</diagram>

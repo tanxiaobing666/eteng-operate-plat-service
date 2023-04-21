@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+
+	<!--查询启动节点后的第一个节点事件 -->
+	<select id="queryLoginUserInfo" parameterType="map" resultType="java.util.HashMap">
+	 	<![CDATA[
+			SELECT
+				U.USER_ID,
+				U.USER_NAME,
+				U.PWD AS PASSWORD,
+				U.IDT_NO,
+				U.IDT_TYPE,
+				U.PHONE,
+				U.SEX,
+				U.STAT,
+				U.HEAD_IMG,
+				R.ROLE_ID,
+				R.ROLE_NAME
+			FROM
+				${schema.plat}.SYS_USER U,
+				${schema.plat}.SYS_USER_ROLE UR,
+				${schema.plat}.SYS_ROLE R
+			WHERE
+			U.USER_ID = UR.USER_ID
+			AND U.USER_ID = #{LOGIN_ID}
+			AND R.ROLE_ID = UR.ROLE_ID
+			
+		]]>
+	</select>
+
+	<update id="updateUserInfo" parameterType="map" >
+		UPDATE ${schema.plat}.sys_user
+		<set> 
+			<if test="LOGIN_TIME != null">
+				LOGIN_TIME = #{LOGIN_TIME,jdbcType=VARCHAR}, 
+			</if>
+			<if test="LOGIN_IP != null">
+				LOGIN_IP = #{LOGIN_IP,jdbcType=VARCHAR}, 
+			</if>
+			<if test="LOGIN_DATE != null">
+				LOGIN_DATE = #{LOGIN_DATE,jdbcType=VARCHAR}, 
+			</if>
+		</set> 	
+		WHERE USER_ID = #{LOGIN_ID}
+	</update>
+	
+	
+	<!-- 判断当前指标在数据库是否存在 -->
+	<select id="isIndexInfo" parameterType="map" resultType="java.lang.String">
+		select count(1) 
+		from ${schema.plat}.MKP_INDEX_INFO
+		where INDEX_NO=#{id}
+	</select>
+	
+	<!-- 指标数据插入到指标表中 -->
+	<insert id="insertIndexInfo" parameterType="map">
+		insert into ${schema.plat}.MKP_INDEX_INFO
+		(
+			INDEX_NO,
+			INDEX_NAME,
+			INDEX_TYPE,
+			IS_FOLLOW,
+			CREATE_TIME,
+			UPDATE_TIME,
+			PAR_INDEX_NO,
+			PAR_INDEX_NAME,
+			INDEX_CODE
+		)values(
+			#{id},
+			#{name},
+			#{indicator},
+			2,
+			TO_CHAR(sysdate,'YYYY-MM-DD hh24:mi'),
+			TO_CHAR(sysdate,'YYYY-MM-DD hh24:mi'),
+			#{pid},
+			#{parName},
+			#{code}
+		)
+	</insert>
+	
+	
+	<!-- 指标数据已存在，更新当前指标数据信息 -->
+	<update id="updateIndexInfo" parameterType="map">
+		update ${schema.plat}.MKP_INDEX_INFO
+		set
+			INDEX_NAME=#{name},
+			INDEX_TYPE=#{indicator},
+			PAR_INDEX_NO=#{pid},
+			PAR_INDEX_NAME=#{parName},
+			INDEX_CODE=#{code}
+		where INDEX_NO=#{id}
+	</update>
+	
+	
+	<!-- 通过当前登录用户对应的角色信息 -->
+	<select id="queryUserRoleInfo" parameterType="map"  resultType="java.lang.String">
+		select
+			ROLE_ID
+		from ${schema.plat}.SYS_USER_ROLE
+		where
+			USER_ID=#{LOGIN_ID}
+	</select>
+	
+	<!-- 通过角色信息查询菜单信息 -->
+	<select id="selRoleMenuInfo" parameterType="map"  resultType="java.util.HashMap">
+		<![CDATA[
+			SELECT
+				t.MENU_ID,
+				t.ICON,
+				t.COMPONENT,
+				t.IS_FRAME,
+				t.IS_CACHE,
+				t.MENU_TYPE,
+				t.PERMS,
+				t.MENU_NAME,
+				t.PATH,
+				t.PARENT_ID,
+				t.ORDER_NUM,
+				t.VISIBLE
+			FROM
+				${schema.plat}.SYS_MENU t,
+				${schema.plat}.SYS_ROLE_MENU r
+			WHERE
+				t.MENU_ID = r.MENU_ID
+			AND r.ROLE_ID = #{ROLE_ID}	
+			AND t.STATUS='1'
+		]]>
+	    order by t.ORDER_NUM asc
+	</select>
+	
+	<!-- 账号密码正确，错误次数清零 -->
+	<update id="upErrLgnCnt" parameterType="map">
+		UPDATE ${schema.plat}.SYS_USER
+		<set>
+			ERR_LGN_CNT=#{ERR_LGN_CNT}
+		</set>
+		WHERE USER_ID = #{LOGIN_ID}
+	</update>
+	
+	
+	<!-- 更换用户状态 -->
+	<update id="updateState" parameterType="map">
+		UPDATE ${schema.plat}.SYS_USER
+		<set>
+			STAT=#{STAT}
+		</set>
+		WHERE USER_ID = #{LOGIN_ID}
+	</update>
+	
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="in/core/userModi" desc="用户-修改" busi="2">
+	<snd>
+		<field name="USER_ID" desc="用户编号" />
+		<field name="USER_NAME" desc="登陆名"  />
+		<field name="EMAIL" desc="邮箱"  />
+		<field name="IDT_NO"  desc="证件号码" />
+		<field name="MOBILE" desc="手机号码"  />
+		<field name="SEX" desc="性别"  />
+		<field name="STAT" desc="用户状态"   comment="1-正常；0-停用；" />
+		<field name="ORG_ID" desc="机构ID" />
+		<field name="EMP_ID"  desc="用户类型"/>
+		<field name="ADDR" desc="地址"  />
+		<field name="ORG_ID_TXT" desc="机构名称"/>
+		<field name="PARENT_ID"  desc="父编号"/>
+		<field name="ORG_CODE" desc="机构编号" />
+		<field name="IDT_TYPE"   desc="证件类型"/>
+		<field name="ROLE_ID" desc="用户角色ID"   />
+	</snd>
+	<rcv></rcv>
+</trans>

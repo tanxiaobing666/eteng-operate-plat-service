@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="system/sysParamLoad" desc="通用的参数信息表数据-详情" busi="6">
+    <snd>
+		<field name="PARA_TYPE"  desc="参数值" required="true"/>
+    </snd>
+    <rcv>
+    	<field name="PARA_NAME"  desc="参数中文名称"  />
+		<field name="PARA_DESC"  desc="参数英文名称" />
+		<field name="PARA_TYPE"  desc="参数值" />
+		<field name="LIST"  type="E" desc="参数值列表" >
+			<field name="PARA_ID"  desc="参数id"  />
+			<field name="PARA_VALUE"  desc="参数值"  />
+			<field name="PARA_VALUE_NAME"  desc="参数值名称" />
+			<field name="PARA_ORDER"  desc="参数排序" />
+		</field>
+    </rcv>
+</trans>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="transPrev" desc="交易前公共处理">
+  <nodes>
+    <node id="ace4fe98-262c-4628-8b06-5996bcf5731c" xPos="420" yPos="180" Width="180" Height="40">
+      <desc>会话校验</desc>
+      <beanId>userSessCheckOp</beanId>
+      <data-map>
+        <data key="*required" expr="" desc="必需项检查"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines/>
+</diagram>

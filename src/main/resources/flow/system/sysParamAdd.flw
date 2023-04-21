@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram id="" desc="服务说明">
+  <nodes>
+    <node id="ba067a2e-f479-4f5d-ac5b-25ec58cc12b6" xPos="470" yPos="80" Width="180" Height="40">
+      <desc>查询参数类型</desc>
+      <beanId>dbMapQueryOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.queryByType" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="a7d0036f-e419-4134-b260-da6552a55bf8" xPos="470" yPos="180" Width="180" Height="40">
+      <desc>判断参数类型是否存在</desc>
+      <type>condition</type>
+      <beanId>emptyOp</beanId>
+    </node>
+    <node id="8b86cd01-b561-4ea8-aea9-e4e64e70e0ae" xPos="470" yPos="280" Width="180" Height="40">
+      <desc>批量生成id</desc>
+      <beanId>batchSeqGeneOp</beanId>
+      <data-map>
+        <data key="*seqPrefix" expr="P" desc="用途说明"/>
+        <data key="*seqVarName" expr="PARA_ID" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="6e5fa9af-fd2c-4ccb-91ca-b998a8bdce49" xPos="470" yPos="390" Width="180" Height="40">
+      <desc>批量插入数据</desc>
+      <beanId>dbInsOp</beanId>
+      <data-map>
+        <data key="*sqlId" expr="param.batchInsert" desc="用途说明"/>
+      </data-map>
+    </node>
+    <node id="bd297eac-8f60-4c30-8e4f-c22c664111eb" xPos="790" yPos="180" Width="180" Height="40">
+      <desc>异常</desc>
+      <beanId>throwMsgOp</beanId>
+      <data-map>
+        <data key="*msgKey" expr="sys.para.type.exist" desc="用途说明"/>
+      </data-map>
+    </node>
+  </nodes>
+  <lines>
+    <line desc="" condition="" from="ba067a2e-f479-4f5d-ac5b-25ec58cc12b6" to="a7d0036f-e419-4134-b260-da6552a55bf8"/>
+    <line desc="参数类型不存在" condition="${NUM eq 0}" from="a7d0036f-e419-4134-b260-da6552a55bf8" to="8b86cd01-b561-4ea8-aea9-e4e64e70e0ae"/>
+    <line desc="参数类型已经存在" condition="${NUM gt 0}" from="a7d0036f-e419-4134-b260-da6552a55bf8" to="bd297eac-8f60-4c30-8e4f-c22c664111eb"/>
+    <line desc="" condition="" from="8b86cd01-b561-4ea8-aea9-e4e64e70e0ae" to="6e5fa9af-fd2c-4ccb-91ca-b998a8bdce49"/>
+  </lines>
+</diagram>

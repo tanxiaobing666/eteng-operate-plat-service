@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpList" desc="企业列表查询" busi="6">
+    <snd>
+    </snd>
+    <rcv>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="企业列表">
+            <field name="BANK_ID" desc="企业ID" typ="C"/>
+            <field name="BANK_NAME" desc="企业名称" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

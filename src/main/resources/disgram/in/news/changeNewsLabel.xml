@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trans name="changeNewsLabel" desc="资讯标签新增/修改" busi="2">
+    <!-- 请求头 -->
+    <snd>
+        <field name="GROUP_ID" desc="组ID" type="C"/>
+        <field name="GROUP_NAME" desc="组名称" type="C"/>
+        <field name="IS_MUTEX" desc="是否互斥 0：不互斥 1：互斥" type="C"/>
+        <field name="SORT" desc="序号" type="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="资讯列表">
+            <field name="TAG_NAME" desc="标签名称" type="C"/>
+            <field name="TAG_TYPE" desc="标签类型" type="C"/>
+            <field name="SORT" desc="序号" type="C"/>
+        </filed-list>
+    </snd>
+
+    <!-- 响应头 -->
+    <rcv>
+    </rcv>
+</trans>

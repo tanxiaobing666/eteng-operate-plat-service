@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/pageCorpRank" desc="企业排行分页查询" busi="6">
+    <snd>
+        <filed name="PAGE_SIZE" type="C" desc="条数" comment=""/>
+        <filed name="NEXT_KEY" type="C" desc="页数" comment=""/>
+        <filed name="ORDER_BY" type="C" desc="排序字段" comment=""/>
+        <filed name="ORDER_TYPE" type="C" desc="排序类型" comment=""/>
+    </snd>
+    <rcv>
+        <field name="TOTAL_NUM" desc="总条数" typ="C"/>
+        <filed-list xpath="LIST" name="LIST" type="E" desc="企业列表">
+            <field name="BANK_ID" desc="企业ID" typ="C"/>
+            <field name="BANK_NAME" desc="企业名称" typ="C"/>
+            <field name="WECHAT_NUM" desc="企业微信号" typ="C"/>
+            <field name="USER_NUM" desc="使用人数" typ="C"/>
+            <field name="SHARE_NUM" desc="分享次数" typ="C"/>
+            <field name="VISIT_NUM" desc="浏览次数" typ="C"/>
+            <field name="AUTH_NICKNAME_NUM" desc="授权头像昵称数量" typ="C"/>
+            <field name="AUTH_PHONE_NUM" desc="授权手机号数量" typ="C"/>
+        </filed-list>
+    </rcv>
+</trans>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper表示映射到哪个dao接口-->
+<mapper namespace="corpWechat">
+
+    <!--新增企业微信号或者编辑企业微信号时，检查该企业号是否已存在-->
+    <select id="queryWechatCorpId" parameterType="map" resultType="map">
+        SELECT ncwi.CORP_ID
+        FROM ${schema.plat}.news_corp_wechat_info ncwi
+        WHERE ncwi.CORP_ID=#{CORP_ID}
+    </select>
+
+    <!--查询单个企业微信号详情-->
+    <select id="querySingleCorpWechat" parameterType="map" resultType="map">
+        SELECT ncwi.CORP_WECHAT_ID,
+               ncwi.CORP_ID,
+               ncwi.CORP_WECHAT_NAME,
+               ncwi.SECRET,
+               ncwi.WEBANK_SECRET,
+               ncwi.WEBANK_URL,
+               ncwi.STATUS AS WECHATSTATUS,
+               ncwi.BANK_ID,
+               ncwi.SHOP_APP_ID,
+               ncwi.AGENT_ID,
+               ncwi.SECRET_H,
+               nci.STATUS AS corpStatus
+        FROM ${schema.plat}.news_corp_wechat_info ncwi
+        LEFT JOIN ${schema.plat}.news_corp_info nci ON nci.BANK_ID=ncwi.BANK_ID
+        WHERE ncwi.CORP_WECHAT_ID=#{CORP_WECHAT_ID}
+    </select>
+
+    <!--新增企业号-->
+    <insert id="corpWechatAdd" parameterType="map">
+        INSERT INTO ${schema.plat}.news_corp_wechat_info(CORP_WECHAT_ID,
+                                                         CORP_WECHAT_NAME,
+                                                         BANK_ID,
+                                                         CORP_ID,
+                                                         SHOP_APP_ID,
+                                                         WEBANK_URL,
+                                                         WEBANK_SECRET,
+                                                         SECRET,
+                                                         STATUS,
+                                                         CREATE_TIME,
+                                                         CREATE_BY,
+                                                         UPDATE_TIME,
+                                                         DEL_FLAG,
+                                                         AGENT_ID,
+                                                         SECRET_H
+                                                         )
+        VALUES (#{CORP_WECHAT_ID},
+                #{CORP_WECHAT_NAME},
+                #{BANK_ID},
+                #{CORP_ID},
+                #{SHOP_APP_ID},
+                #{WEBANK_URL},
+                #{WEBANK_SECRET},
+                #{SECRET},
+                #{STATUS},
+                DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+                #{CREATE_BY},
+                DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+                0,
+                #{AGENT_ID},
+                #{SECRET_H})
+    </insert>
+
+
+    <!--删除企业微信号-->
+    <update id="corpWechatDel" parameterType="map">
+        UPDATE ${schema.plat}.news_corp_wechat_info
+        SET DEL_FLAG=1
+        WHERE CORP_WECHAT_ID = #{CORP_WECHAT_ID}
+    </update>
+
+    <!--修改企业号-->
+    <update id="corpWechatUpdate" parameterType="map">
+        UPDATE ${schema.plat}.news_corp_wechat_info
+        <set>
+            <if test="CORP_WECHAT_NAME != null and CORP_WECHAT_NAME != ''">
+                CORP_WECHAT_NAME=#{CORP_WECHAT_NAME},
+            </if>
+            <if test="SECRET != null and SECRET != ''">
+                SECRET=#{SECRET},
+            </if>
+            <if test="CORP_ID != null and CORP_ID != ''">
+                CORP_ID=#{CORP_ID},
+            </if>
+            <if test="WEBANK_SECRET != null and WEBANK_SECRET != ''">
+                WEBANK_SECRET=#{WEBANK_SECRET},
+            </if>
+            <if test="WEBANK_URL != null and WEBANK_URL != ''">
+                WEBANK_URL=#{WEBANK_URL},
+            </if>
+            <if test="STATUS != null and STATUS != ''">
+                STATUS=#{STATUS},
+            </if>
+            <if test="UPDATE_BY != null and UPDATE_BY != ''">
+                UPDATE_BY=#{UPDATE_BY},
+            </if>
+            <if test="AGENT_ID != null and AGENT_ID != ''">
+                AGENT_ID=#{AGENT_ID},
+            </if>
+            <if test="SECRET_H != null and SECRET_H != ''">
+                SECRET_H=#{SECRET_H},
+            </if>
+            UPDATE_TIME=DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+            SHOP_APP_ID=#{SHOP_APP_ID}
+        </set>
+        WHERE CORP_WECHAT_ID=#{CORP_WECHAT_ID}
+    </update>
+
+    <!--分页查询企业微信号列表-->
+    <select id="queryPageCorpWechatList" parameterType="map" resultType="map">
+        SELECT ncwi.CORP_WECHAT_ID,ncwi.CORP_ID,ncwi.CORP_WECHAT_NAME,nci.BANK_NAME,ncwi.STATUS,ncwi.CREATE_TIME,ncwi.SHOP_APP_ID, ncwi.AGENT_ID,
+        ncwi.SECRET_H
+        FROM ${schema.plat}.news_corp_wechat_info ncwi
+        LEFT JOIN ${schema.plat}.news_corp_info nci ON ncwi.BANK_ID=nci.BANK_ID
+        <where>
+            <if test="CORP_WECHAT_NAME != null and CORP_WECHAT_NAME != ''">
+                ncwi.CORP_WECHAT_NAME like '%${CORP_WECHAT_NAME}%'
+            </if>
+            <if test="BANK_ID != null and BANK_ID != ''">
+                and ncwi.BANK_ID=#{BANK_ID}
+            </if>
+            <if test="STATUS != null and STATUS != ''">
+                and ncwi.STATUS=#{STATUS}
+            </if>
+            and ncwi.DEL_FLAG=0
+        </where>
+        order by ncwi.CREATE_TIME desc
+    </select>
+
+    <!--查询企微号总数-->
+    <select id="corpWechatNumber" parameterType="map" resultType="map">
+        SELECT COUNT(1) AS CORP_WECHAT_NUM
+        FROM ${schema.plat}.news_corp_wechat_info ncwi
+        LEFT JOIN ${schema.plat}.news_corp_info nci ON ncwi.BANK_ID=nci.BANK_ID
+        WHERE ncwi.DEL_FLAG=0 AND ncwi.STATUS=0 AND nci.DEL_FLAG=0 AND nci.STATUS=1
+    </select>
+</mapper>

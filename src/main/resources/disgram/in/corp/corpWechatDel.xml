@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trans name="in/corp/corpWechatDel" desc="删除企业号" busi="3">
+    <snd>
+        <filed name="CORP_WECHAT_ID" type="C" desc="企业微信号ID" required="ture"/>
+    </snd>
+    <rcv>
+    </rcv>
+</trans>

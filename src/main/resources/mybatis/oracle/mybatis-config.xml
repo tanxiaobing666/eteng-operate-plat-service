@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties>
+		<property name="schema.inte" value="inte" />
+	</properties>
+	<!-- sql print -->
+	<settings>
+		<setting name="logImpl" value="SLF4J" />
+		<setting name="logPrefix" value="dao." />
+		<setting name="cacheEnabled" value="true" /><!-- true 开启二级缓存，默认是false -->
+	</settings>
+
+
+</configuration>
